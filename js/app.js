@@ -1,14 +1,7 @@
 // ------------------------------------------------
-// Project Name: Braxton - Personal Portfolio & Resume HTML Template
-// Project Description: Show yourself brightly with Braxton - unique and creative portfolio and resume template!
-// Tags: mix_design, resume, portfolio, personal page, cv, template, one page, responsive, html5, css3, creative, clean
-// Version: 1.0.0
-// Build Date: March 2024
-// Last Update: March 2024
-// This product is available exclusively on Themeforest
-// Author: mix_design
-// Author URI: https://themeforest.net/user/mix_design
-// File name: app.js
+// Project: ridzu.one - Ameer Ridzuan Personal Portfolio
+// Author: Ameer Ridzuan (https://ridzu.one)
+// File: app.js
 // ------------------------------------------------
 
 // ------------------------------------------------
@@ -305,24 +298,52 @@ $(function() {
   // --------------------------------------------- //
   // Contact Form Start
   // --------------------------------------------- //
-  $("#contact-form").submit(function() { //Change
-		var th = $(this);
-		$.ajax({
-			type: "POST",
-			url: "mail.php", //Change
-			data: th.serialize()
-		}).done(function() {
-      $('.contact').find('.form').addClass('is-hidden');
-      $('.contact').find('.form__reply').addClass('is-visible');
-			setTimeout(function() {
-				// Done Functions
-        $('.contact').find('.form__reply').removeClass('is-visible');
-        $('.contact').find('.form').delay(300).removeClass('is-hidden');
-				th.trigger("reset");
-			}, 5000);
-		});
-		return false;
-	});
+  $("#contact-form").submit(function(e) {
+    e.preventDefault();
+    var th = $(this);
+    var submitBtn = th.find('button[type="submit"]');
+    var btnCaption = submitBtn.find('.btn-caption');
+    var originalText = btnCaption.text();
+
+    submitBtn.prop('disabled', true);
+    btnCaption.text('Sending...');
+
+    var formData = new FormData(this);
+    var object = Object.fromEntries(formData);
+    var json = JSON.stringify(object);
+
+    fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: json
+    })
+    .then(async function(response) {
+      var data = await response.json();
+      if (response.status === 200 && data.success) {
+        $('.contact').find('.form').addClass('is-hidden');
+        $('.contact').find('.form__reply').addClass('is-visible');
+        setTimeout(function() {
+          $('.contact').find('.form__reply').removeClass('is-visible');
+          $('.contact').find('.form').delay(300).removeClass('is-hidden');
+          th.trigger("reset");
+          submitBtn.prop('disabled', false);
+          btnCaption.text(originalText);
+        }, 5000);
+      } else {
+        alert(data.message || 'Gagal menghantar mesej. Sila cuba lagi.');
+        submitBtn.prop('disabled', false);
+        btnCaption.text(originalText);
+      }
+    })
+    .catch(function() {
+      alert('Ralat sambungan. Sila semak internet anda dan cuba lagi.');
+      submitBtn.prop('disabled', false);
+      btnCaption.text(originalText);
+    });
+  });
   // --------------------------------------------- //
   // Contact Form End
   // --------------------------------------------- //
@@ -400,7 +421,7 @@ const themeBtn = document.querySelector('.color-switcher');
 
 function getCurrentTheme(){
   let theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-  localStorage.getItem('template.theme') ? theme = localStorage.getItem('template.theme') : null;
+  localStorage.getItem('ridzu.theme') ? theme = localStorage.getItem('ridzu.theme') : null;
   return theme;
 }
 
@@ -421,7 +442,7 @@ themeBtn.addEventListener('click', () => {
   } else {
     theme = 'dark';
   }
-  localStorage.setItem('template.theme', `${theme}`);
+  localStorage.setItem('ridzu.theme', `${theme}`);
   loadTheme(theme);
 });
 
