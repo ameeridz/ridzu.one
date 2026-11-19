@@ -217,8 +217,8 @@
                 <span class="btn-caption">My Works</span>
                 <i class="ph-bold ph-squares-four"></i>
               </a>
-              <a class="btn mobile-vertical btn-default btn-hover btn-hover-outline-mobile animate-headline" href="resume/RESUME - AMEER RIDZUAN MUHAMMAD IZUDIN -  compressed.pdf" target="_blank" download="RESUME – AMEER RIDZUAN MUHAMMAD IZUDIN.pdf" rel="noopener noreferrer nofollow">
-                <span class="btn-caption">Download CV</span>
+              <a class="btn mobile-vertical btn-default btn-hover btn-hover-outline-mobile animate-headline js-resume-preview" href="resume/RESUME - AMEER RIDZUAN MUHAMMAD IZUDIN -  compressed.pdf" target="_blank" rel="noopener noreferrer nofollow">
+                <span class="btn-caption">Download Resume</span>
                 <i class="ph-bold ph-download-simple"></i>
             </a>
             </div>
@@ -631,8 +631,8 @@
                     • <strong>UI/UX &amp; Creative:</strong> Figma, Design-to-Code, Adobe Lightroom, Photoshop &amp; Premiere Pro.
                   </p>
                   <div class="btn-group about-descr__btnholder animate-in-up">
-                    <a class="btn mobile-vertical btn-default btn-hover btn-hover-accent" href="resume/RESUME - AMEER RIDZUAN MUHAMMAD IZUDIN -  compressed.pdf" target="_blank" download="RESUME - AMEER RIDZUAN MUHAMMAD IZUDIN.pdf" rel="noopener noreferrer nofollow">
-                      <span class="btn-caption">Download CV</span>
+                    <a class="btn mobile-vertical btn-default btn-hover btn-hover-accent js-resume-preview" href="resume/RESUME - AMEER RIDZUAN MUHAMMAD IZUDIN -  compressed.pdf" target="_blank" rel="noopener noreferrer nofollow">
+                      <span class="btn-caption">Download Resume</span>
                       <i class="ph-bold ph-download-simple"></i>
                     </a>
                   </div>
@@ -2576,6 +2576,80 @@
     <script src="js/gallery-init.js"></script>
     <!-- Load Scripts End -->
     
-  </body>
+  <!-- Resume Quick Look Modal Start -->
+<style id="resume-quicklook-style">
+  .ql-backdrop { position: fixed; inset: 0; z-index: 99999; background: rgba(10, 10, 14, 0.78); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); display: none; align-items: center; justify-content: center; padding: 2rem; opacity: 0; transition: opacity 0.25s ease; }
+  .ql-backdrop.is-open { display: flex; opacity: 1; }
+  .ql-dialog { width: min(960px, 100%); height: min(88vh, 860px); background: var(--base, #111); border: 1px solid var(--stroke-elements, rgba(255,255,255,0.14)); border-radius: 2rem; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 24px 60px rgba(0,0,0,0.65); }
+  .ql-bar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1.2rem 1.8rem; background: var(--base-tint, #18181b); border-bottom: 1px solid var(--stroke-elements, rgba(255,255,255,0.12)); }
+  .ql-title { margin: 0; font-size: 1.5rem; font-weight: 700; color: var(--t-bright, #fff); }
+  .ql-actions { display: flex; align-items: center; gap: 0.8rem; flex-wrap: wrap; }
+  .ql-btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.65rem 1.3rem; border-radius: 999px; font-size: 1.3rem; font-weight: 700; text-decoration: none; cursor: pointer; border: 1px solid var(--stroke-elements, rgba(255,255,255,0.2)); background: transparent; color: var(--t-bright, #fff); transition: all 0.2s ease; }
+  .ql-btn:hover { border-color: var(--accent, #e4b8bf); color: var(--accent, #e4b8bf); }
+  .ql-btn-primary { background: var(--t-bright, #fff); color: var(--base, #111); border-color: var(--t-bright, #fff); }
+  .ql-btn-primary:hover { opacity: 0.9; color: var(--base, #111); }
+  .ql-close { width: 3.4rem; height: 3.4rem; border-radius: 50%; border: 1px solid var(--stroke-elements, rgba(255,255,255,0.2)); background: transparent; color: var(--t-bright, #fff); font-size: 2rem; line-height: 1; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; transition: all 0.2s ease; }
+  .ql-close:hover { background: var(--t-bright, #fff); color: var(--base, #111); }
+  .ql-body { flex: 1; background: #1e1e22; position: relative; }
+  .ql-body iframe { width: 100%; height: 100%; border: 0; display: block; }
+  @media (max-width: 575px) { .ql-backdrop { padding: 1rem; } .ql-bar { padding: 1rem 1.2rem; } .ql-title { font-size: 1.35rem; } }
+</style>
+
+<div class="ql-backdrop" id="resumeQuickLook" role="dialog" aria-modal="true" aria-labelledby="qlTitle">
+  <div class="ql-dialog">
+    <div class="ql-bar">
+      <h4 class="ql-title" id="qlTitle">Resume Preview — Ameer Ridzuan</h4>
+      <div class="ql-actions">
+        <a href="#" id="qlOpenTab" target="_blank" rel="noopener noreferrer nofollow" class="ql-btn">Open Tab &#8599;</a>
+        <a href="#" id="qlDownload" download="RESUME - AMEER RIDZUAN MUHAMMAD IZUDIN.pdf" rel="nofollow" class="ql-btn ql-btn-primary">Download PDF &#8595;</a>
+        <button type="button" class="ql-close" id="qlCloseBtn" aria-label="Close preview">&times;</button>
+      </div>
+    </div>
+    <div class="ql-body">
+      <iframe id="qlFrame" src="" title="Resume PDF Preview"></iframe>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function() {
+    const modal = document.getElementById('resumeQuickLook');
+    const frame = document.getElementById('qlFrame');
+    const dlBtn = document.getElementById('qlDownload');
+    const tabBtn = document.getElementById('qlOpenTab');
+    const closeBtn = document.getElementById('qlCloseBtn');
+
+    function openQuickLook(pdfUrl) {
+      frame.src = pdfUrl + '#toolbar=0&navpanes=0';
+      dlBtn.href = pdfUrl;
+      tabBtn.href = pdfUrl;
+      modal.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeQuickLook() {
+      modal.classList.remove('is-open');
+      document.body.style.overflow = '';
+      setTimeout(function() { frame.src = ''; }, 250);
+    }
+
+    document.querySelectorAll('.js-resume-preview').forEach(function(link) {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        openQuickLook(link.getAttribute('href'));
+      });
+    });
+
+    closeBtn.addEventListener('click', closeQuickLook);
+    modal.addEventListener('click', function(e) {
+      if (e.target === modal) { closeQuickLook(); }
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && modal.classList.contains('is-open')) { closeQuickLook(); }
+    });
+  })();
+</script>
+<!-- Resume Quick Look Modal End -->
+</body>
 
 </html>
