@@ -45,7 +45,12 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <!-- Custom Browser Color End -->
-  </head>
+  <style id="services-thumb-style">
+  .svc-thumb-wrap { margin-top: 2rem; border-radius: 1.6rem; overflow: hidden; aspect-ratio: 16 / 10; background: #141414; border: 1px solid var(--stroke-elements); }
+  .svc-thumb-wrap img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; transition: transform 0.35s ease; }
+  .cards__item:hover .svc-thumb-wrap img { transform: scale(1.03); }
+</style>
+</head>
 
   <body>
 
@@ -702,6 +707,8 @@
                         <br><br>
                         <a href="https://by.ridzu.one" target="_blank" class="text-link-bold" rel="noopener noreferrer">Visit by.ridzu.one &rarr;</a>
                       </p>
+                  <div class="svc-thumb-wrap"><img src="img/by-ridzu.png" alt="by.ridzu.one Digital Wedding Cards" loading="lazy"></div>
+                  <div class="svc-thumb-wrap"><img src="img/by-ridzu.png" alt="by.ridzu.one Digital Wedding Cards" loading="lazy"></div>
                     </div>
                   </div>
                 </div>
@@ -715,6 +722,7 @@
                         <span class="rounded-tag tag-outline">Next.js / PWA</span>
                       </div>
                       <p class="small cards__text animate-in-up">Designing user-centric interfaces and shipping independent web apps such as GymFlow (PWA) and SplitSukan.</p>
+                  <div class="svc-thumb-wrap"><img src="img/gymflow.png" alt="UI/UX and Digital Products" loading="lazy"></div>
                     </div>
                   </div>
                 </div>
@@ -731,6 +739,7 @@
                       <p class="small cards__text animate-in-up">6+ years capturing weddings, convocations, and events using Nikon &amp; Sony gear with full post-production editing.
                         <br><br>
                         <a href="https://www.pexels.com/@ridzjuan" target="_blank" class="text-link-bold" rel="noopener noreferrer">View Pexels Portfolio &rarr;</a>
+                  <div class="svc-thumb-wrap"><img src="img/services/photography.png" alt="Freelance Photography Portfolio on Pexels" loading="lazy"></div>
                       </p>
                     </div>
                   </div>
