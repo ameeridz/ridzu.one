@@ -37,13 +37,15 @@ $(function() {
   // Loader & Loading Animation Start
   // --------------------------------------------- //
   const content = document.querySelector('body');
-  const imgLoad = imagesLoaded(content);
-
-  imgLoad.on('done', instance => {
-
-    document.getElementById("loaderContent").classList.add("fade-out");
+  let loaderHidden = false;
+  function hideLoader() {
+    if (loaderHidden) return;
+    loaderHidden = true;
+    const loaderContent = document.getElementById("loaderContent");
+    const loader = document.getElementById("loader");
+    if (loaderContent) loaderContent.classList.add("fade-out");
     setTimeout(() => {
-      document.getElementById("loader").classList.add("loaded");
+      if (loader) loader.classList.add("loaded");
     }, 300);
 
     gsap.set(".animate-headline", {y: 50, opacity: 0});
@@ -52,18 +54,21 @@ $(function() {
       batchMax: 4,
       duration: 6,
       onEnter: batch => gsap.to(batch, {
-        opacity: 1, 
+        opacity: 1,
         y: 0,
         ease: 'sine',
-        stagger: {each: 0.15, grid: [1, 4]}, 
+        stagger: {each: 0.15, grid: [1, 4]},
         overwrite: true
       }),
       onLeave: batch => gsap.set(batch, {opacity: 1, y: 0, overwrite: true}),
       onEnterBack: batch => gsap.to(batch, {opacity: 1, y: 0, stagger: 0.15, overwrite: true}),
       onLeaveBack: batch => gsap.set(batch, {opacity: 0, y: 50, overwrite: true})
     });
+  }
 
-  });
+  const imgLoad = imagesLoaded(content);
+  imgLoad.on('always', hideLoader);
+  setTimeout(hideLoader, 1200);
   // --------------------------------------------- //
   // Loader & Loading Animation End
   // --------------------------------------------- //
