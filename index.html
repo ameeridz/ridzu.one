@@ -103,6 +103,54 @@
     }
     </script>
     <!-- Schema JSON-LD End -->
+  
+<!-- Mobile Dock & Demos 2x3 Fix Start -->
+<style id="mobile-dock-demos-fix">
+  /* 1. Naikkan floating dock & toast ke atas bottom navbar pada mobile/tablet */
+  @media (max-width: 991px) {
+    .quick-dock {
+      bottom: 8.6rem !important;
+      right: 1.2rem !important;
+      padding: 0.45rem !important;
+    }
+    .ridzu-toast {
+      bottom: 14.5rem !important;
+    }
+  }
+
+  /* 2. Padatkan Featured Demos kepada grid 2 lajur (2x3) khusus untuk mobile */
+  @media (max-width: 767px) {
+    .demos-grid, .demo-grid, .by-demos-grid, .showcase-grid, .wedding-demos-grid {
+      display: grid !important;
+      grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+      gap: 1rem !important;
+    }
+    .demos-grid, .demo-grid, .by-demos-grid, .showcase-grid, .wedding-demos-grid > * {
+      padding: 1.1rem 0.9rem !important;
+      border-radius: 1.4rem !important;
+      min-width: 0 !important;
+    }
+    .demos-grid, .demo-grid, .by-demos-grid, .showcase-grid, .wedding-demos-grid h4,
+    .demos-grid, .demo-grid, .by-demos-grid, .showcase-grid, .wedding-demos-grid h5,
+    .demos-grid, .demo-grid, .by-demos-grid, .showcase-grid, .wedding-demos-grid .demo-title {
+      font-size: 1.3rem !important;
+      line-height: 1.25 !important;
+    }
+    .demos-grid, .demo-grid, .by-demos-grid, .showcase-grid, .wedding-demos-grid p,
+    .demos-grid, .demo-grid, .by-demos-grid, .showcase-grid, .wedding-demos-grid .demo-sub,
+    .demos-grid, .demo-grid, .by-demos-grid, .showcase-grid, .wedding-demos-grid .demo-badge {
+      font-size: 1.05rem !important;
+    }
+    /* Kecilkan mockup telefon supaya muat kemas dalam 2 lajur */
+    .demos-grid, .demo-grid, .by-demos-grid, .showcase-grid, .wedding-demos-grid [class*="phone"],
+    .demos-grid, .demo-grid, .by-demos-grid, .showcase-grid, .wedding-demos-grid [class*="mockup"] {
+      max-width: 115px !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
+    }
+  }
+</style>
+<!-- Mobile Dock & Demos 2x3 Fix End -->
   </head>
 
   <body>
@@ -124,7 +172,7 @@
         <nav id="menu" class="menu">
           <ul class="menu__list d-flex justify-content-start">
             <li class="menu__item">
-              <a class="menu__link btn" href="resume/Resume_Ameer_Ridzuan.pdf" target="_blank" rel="noopener noreferrer nofollow">
+              <a class="menu__link btn" href="#top">
                 <span class="menu__caption">Home</span>
                 <i class="ph-bold ph-house-simple"></i>
               </a>
@@ -3328,6 +3376,82 @@
 })();
 </script>
 <!-- Case Study Quick View End -->
+
+<!-- Mobile Featured Demos 2Col Start -->
+<style id="mobile-featured-demos-2col-style">
+  @media (max-width: 767px) {
+    [data-mobile-2col="true"] {
+      display: grid !important;
+      grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+      gap: 0.9rem !important;
+    }
+    [data-mobile-2col="true"] > * {
+      min-width: 0 !important;
+      border-radius: 1.4rem !important;
+      overflow: hidden !important;
+    }
+    [data-mobile-2col="true"] h4,
+    [data-mobile-2col="true"] h5,
+    [data-mobile-2col="true"] [class*="title"] {
+      font-size: 1.25rem !important;
+      line-height: 1.25 !important;
+    }
+    [data-mobile-2col="true"] p,
+    [data-mobile-2col="true"] [class*="desc"],
+    [data-mobile-2col="true"] [class*="sub"] {
+      font-size: 1.05rem !important;
+      line-height: 1.35 !important;
+    }
+    [data-mobile-2col="true"] [class*="phone"],
+    [data-mobile-2col="true"] [class*="mockup"] {
+      transform: scale(0.72) !important;
+      margin-top: -18px !important;
+      margin-bottom: -18px !important;
+    }
+  }
+</style>
+<script id="mobile-featured-demos-2col-script">
+(function () {
+  function markDemoGrid() {
+    var all = document.querySelectorAll('h3, h4, h5, p, span, a, div');
+    for (var i = 0; i < all.length; i++) {
+      if (all[i].childElementCount === 0 && all[i].textContent && all[i].textContent.indexOf('Royal Maroon') !== -1) {
+        var el = all[i];
+        while (el && el.parentElement) {
+          var parent = el.parentElement;
+          if (parent.children.length >= 4 && parent.textContent.indexOf('Coquette Scrapbook') !== -1) {
+            parent.setAttribute('data-mobile-2col', 'true');
+            return;
+          }
+          el = parent;
+        }
+      }
+    }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', markDemoGrid);
+  } else {
+    markDemoGrid();
+  }
+})();
+</script>
+<!-- Mobile Featured Demos 2Col End -->
+
+<!-- Smooth Home Scroll Start -->
+<script id="smooth-home-scroll">
+(function () {
+  document.addEventListener('click', function (e) {
+    var link = e.target.closest('a[href="#top"], a[href="#home"]');
+    if (!link) return;
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (window.history && window.history.replaceState) {
+      window.history.replaceState(null, '', '#top');
+    }
+  });
+})();
+</script>
+<!-- Smooth Home Scroll End -->
 </body>
 
 </html>
