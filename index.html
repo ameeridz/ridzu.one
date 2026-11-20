@@ -24,12 +24,6 @@
     <!-- Template Favicon & Icons End -->
 
     <!-- Facebook Metadata Start -->
-    <meta property="og:image:height" content="1200">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:title" content="Ameer Ridzuan - Personal Portfolio & Resume">
-    <meta property="og:description" content="Ameer Ridzuan - Personal Portfolio & Resume!">
-    <meta property="og:url" content="https://ridzu.one/">
-    <meta property="og:image" content="https://ridzu.one/img/ameeridz%20logo.png">
     <!-- Facebook Metadata End -->
 
     <!-- Template Styles Start -->
@@ -50,7 +44,37 @@
   .svc-thumb-wrap img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; transition: transform 0.35s ease; }
   .cards__item:hover .svc-thumb-wrap img { transform: scale(1.03); }
 </style>
-</head>
+
+    <!-- SEO & Open Graph Start -->
+    <link rel="canonical" href="https://ridzu.one/">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ridzu.one/">
+    <meta property="og:title" content="Ameer Ridzuan | System Engineer, Web Developer &amp; UI/UX Designer">
+    <meta property="og:description" content="Personal portfolio of Ameer Ridzuan featuring enterprise system engineering, internal web applications, UI/UX design and digital wedding card platform by.ridzu.one.">
+    <meta property="og:image" content="https://ridzu.one/img/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://ridzu.one/">
+    <meta name="twitter:title" content="Ameer Ridzuan | System Engineer, Web Developer &amp; UI/UX Designer">
+    <meta name="twitter:description" content="Enterprise system engineering, internal web apps, UI/UX design and by.ridzu.one.">
+    <meta name="twitter:image" content="https://ridzu.one/img/og-image.png">
+    <!-- SEO & Open Graph End -->
+  
+<!-- Mobile Polish Start -->
+<style id="mobile-polish-style">
+  @media (max-width: 767px) {
+    .headline__btnholder { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; }
+    .exp-timeline { padding-left: 2rem !important; gap: 1.4rem !important; }
+    .exp-timeline::before, .exp-progress-line { left: 0.45rem !important; }
+    .exp-node { left: -2.1rem !important; top: 2.2rem !important; width: 1.2rem !important; height: 1.2rem !important; }
+    .exp-card { padding: 1.6rem 1.5rem !important; border-radius: 1.5rem !important; }
+    .exp-role { font-size: 1.7rem !important; }
+    .exp-date { font-size: 1.15rem !important; padding: 0.35rem 0.95rem !important; }
+  }
+</style>
+<!-- Mobile Polish End -->
+  </head>
 
   <body>
 
@@ -281,7 +305,7 @@
                 <!-- Portfolio 1 (PRIORITY): by.ridzu.one -->
                 <figure class="col-12 col-md-6 gallery__item grid-item animate-card-2" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
                   <a href="img/by-ridzu.png" data-image="img/by-ridzu.png" class="gallery__link" itemprop="contentUrl" data-size="1440x1080">
-                    <img src="img/by-ridzu.png" class="gallery__image" itemprop="thumbnail" alt="by.ridzu.one Digital Wedding Cards">
+                    <img src="img/by-ridzu.png" class="gallery__image" itemprop="thumbnail" alt="by.ridzu.one Digital Wedding Cards" loading="lazy" decoding="async">
                   </a>
                   <figcaption class="gallery__descr" itemprop="caption description">
                     <h5>by.ridzu.one (digital wedding invitations)</h5>
@@ -300,7 +324,7 @@
                 <!-- Portfolio 2: Pakatlah -->
                 <figure class="col-12 col-md-6 gallery__item grid-item animate-card-2" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
                   <a href="img/pakatlah.png" data-image="img/pakatlah.png" class="gallery__link" itemprop="contentUrl" data-size="1440x1080">
-                    <img src="img/pakatlah.png" class="gallery__image" itemprop="thumbnail" alt="Pakatlah Group Consensus Web App">
+                    <img src="img/pakatlah.png" class="gallery__image" itemprop="thumbnail" alt="Pakatlah Group Consensus Web App" loading="lazy" decoding="async">
                   </a>
                   <figcaption class="gallery__descr opposite" itemprop="caption description">
                     <h5 class="opposite">Pakatlah (Group Consensus App)</h5>
@@ -321,7 +345,7 @@
                 <!-- Portfolio 3: SplitSukan -->
                 <figure class="col-12 col-md-6 gallery__item grid-item animate-card-2" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
                   <a href="img/splitsukan.png" data-image="img/splitsukan.png" class="gallery__link" itemprop="contentUrl" data-size="1440x1080">
-                    <img src="img/splitsukan.png" class="gallery__image" itemprop="thumbnail" alt="SplitSukan Sports Expense Splitter PWA">
+                    <img src="img/splitsukan.png" class="gallery__image" itemprop="thumbnail" alt="SplitSukan Sports Expense Splitter PWA" loading="lazy" decoding="async">
                   </a>
                   <figcaption class="gallery__descr" itemprop="caption description">
                     <h5>SplitSukan (Expense Splitter)</h5>
@@ -342,7 +366,7 @@
                 <!-- Portfolio 4: Gymeer / GymFlow -->
                 <figure class="col-12 col-md-6 gallery__item grid-item animate-card-2" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
                   <a href="img/gymflow.png" data-image="img/gymflow.png" class="gallery__link" itemprop="contentUrl" data-size="1440x1080">
-                    <img src="img/gymflow.png" class="gallery__image" itemprop="thumbnail" alt="Gymeer GymFlow Workout Consistency PWA">
+                    <img src="img/gymflow.png" class="gallery__image" itemprop="thumbnail" alt="Gymeer GymFlow Workout Consistency PWA" loading="lazy" decoding="async">
                   </a>
                   <figcaption class="gallery__descr opposite" itemprop="caption description">
                     <h5 class="opposite">Gymeer / GymFlow (Workout PWA)</h5>
@@ -363,7 +387,7 @@
                 <!-- Portfolio 5: Heidi (Landing Page) -->
                 <figure class="col-12 col-md-6 gallery__item grid-item animate-card-2" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
                   <a href="img/heidi.png" data-image="img/heidithumbnail.png" class="gallery__link" itemprop="contentUrl" data-size="1919x956">
-                    <img src="img/heidithumbnail.png" class="gallery__image" itemprop="thumbnail" alt="Heidi Landing Page">
+                    <img src="img/heidithumbnail.png" class="gallery__image" itemprop="thumbnail" alt="Heidi Landing Page" loading="lazy" decoding="async">
                   </a>
                   <figcaption class="gallery__descr" itemprop="caption description">
                     <h5>Heidi (Landing Page)</h5>
@@ -382,7 +406,7 @@
                 <!-- Portfolio 6: JPJ Portal -->
                 <figure class="col-12 col-md-6 gallery__item grid-item animate-card-2" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
                   <a href="img/jpjhomepage.jpg" data-image="img/jpjhomepagethumbnail.jpg" class="gallery__link" itemprop="contentUrl" data-size="991x1280">
-                    <img src="img/jpjhomepagethumbnail.jpg" class="gallery__image" itemprop="thumbnail" alt="JPJ Portal UI Design">
+                    <img src="img/jpjhomepagethumbnail.jpg" class="gallery__image" itemprop="thumbnail" alt="JPJ Portal UI Design" loading="lazy" decoding="async">
                   </a>
                   <figcaption class="gallery__descr opposite" itemprop="caption description">
                     <h5 class="opposite">JPJ Portal (Homepage UI)</h5>
@@ -693,7 +717,7 @@
                       <p class="small cards__text animate-in-up">Building internal web portals, workflow automation, and modernising legacy enterprise platforms with clean architecture.</p>
                     </div>
                     <div class="cards__image d-flex animate-in-up">
-                      <img src="img/heidi.png" alt="Enterprise Web Systems">
+                      <img src="img/heidi.png" alt="Enterprise Web Systems" loading="lazy" decoding="async">
                     </div>
                   </div>
                 </div>
@@ -795,68 +819,58 @@
             <!-- H3 Block End -->
 
             <!-- Education Lines Start -->
-            <div class="container-fluid p-0 resume-lines">
-              <!-- education single item -->
-              <div class="row g-0 resume-lines__item animate-in-up">
-                <div class="col-12 col-md-2">
-                  <span class="resume-lines__date animate-in-up">2022 - 2025</span>
-                </div>
-                <div class="col-12 col-md-5">
-                  <h5 class="resume-lines__title animate-in-up">Bachelor Degree</h5>
-                  <p class="resume-lines__source animate-in-up">at <a>Universiti Teknologi MARA Puncak Perdana</a>
-                    
-                  </p>
-                </div>
-                <div class="col-12 col-md-5">
-                  <p class="small resume-lines__descr animate-in-up">Bachelor of Information Science (Hons.) <br> Information System Management</p>
-                </div>
-              </div>
-              <!-- education single item -->
-              <div class="row g-0 resume-lines__item animate-in-up">
-                <div class="col-12 col-md-2">
-                  <span class="resume-lines__date animate-in-up">2019 - 2022</span>
-                </div>
-                <div class="col-12 col-md-5">
-                  <h5 class="resume-lines__title animate-in-up">Diploma</h5>
-                  <p class="resume-lines__source animate-in-up">at <a>Universiti Teknologi MARA Merbok, Kedah</a>
-                    
-                  </p>
-                </div>
-                <div class="col-12 col-md-5">
-                  <p class="small resume-lines__descr animate-in-up">Diploma in Information Management</p>
-                </div>
-              </div>
-              <!-- education single item -->
-              <div class="row g-0 resume-lines__item animate-in-up">
-                <div class="col-12 col-md-2">
-                  <span class="resume-lines__date animate-in-up">2014 - 2018</span>
-                </div>
-                <div class="col-12 col-md-5">
-                  <h5 class="resume-lines__title animate-in-up">Secondary School</h5>
-                  <p class="resume-lines__source animate-in-up"> at 
-                    <a href="https://g.co/kgs/xTx675E" class="text-link-bold" target="_blank" rel="noopener noreferrer">SMK Pekan Baru, Parit Buntar, Perak</a>
-                  </p>
-                </div>
-                <div class="col-12 col-md-5">
-                  <p class="small resume-lines__descr animate-in-up">SPM</p>
-                </div>
-              </div>
-              <!-- Sekolah Rendah -->
-              <div class="row g-0 resume-lines__item animate-in-up">
-                <div class="col-12 col-md-2">
-                  <span class="resume-lines__date animate-in-up">2007 - 2013</span>
-                </div>
-                <div class="col-12 col-md-5">
-                  <h5 class="resume-lines__title animate-in-up">Primary School</h5>
-                  <p class="resume-lines__source animate-in-up"> at 
-                    <a href="https://g.co/kgs/TkhNgKg" class="text-link-bold" target="_blank" rel="noopener noreferrer">SK Wawasan Parit Buntar, Perak</a>
-                  </p>
-                </div>
-                <div class="col-12 col-md-5">
-                  <p class="small resume-lines__descr animate-in-up">UPSR</p>
-                </div>
-              </div>
-            </div>
+            <!-- Education Timeline UI/UX Start -->
+<style id="edu-timeline-extra">
+  .edu-descr { margin: 0; font-size: 1.45rem; line-height: 1.6; color: var(--t-medium); }
+  .exp-company a { color: var(--t-bright); text-decoration: underline; text-underline-offset: 3px; }
+</style>
+<div class="exp-timeline">
+  <article class="exp-card is-current animate-in-up">
+    <span class="exp-node"></span>
+    <div class="exp-top">
+      <div>
+        <h4 class="exp-role">Bachelor Degree</h4>
+        <p class="exp-company">at <a>Universiti Teknologi MARA Puncak Perdana</p>
+      </div>
+      <span class="exp-date"><i class="ph-bold ph-graduation-cap"></i>2022 - 2025</span>
+    </div>
+    <p class="edu-descr">Bachelor of Information Science (Hons.) <br> Information System Management</p>
+  </article>
+  <article class="exp-card animate-in-up">
+    <span class="exp-node"></span>
+    <div class="exp-top">
+      <div>
+        <h4 class="exp-role">Diploma</h4>
+        <p class="exp-company">at <a>Universiti Teknologi MARA Merbok, Kedah</p>
+      </div>
+      <span class="exp-date"><i class="ph-bold ph-graduation-cap"></i>2019 - 2022</span>
+    </div>
+    <p class="edu-descr">Diploma in Information Management</p>
+  </article>
+  <article class="exp-card animate-in-up">
+    <span class="exp-node"></span>
+    <div class="exp-top">
+      <div>
+        <h4 class="exp-role">Secondary School</h4>
+        <p class="exp-company">at <a href="https://g.co/kgs/xTx675E" class="text-link-bold" target="_blank" rel="noopener noreferrer">SMK Pekan Baru, Parit Buntar, Perak</p>
+      </div>
+      <span class="exp-date"><i class="ph-bold ph-graduation-cap"></i>2014 - 2018</span>
+    </div>
+    <p class="edu-descr">SPM</p>
+  </article>
+  <article class="exp-card animate-in-up">
+    <span class="exp-node"></span>
+    <div class="exp-top">
+      <div>
+        <h4 class="exp-role">Primary School</h4>
+        <p class="exp-company">at <a href="https://g.co/kgs/TkhNgKg" class="text-link-bold" target="_blank" rel="noopener noreferrer">SK Wawasan Parit Buntar, Perak</p>
+      </div>
+      <span class="exp-date"><i class="ph-bold ph-graduation-cap"></i>2007 - 2013</span>
+    </div>
+    <p class="edu-descr">UPSR</p>
+  </article>
+</div>
+<!-- Education Timeline UI/UX End -->
             <!-- Education Lines End -->
 
           </div>
@@ -988,7 +1002,7 @@
               <!-- tools simgle item -->
               <div class="tools-cards__item d-flex grid-item-s animate-card-5">
                 <div class="tools-cards__card">
-                  <img class="tools-cards__icon animate-in-up" src="img/icons/beaver-head.png" alt="Tools Icon">
+                  <img class="tools-cards__icon animate-in-up" src="img/icons/beaver-head.png" alt="Tools Icon" loading="lazy" decoding="async">
                   <h6 class="tools-cards__caption animate-in-up">DBeaver</h6>
                 </div>
               </div>
@@ -1002,28 +1016,28 @@
               <!-- tools simgle item -->
               <div class="tools-cards__item d-flex grid-item-s animate-card-5">
                 <div class="tools-cards__card">
-                  <img class="tools-cards__icon animate-in-up" src="img/icons/sap-icon.png" alt="Tools Icon">
+                  <img class="tools-cards__icon animate-in-up" src="img/icons/sap-icon.png" alt="Tools Icon" loading="lazy" decoding="async">
                   <h6 class="tools-cards__caption animate-in-up">SAP</h6>
                 </div>
               </div>
               <!-- tools simgle item -->
               <div class="tools-cards__item d-flex grid-item-s animate-card-5">
                 <div class="tools-cards__card">
-                  <img class="tools-cards__icon animate-in-up" src="img/icons/sql25Icon.png" alt="Tools Icon">
+                  <img class="tools-cards__icon animate-in-up" src="img/icons/sql25Icon.png" alt="Tools Icon" loading="lazy" decoding="async">
                   <h6 class="tools-cards__caption animate-in-up">MSSQL SSMS 2025</h6>
                 </div>
               </div>
               <!-- tools simgle item -->
               <div class="tools-cards__item d-flex grid-item-s animate-card-5">
                 <div class="tools-cards__card">
-                  <img class="tools-cards__icon animate-in-up" src="img/icons/MSSQL_SSMS_21_icon.png" alt="Tools Icon">
+                  <img class="tools-cards__icon animate-in-up" src="img/icons/MSSQL_SSMS_21_icon.png" alt="Tools Icon" loading="lazy" decoding="async">
                   <h6 class="tools-cards__caption animate-in-up">MSSQL SSMS 21</h6>
                 </div>
               </div>
               <!-- tools simgle item -->
               <div class="tools-cards__item d-flex grid-item-s animate-card-5">
                 <div class="tools-cards__card">
-                  <img class="tools-cards__icon animate-in-up" src="img/icons/ssql.webp" alt="Tools Icon">
+                  <img class="tools-cards__icon animate-in-up" src="img/icons/ssql.webp" alt="Tools Icon" loading="lazy" decoding="async">
                   <h6 class="tools-cards__caption animate-in-up">SQL Server Management Studio</h6>
                 </div>
               </div>
@@ -1051,21 +1065,21 @@
               <!-- tools simgle item -->
               <div class="tools-cards__item d-flex grid-item-s animate-card-5">
                 <div class="tools-cards__card">
-                  <img class="tools-cards__icon animate-in-up" src="img/icons/visualstudio.png" alt="Tools Icon">
+                  <img class="tools-cards__icon animate-in-up" src="img/icons/visualstudio.png" alt="Tools Icon" loading="lazy" decoding="async">
                   <h6 class="tools-cards__caption animate-in-up">Visual Studio</h6>
                 </div>
               </div>
               <!-- tools simgle item -->
               <div class="tools-cards__item d-flex grid-item-s animate-card-5">
                 <div class="tools-cards__card">
-                  <img class="tools-cards__icon animate-in-up" src="img/icons/icon-html.svg" alt="Tools Icon">
+                  <img class="tools-cards__icon animate-in-up" src="img/icons/icon-html.svg" alt="Tools Icon" loading="lazy" decoding="async">
                   <h6 class="tools-cards__caption animate-in-up">HTML5</h6>
                 </div>
               </div>
               <!-- tools simgle item -->
               <div class="tools-cards__item d-flex grid-item-s animate-card-5">
                 <div class="tools-cards__card">
-                  <img class="tools-cards__icon animate-in-up" src="img/icons/icon-css.svg" alt="Tools Icon">
+                  <img class="tools-cards__icon animate-in-up" src="img/icons/icon-css.svg" alt="Tools Icon" loading="lazy" decoding="async">
                   <h6 class="tools-cards__caption animate-in-up">CSS3</h6>
                 </div>
               </div>
@@ -1086,7 +1100,7 @@
               <!-- tools simgle item -->
               <div class="tools-cards__item d-flex grid-item-s animate-card-5">
                 <div class="tools-cards__card">
-                  <img class="tools-cards__icon animate-in-up" src="img/icons/xampp.png" alt="Tools Icon">
+                  <img class="tools-cards__icon animate-in-up" src="img/icons/xampp.png" alt="Tools Icon" loading="lazy" decoding="async">
                   <h6 class="tools-cards__caption animate-in-up">XAMPP</h6>
                 </div>
               </div>
@@ -1100,35 +1114,35 @@
               <!-- tools simgle item -->
                <div class="tools-cards__item d-flex grid-item-s animate-card-5">
                 <div class="tools-cards__card">
-                  <img class="tools-cards__icon animate-in-up" src="img/icons/mysql.png" alt="Tools Icon">
+                  <img class="tools-cards__icon animate-in-up" src="img/icons/mysql.png" alt="Tools Icon" loading="lazy" decoding="async">
                   <h6 class="tools-cards__caption animate-in-up">MySQL</h6>
                 </div>
               </div>
               <!-- tools simgle item -->
                <div class="tools-cards__item d-flex grid-item-s animate-card-5">
                 <div class="tools-cards__card">
-                  <img class="tools-cards__icon animate-in-up" src="img/icons/phpmyadmin.png" alt="Tools Icon">
+                  <img class="tools-cards__icon animate-in-up" src="img/icons/phpmyadmin.png" alt="Tools Icon" loading="lazy" decoding="async">
                   <h6 class="tools-cards__caption animate-in-up">PHPMyAdmin</h6>
                 </div>
               </div>
               <!-- tools simgle item -->
                <div class="tools-cards__item d-flex grid-item-s animate-card-5">
                 <div class="tools-cards__card">
-                  <img class="tools-cards__icon animate-in-up" src="img/icons/sqlite.png" alt="Tools Icon">
+                  <img class="tools-cards__icon animate-in-up" src="img/icons/sqlite.png" alt="Tools Icon" loading="lazy" decoding="async">
                   <h6 class="tools-cards__caption animate-in-up">SQLite</h6>
                 </div>
               </div>
               <!-- tools simgle item -->
               <div class="tools-cards__item d-flex grid-item-s animate-card-5">
                 <div class="tools-cards__card">
-                  <img class="tools-cards__icon animate-in-up" src="img/icons/gitkraken.png" alt="Tools Icon">
+                  <img class="tools-cards__icon animate-in-up" src="img/icons/gitkraken.png" alt="Tools Icon" loading="lazy" decoding="async">
                   <h6 class="tools-cards__caption animate-in-up">GitKraken</h6>
                 </div>
               </div>
               <!-- tools simgle item -->
               <div class="tools-cards__item d-flex grid-item-s animate-card-5">
                 <div class="tools-cards__card">
-                  <img class="tools-cards__icon animate-in-up" src="img/icons/github.png" alt="Tools Icon">
+                  <img class="tools-cards__icon animate-in-up" src="img/icons/github.png" alt="Tools Icon" loading="lazy" decoding="async">
                   <h6 class="tools-cards__caption animate-in-up">GitHub</h6>
                 </div>
               </div>
@@ -1142,7 +1156,7 @@
               <!-- tools simgle item -->
               <div class="tools-cards__item d-flex grid-item-s animate-card-5">
                 <div class="tools-cards__card">
-                  <img class="tools-cards__icon animate-in-up" src="img/icons/netlify icon.webp" alt="Tools Icon">
+                  <img class="tools-cards__icon animate-in-up" src="img/icons/netlify icon.webp" alt="Tools Icon" loading="lazy" decoding="async">
                   <h6 class="tools-cards__caption animate-in-up">Netlify</h6>
                 </div>
               </div>
@@ -1157,14 +1171,14 @@
                <!-- tools simgle item -->
               <div class="tools-cards__item d-flex grid-item-s animate-card-5">
                 <div class="tools-cards__card">
-                  <img class="tools-cards__icon animate-in-up" src="img/icons/cloudflare pages.png" alt="Tools Icon">
+                  <img class="tools-cards__icon animate-in-up" src="img/icons/cloudflare pages.png" alt="Tools Icon" loading="lazy" decoding="async">
                   <h6 class="tools-cards__caption animate-in-up">CloudFlare Pages</h6>
                 </div>
               </div>
               <!-- tools simgle item -->
                <div class="tools-cards__item d-flex grid-item-s animate-card-5">
                 <div class="tools-cards__card">
-                  <img class="tools-cards__icon animate-in-up" src="img/icons/rdm.png" alt="Tools Icon" style="scale: 120%;">
+                  <img class="tools-cards__icon animate-in-up" src="img/icons/rdm.png" alt="Tools Icon" style="scale: 120%;" loading="lazy" decoding="async">
                   <h6 class="tools-cards__caption animate-in-up" style="scale: 70%;">Remote Desktop Manager</h6>
                 </div>
               </div>
@@ -1192,35 +1206,35 @@
               <!-- tools simgle item -->
               <div class="tools-cards__item d-flex grid-item-s animate-card-5">
                 <div class="tools-cards__card">
-                  <img class="tools-cards__icon animate-in-up" src="img/icons/icon-figma.svg" alt="Tools Icon">
+                  <img class="tools-cards__icon animate-in-up" src="img/icons/icon-figma.svg" alt="Tools Icon" loading="lazy" decoding="async">
                   <h6 class="tools-cards__caption animate-in-up">Figma</h6>
                 </div>
               </div>
               <!-- tools simgle item -->          
               <div class="tools-cards__item d-flex grid-item-s animate-card-5">
                 <div class="tools-cards__card">
-                  <img class="tools-cards__icon animate-in-up" src="img/icons/icon-photoshop.svg" alt="Tools Icon">
+                  <img class="tools-cards__icon animate-in-up" src="img/icons/icon-photoshop.svg" alt="Tools Icon" loading="lazy" decoding="async">
                   <h6 class="tools-cards__caption animate-in-up">Photoshop</h6>
                 </div>
               </div>
               <!-- tools simgle item -->
               <div class="tools-cards__item d-flex grid-item-s animate-card-5">
                 <div class="tools-cards__card">
-                  <img class="tools-cards__icon animate-in-up" src="img/icons/icon-illustrator.svg" alt="Tools Icon">
+                  <img class="tools-cards__icon animate-in-up" src="img/icons/icon-illustrator.svg" alt="Tools Icon" loading="lazy" decoding="async">
                   <h6 class="tools-cards__caption animate-in-up">Illustrator</h6>
                 </div>
               </div>
               <!-- tools simgle item -->
               <div class="tools-cards__item d-flex grid-item-s animate-card-5">
                 <div class="tools-cards__card">
-                  <img class="tools-cards__icon animate-in-up" src="img/icons/premierpro.png" alt="Tools Icon">
+                  <img class="tools-cards__icon animate-in-up" src="img/icons/premierpro.png" alt="Tools Icon" loading="lazy" decoding="async">
                   <h6 class="tools-cards__caption animate-in-up">Premiere Pro</h6>
                 </div>
               </div>
               <!-- tools simgle item -->
               <div class="tools-cards__item d-flex grid-item-s animate-card-5">
                 <div class="tools-cards__card">
-                  <img class="tools-cards__icon animate-in-up" src="img/icons/canva.png" alt="Tools Icon">
+                  <img class="tools-cards__icon animate-in-up" src="img/icons/canva.png" alt="Tools Icon" loading="lazy" decoding="async">
                   <h6 class="tools-cards__caption animate-in-up">Canva</h6>
                 </div>
               </div>
@@ -1281,7 +1295,7 @@
                       <div class="testimonials-card__descr animate-in-up">
                         <img src="img/cert/MBOT.png" alt="" style="
                           WIDTH: 55%;
-                          ">
+                          " loading="lazy" decoding="async">
                       </div>
                       <div class="testimonials-card__btnholder animate-in-up">
                         <a class="btn mobile-vertical btn-line btn-transparent slide-right" href="https://www.linkedin.com/in/ameeridz/overlay/1768296299714/single-media-viewer/?profileId=ACoAADSR2OoBPASnnzFKoc7kqRNO9LFnzXXwIUE" target="_blank" rel="noopener noreferrer">
@@ -1314,7 +1328,7 @@
                         </div>
                       </div>
                       <div class="testimonials-card__descr animate-in-up">
-                        <img src="img/cert/sql_advanced certificate.png" alt="">
+                        <img src="img/cert/sql_advanced certificate.png" alt="" loading="lazy" decoding="async">
                       </div>
                       <div class="testimonials-card__btnholder animate-in-up">
                         <a class="btn mobile-vertical btn-line btn-transparent slide-right" href="https://www.hackerrank.com/certificates/iframe/3160df41cefc" target="_blank" rel="noopener noreferrer">
@@ -1347,7 +1361,7 @@
                         </div>
                       </div>
                       <div class="testimonials-card__descr animate-in-up">
-                        <img src="img/cert/sql_intermediate certificate.png" alt="">
+                        <img src="img/cert/sql_intermediate certificate.png" alt="" loading="lazy" decoding="async">
                       </div>
                       <div class="testimonials-card__btnholder animate-in-up">
                         <a class="btn mobile-vertical btn-line btn-transparent slide-right" href="https://www.hackerrank.com/certificates/iframe/3160df41cefc" target="_blank" rel="noopener noreferrer">
@@ -1361,7 +1375,7 @@
                     <div class="testimonials-card animate-in-up">
                       <div class="testimonials-card__tauthor d-flex animate-in-up">
                         <div class="tauthor__avatar">
-                          <img src="img/icons/packt.jpg" alt="Review Author">
+                          <img src="img/icons/packt.jpg" alt="Review Author" loading="lazy" decoding="async">
                         </div>
                         <div class="tauthor__info d-flex flex-column justify-content-center">
                           <p class="tauthor__name">Certified Ethical Hacker (CEH)</p>
@@ -1378,7 +1392,7 @@
                         </div>
                       </div>
                       <div class="testimonials-card__descr animate-in-up">
-                        <img src="img/cert/Certified Ethical Hacker (CEH) v.12 Specialization Certificate.png" alt="">
+                        <img src="img/cert/Certified Ethical Hacker (CEH) v.12 Specialization Certificate.png" alt="" loading="lazy" decoding="async">
                       </div>
                       <div class="testimonials-card__btnholder animate-in-up">
                         <a class="btn mobile-vertical btn-line btn-transparent slide-right" href="https://coursera.org/verify/specialization/N6NMDTMNSYPH" target="_blank" rel="noopener noreferrer">
@@ -1411,7 +1425,7 @@
                         </div>
                       </div>
                       <div class="testimonials-card__descr animate-in-up">
-                        <img src="img/cert/Ethical Hacking with Kali Linux.png" alt="">
+                        <img src="img/cert/Ethical Hacking with Kali Linux.png" alt="" loading="lazy" decoding="async">
                       </div>
                       <div class="testimonials-card__btnholder animate-in-up">
                         <a class="btn mobile-vertical btn-line btn-transparent slide-right" href="https://coursera.org/verify/DIGFE01XV7QY" target="_blank" rel="noopener noreferrer">
@@ -1444,7 +1458,7 @@
                         </div>
                       </div>
                       <div class="testimonials-card__descr animate-in-up">
-                        <img src="img/cert/Introduction to Ethical Hacking Principles.png" alt="">
+                        <img src="img/cert/Introduction to Ethical Hacking Principles.png" alt="" loading="lazy" decoding="async">
                       </div>
                       <div class="testimonials-card__btnholder animate-in-up">
                         <a class="btn mobile-vertical btn-line btn-transparent slide-right" href="https://coursera.org/verify/B18GMVJCOFO8" target="_blank" rel="noopener noreferrer">
@@ -1477,7 +1491,7 @@
                         </div>
                       </div>
                       <div class="testimonials-card__descr animate-in-up">
-                        <img src="img/cert/Exploitation and Penetration Testing with Metasploit.png" alt="">
+                        <img src="img/cert/Exploitation and Penetration Testing with Metasploit.png" alt="" loading="lazy" decoding="async">
                       </div>
                       <div class="testimonials-card__btnholder animate-in-up">
                         <a class="btn mobile-vertical btn-line btn-transparent slide-right" href="https://coursera.org/verify/U6KJ1KNL98SN" target="_blank" rel="noopener noreferrer">
@@ -1510,7 +1524,7 @@
                         </div>
                       </div>
                       <div class="testimonials-card__descr animate-in-up">
-                        <img src="img/cert/Web Technologies and Security" alt="">
+                        <img src="img/cert/Web Technologies and Security" alt="" loading="lazy" decoding="async">
                       </div>
                       <div class="testimonials-card__btnholder animate-in-up">
                         <a class="btn mobile-vertical btn-line btn-transparent slide-right" href="https://coursera.org/verify/specialization/VY2YXK9BZ9LL" target="_blank" rel="noopener noreferrer">
@@ -1543,7 +1557,7 @@
                         </div>
                       </div>
                       <div class="testimonials-card__descr animate-in-up">
-                        <img src="img/cert/Generative AI for Data Analysts" alt="">
+                        <img src="img/cert/Generative AI for Data Analysts" alt="" loading="lazy" decoding="async">
                       </div>
                       <div class="testimonials-card__btnholder animate-in-up">
                         <a class="btn mobile-vertical btn-line btn-transparent slide-right" href="https://coursera.org/verify/specialization/Z4CI8XTTA23F" target="_blank" rel="noopener noreferrer">
@@ -1576,7 +1590,7 @@
                         </div>
                       </div>
                       <div class="testimonials-card__descr animate-in-up">
-                        <img src="img/cert/Generative AI for Business Intelligence (BI) Analysts" alt="">
+                        <img src="img/cert/Generative AI for Business Intelligence (BI) Analysts" alt="" loading="lazy" decoding="async">
                       </div>
                       <div class="testimonials-card__btnholder animate-in-up">
                         <a class="btn mobile-vertical btn-line btn-transparent slide-right" href="https://coursera.org/verify/specialization/LFJ5B3BMSBP9" target="_blank" rel="noopener noreferrer">
@@ -1609,7 +1623,7 @@
                         </div>
                       </div>
                       <div class="testimonials-card__descr animate-in-up">
-                        <img src="img/cert/Introduction to Cybersecurity Tools & Cyberattacks.png" alt="">
+                        <img src="img/cert/Introduction to Cybersecurity Tools & Cyberattacks.png" alt="" loading="lazy" decoding="async">
                       </div>
                       <div class="testimonials-card__btnholder animate-in-up">
                         <a class="btn mobile-vertical btn-line btn-transparent slide-right" href="https://coursera.org/verify/specialization/A1H91W3K6T2X" target="_blank" rel="noopener noreferrer">
@@ -1642,7 +1656,7 @@
                         </div>
                       </div>
                       <div class="testimonials-card__descr animate-in-up">
-                        <img src="img/cert/ISC - Certified in Cybersecurity Specialization Certificate.png" alt="">
+                        <img src="img/cert/ISC - Certified in Cybersecurity Specialization Certificate.png" alt="" loading="lazy" decoding="async">
                       </div>
                       <div class="testimonials-card__btnholder animate-in-up">
                         <a class="btn mobile-vertical btn-line btn-transparent slide-right" href="https://coursera.org/verify/specialization/8EX7JVUEDC15" target="_blank" rel="noopener noreferrer">
@@ -1675,7 +1689,7 @@
                         </div>
                       </div>
                       <div class="testimonials-card__descr animate-in-up">
-                        <img src="img/cert/Computer Forensics" alt="">
+                        <img src="img/cert/Computer Forensics" alt="" loading="lazy" decoding="async">
                       </div>
                       <div class="testimonials-card__btnholder animate-in-up">
                         <a class="btn mobile-vertical btn-line btn-transparent slide-right" href="https://coursera.org/verify/specialization/0B1NV0V8G33V" target="_blank" rel="noopener noreferrer">
@@ -1708,7 +1722,7 @@
                         </div>
                       </div>
                       <div class="testimonials-card__descr animate-in-up">
-                        <img src="img/cert/Python for Cybersecurity.png" alt="">
+                        <img src="img/cert/Python for Cybersecurity.png" alt="" loading="lazy" decoding="async">
                       </div>
                       <div class="testimonials-card__btnholder animate-in-up">
                         <a class="btn mobile-vertical btn-line btn-transparent slide-right" href="https://coursera.org/verify/specialization/RJH17C0N81LU" target="_blank" rel="noopener noreferrer">
@@ -1741,7 +1755,7 @@
                         </div>
                       </div>
                       <div class="testimonials-card__descr animate-in-up">
-                        <img src="img/cert/Writing Secure Code in C++.png" alt="">
+                        <img src="img/cert/Writing Secure Code in C++.png" alt="" loading="lazy" decoding="async">
                       </div>
                       <div class="testimonials-card__btnholder animate-in-up">
                         <a class="btn mobile-vertical btn-line btn-transparent slide-right" href="https://www.coursera.org/account/accomplishments/specialization/F72L8EWWG76A" target="_blank" rel="noopener noreferrer">
@@ -1774,7 +1788,7 @@
                         </div>
                       </div>
                       <div class="testimonials-card__descr animate-in-up">
-                        <img src="img/cert/AWS Cloud Solutions Architect.jpeg" alt="">
+                        <img src="img/cert/AWS Cloud Solutions Architect.jpeg" alt="" loading="lazy" decoding="async">
                       </div>
                       <div class="testimonials-card__btnholder animate-in-up">
                         <a class="btn mobile-vertical btn-line btn-transparent slide-right" href="https://coursera.org/verify/specialization/LFJ5B3BMSBP9" target="_blank" rel="noopener noreferrer">
@@ -1807,7 +1821,7 @@
                         </div>
                       </div>
                       <div class="testimonials-card__descr animate-in-up">
-                        <img src="img/cert/AWS Fundamentals.jpeg" alt="">
+                        <img src="img/cert/AWS Fundamentals.jpeg" alt="" loading="lazy" decoding="async">
                       </div>
                       <div class="testimonials-card__btnholder animate-in-up">
                         <a class="btn mobile-vertical btn-line btn-transparent slide-right" href="https://coursera.org/verify/specialization/LKVSWNNWL7V8" target="_blank" rel="noopener noreferrer">
@@ -1840,7 +1854,7 @@
                         </div>
                       </div>
                       <div class="testimonials-card__descr animate-in-up">
-                        <img src="img/cert/Building Data Lakes on AWS.png" alt="">
+                        <img src="img/cert/Building Data Lakes on AWS.png" alt="" loading="lazy" decoding="async">
                       </div>
                       <div class="testimonials-card__btnholder animate-in-up">
                         <a class="btn mobile-vertical btn-line btn-transparent slide-right" href="https://www.coursera.org/account/accomplishments/verify/3M84WCLPLPA7" target="_blank" rel="noopener noreferrer">
@@ -1873,7 +1887,7 @@
                         </div>
                       </div>
                       <div class="testimonials-card__descr animate-in-up">
-                        <img src="img/cert/Architecting Solutions on AWS.png" alt="">
+                        <img src="img/cert/Architecting Solutions on AWS.png" alt="" loading="lazy" decoding="async">
                       </div>
                       <div class="testimonials-card__btnholder animate-in-up">
                         <a class="btn mobile-vertical btn-line btn-transparent slide-right" href="https://www.coursera.org/account/accomplishments/verify/4GMC4D4FP5MA" target="_blank" rel="noopener noreferrer">
@@ -1906,7 +1920,7 @@
                         </div>
                       </div>
                       <div class="testimonials-card__descr animate-in-up">
-                        <img src="img/cert/Migrating to the AWS Cloud.png" alt="">
+                        <img src="img/cert/Migrating to the AWS Cloud.png" alt="" loading="lazy" decoding="async">
                       </div>
                       <div class="testimonials-card__btnholder animate-in-up">
                         <a class="btn mobile-vertical btn-line btn-transparent slide-right" href="https://www.coursera.org/account/accomplishments/verify/X71CJRBHLKLO" target="_blank" rel="noopener noreferrer">
@@ -1939,7 +1953,7 @@
                         </div>
                       </div>
                       <div class="testimonials-card__descr animate-in-up">
-                        <img src="img/cert/Introduction to Blockchain.jpeg" alt="">
+                        <img src="img/cert/Introduction to Blockchain.jpeg" alt="" loading="lazy" decoding="async">
                       </div>
                       <div class="testimonials-card__btnholder animate-in-up">
                         <a class="btn mobile-vertical btn-line btn-transparent slide-right" href="https://www.coursera.org/account/accomplishments/specialization/6UQDLZAOS0PM" target="_blank" rel="noopener noreferrer">
@@ -1970,7 +1984,7 @@
                         </div>
                       </div>
                       <div class="testimonials-card__descr animate-in-up">
-                        <img src="img/cert/Microsoft UX Design Professional Certificate.png" alt="">
+                        <img src="img/cert/Microsoft UX Design Professional Certificate.png" alt="" loading="lazy" decoding="async">
                       </div>
                       <div class="testimonials-card__btnholder animate-in-up">
                         <a class="btn mobile-vertical btn-line btn-transparent slide-right" href="https://coursera.org/verify/specialization/CT4FJI52O6WY" target="_blank" rel="noopener noreferrer">
@@ -1984,7 +1998,7 @@
                     <div class="testimonials-card animate-in-up">
                       <div class="testimonials-card__tauthor d-flex animate-in-up">
                         <div class="tauthor__avatar">
-                          <img src="img/icons/intelicon.png" alt="Review Author">
+                          <img src="img/icons/intelicon.png" alt="Review Author" loading="lazy" decoding="async">
                         </div>
                         <div class="tauthor__info d-flex flex-column justify-content-center">
                           <p class="tauthor__name">Intel® AI Fundamentals</p>
@@ -2001,7 +2015,7 @@
                         </div>
                       </div>
                       <div class="testimonials-card__descr animate-in-up">
-                        <img src="img/cert/Intel® AI Fundamentals.png" alt="">
+                        <img src="img/cert/Intel® AI Fundamentals.png" alt="" loading="lazy" decoding="async">
                       </div>
                       <div class="testimonials-card__btnholder animate-in-up">
                         <a class="btn mobile-vertical btn-line btn-transparent slide-right" href="https://coursera.org/verify/specialization/IPDWWT5T8LO2" target="_blank" rel="noopener noreferrer">
@@ -2015,7 +2029,7 @@
                     <div class="testimonials-card animate-in-up">
                       <div class="testimonials-card__tauthor d-flex animate-in-up">
                         <div class="tauthor__avatar">
-                          <img src="img/icons/packt.jpg" alt="Review Author">
+                          <img src="img/icons/packt.jpg" alt="Review Author" loading="lazy" decoding="async">
                         </div>
                         <div class="tauthor__info d-flex flex-column justify-content-center">
                           <p class="tauthor__name">Certified Information Systems Security Professional (CISSP)</p>
@@ -2032,7 +2046,7 @@
                         </div>
                       </div>
                       <div class="testimonials-card__descr animate-in-up">
-                        <img src="img/cert/CISSP (Certified Information Systems Security Professional Specialization Certificate).png" alt="">
+                        <img src="img/cert/CISSP (Certified Information Systems Security Professional Specialization Certificate).png" alt="" loading="lazy" decoding="async">
                       </div>
                       <div class="testimonials-card__btnholder animate-in-up">
                         <a class="btn mobile-vertical btn-line btn-transparent slide-right" href="https://coursera.org/verify/specialization/CT4FJI52O6WY" target="_blank" rel="noopener noreferrer">
@@ -2046,7 +2060,7 @@
                     <div class="testimonials-card animate-in-up">
                       <div class="testimonials-card__tauthor d-flex animate-in-up">
                         <div class="tauthor__avatar">
-                          <img src="img/icons/deeplearning.png" alt="Review Author">
+                          <img src="img/icons/deeplearning.png" alt="Review Author" loading="lazy" decoding="async">
                         </div>
                         <div class="tauthor__info d-flex flex-column justify-content-center">
                           <p class="tauthor__name">AI for Good</p>
@@ -2063,7 +2077,7 @@
                         </div>
                       </div>
                       <div class="testimonials-card__descr animate-in-up">
-                        <img src="img/cert/AI for Good Deeplearning.png" alt="">
+                        <img src="img/cert/AI for Good Deeplearning.png" alt="" loading="lazy" decoding="async">
                       </div>
                       <div class="testimonials-card__btnholder animate-in-up">
                         <a class="btn mobile-vertical btn-line btn-transparent slide-right" href="https://coursera.org/verify/specialization/M8PN8N348GEJ" target="_blank" rel="noopener noreferrer">
@@ -2077,7 +2091,7 @@
                     <div class="testimonials-card animate-in-up">
                       <div class="testimonials-card__tauthor d-flex animate-in-up">
                         <div class="tauthor__avatar">
-                          <img src="img/icons/packt.jpg" alt="Review Author">
+                          <img src="img/icons/packt.jpg" alt="Review Author" loading="lazy" decoding="async">
                         </div>
                         <div class="tauthor__info d-flex flex-column justify-content-center">
                           <p class="tauthor__name">Certified Information Systems Auditor (CISA)</p>
@@ -2094,7 +2108,7 @@
                         </div>
                       </div>
                       <div class="testimonials-card__descr animate-in-up">
-                        <img src="img/cert/CISA (Certified Information Systems Auditor Specialization Certificate).png" alt="">
+                        <img src="img/cert/CISA (Certified Information Systems Auditor Specialization Certificate).png" alt="" loading="lazy" decoding="async">
                       </div>
                       <div class="testimonials-card__btnholder animate-in-up">
                         <a class="btn mobile-vertical btn-line btn-transparent slide-right" href="https://coursera.org/verify/specialization/MVZ9HONYMNP4" target="_blank" rel="noopener noreferrer">
@@ -2108,7 +2122,7 @@
                     <div class="testimonials-card animate-in-up">
                       <div class="testimonials-card__tauthor d-flex animate-in-up">
                         <div class="tauthor__avatar">
-                          <img src="img/icons/infosec.jpg" alt="Review Author">
+                          <img src="img/icons/infosec.jpg" alt="Review Author" loading="lazy" decoding="async">
                         </div>
                         <div class="tauthor__info d-flex flex-column justify-content-center">
                           <p class="tauthor__name">Certified Secure Software Lifecycle Professional (CSSLP)</p>
@@ -2125,7 +2139,7 @@
                         </div>
                       </div>
                       <div class="testimonials-card__descr animate-in-up">
-                        <img src="img/cert/Certified Secure Software Lifecycle Professional (CSSLP).png" alt="">
+                        <img src="img/cert/Certified Secure Software Lifecycle Professional (CSSLP).png" alt="" loading="lazy" decoding="async">
                       </div>
                       <div class="testimonials-card__btnholder animate-in-up">
                         <a class="btn mobile-vertical btn-line btn-transparent slide-right" href="https://coursera.org/verify/TGP1YJETSASO" target="_blank" rel="noopener noreferrer">
@@ -2139,7 +2153,7 @@
                     <div class="testimonials-card animate-in-up">
                       <div class="testimonials-card__tauthor d-flex animate-in-up">
                         <div class="tauthor__avatar">
-                          <img src="img/icons/uipath.jpeg" alt="Review Author">
+                          <img src="img/icons/uipath.jpeg" alt="Review Author" loading="lazy" decoding="async">
                         </div>
                         <div class="tauthor__info d-flex flex-column justify-content-center">
                           <p class="tauthor__name">Robotic Process Automation (RPA)</p>
@@ -2156,7 +2170,7 @@
                         </div>
                       </div>
                       <div class="testimonials-card__descr animate-in-up">
-                        <img src="img/cert/Robotic Process Automation (RPA) Specialization Certificate.png" alt="">
+                        <img src="img/cert/Robotic Process Automation (RPA) Specialization Certificate.png" alt="" loading="lazy" decoding="async">
                       </div>
                       <div class="testimonials-card__btnholder animate-in-up">
                         <a class="btn mobile-vertical btn-line btn-transparent slide-right" href="https://coursera.org/verify/specialization/RW48L9C3Z0MO" target="_blank" rel="noopener noreferrer">
@@ -2170,7 +2184,7 @@
                     <div class="testimonials-card animate-in-up">
                       <div class="testimonials-card__tauthor d-flex animate-in-up">
                         <div class="tauthor__avatar">
-                          <img src="img/icons/packt.jpg" alt="Review Author">
+                          <img src="img/icons/packt.jpg" alt="Review Author" loading="lazy" decoding="async">
                         </div>
                         <div class="tauthor__info d-flex flex-column justify-content-center">
                           <p class="tauthor__name">Certified Information Security Manager (CISM)</p>
@@ -2187,7 +2201,7 @@
                         </div>
                       </div>
                       <div class="testimonials-card__descr animate-in-up">
-                        <img src="img/cert/Certified Information Security Manager (CISM).png" alt="">
+                        <img src="img/cert/Certified Information Security Manager (CISM).png" alt="" loading="lazy" decoding="async">
                       </div>
                       <div class="testimonials-card__btnholder animate-in-up">
                         <a class="btn mobile-vertical btn-line btn-transparent slide-right" href="https://coursera.org/verify/CM83JKKJDV8O" target="_blank" rel="noopener noreferrer">
@@ -2201,7 +2215,7 @@
                     <div class="testimonials-card animate-in-up">
                       <div class="testimonials-card__tauthor d-flex animate-in-up">
                         <div class="tauthor__avatar">
-                          <img src="img/icons/cisco.png" alt="Review Author">
+                          <img src="img/icons/cisco.png" alt="Review Author" loading="lazy" decoding="async">
                         </div>
                         <div class="tauthor__info d-flex flex-column justify-content-center">
                           <p class="tauthor__name">Introduction to IoT</p>
@@ -2218,7 +2232,7 @@
                         </div>
                       </div>
                       <div class="testimonials-card__descr animate-in-up">
-                        <img src="img/cert/Cisco Introduction to IoT.png" alt="">
+                        <img src="img/cert/Cisco Introduction to IoT.png" alt="" loading="lazy" decoding="async">
                       </div>
                       <div class="testimonials-card__btnholder animate-in-up">
                         <a class="btn mobile-vertical btn-line btn-transparent slide-right" href="https://www.credly.com/badges/4dff8b5e-7d4e-474a-a648-fd440fc99751" target="_blank" rel="noopener noreferrer">
@@ -2232,7 +2246,7 @@
                     <div class="testimonials-card animate-in-up">
                       <div class="testimonials-card__tauthor d-flex animate-in-up">
                         <div class="tauthor__avatar">
-                          <img src="img/icons/FTNT-745f92ba.png" alt="Review Author">
+                          <img src="img/icons/FTNT-745f92ba.png" alt="Review Author" loading="lazy" decoding="async">
                         </div>
                         <div class="tauthor__info d-flex flex-column justify-content-center">
                           <p class="tauthor__name">Network Security Support Engineer</p>
@@ -2249,7 +2263,7 @@
                         </div>
                       </div>
                       <div class="testimonials-card__descr animate-in-up">
-                        <img src="img/cert/Fortinet Network Security Support Engineer.png" alt="">
+                        <img src="img/cert/Fortinet Network Security Support Engineer.png" alt="" loading="lazy" decoding="async">
                       </div>
                       <div class="testimonials-card__btnholder animate-in-up">
                         <a class="btn mobile-vertical btn-line btn-transparent slide-right" href="https://coursera.org/verify/CYFYPDRCGEAP" target="_blank" rel="noopener noreferrer">
@@ -2280,7 +2294,7 @@
                         </div>
                       </div>
                       <div class="testimonials-card__descr animate-in-up">
-                        <img src="img/cert/XBOX Interaction Design and UXUI Principles.png" alt="">
+                        <img src="img/cert/XBOX Interaction Design and UXUI Principles.png" alt="" loading="lazy" decoding="async">
                       </div>
                       <div class="testimonials-card__btnholder animate-in-up">
                         <a class="btn mobile-vertical btn-line btn-transparent slide-right" href="https://coursera.org/verify/A4324XJ2NOXF" target="_blank" rel="noopener noreferrer">
@@ -2670,6 +2684,110 @@
   })();
 </script>
 <!-- Resume Quick Look Modal End -->
+
+<!-- Scroll Milestone Timeline Start -->
+<style id="scroll-milestone-style">
+  /* Kunci jajaran rata kiri 100% pada semua kad timeline */
+  .exp-card { text-align: left !important; }
+  .exp-top { display: flex !important; flex-wrap: wrap; justify-content: space-between !important; align-items: flex-start !important; gap: 1rem; width: 100%; }
+  .exp-top > div { flex: 1 1 260px !important; margin-left: 0 !important; margin-right: auto !important; text-align: left !important; }
+  .exp-role, .exp-company, .edu-descr { text-align: left !important; margin-left: 0 !important; }
+
+  /* Garisan latar timeline (malap) & garisan progres bercahaya (ikut scroll) */
+  .exp-timeline::before {
+    background: var(--stroke-elements, rgba(255,255,255,0.14)) !important;
+  }
+  .exp-progress-line {
+    position: absolute;
+    left: 0.7rem;
+    top: 1rem;
+    width: 2px;
+    height: 0px;
+    background: linear-gradient(180deg, var(--accent, #e4b8bf) 0%, #c084fc 100%);
+    box-shadow: 0 0 12px rgba(228,184,191,0.65);
+    border-radius: 999px;
+    pointer-events: none;
+    z-index: 1;
+    will-change: height;
+  }
+  .exp-node {
+    z-index: 2;
+    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+  }
+  .exp-card.is-reached .exp-node {
+    background: var(--accent, #e4b8bf) !important;
+    border-color: var(--accent, #e4b8bf) !important;
+    box-shadow: 0 0 0 5px rgba(228,184,191,0.22), 0 0 14px rgba(228,184,191,0.75) !important;
+    transform: scale(1.15);
+  }
+  .exp-card.is-reached {
+    border-color: rgba(228,184,191,0.38);
+  }
+</style>
+
+<script id="scroll-milestone-script">
+(function () {
+  function initScrollTimelines() {
+    var timelines = document.querySelectorAll('.exp-timeline');
+    if (!timelines.length) return;
+
+    var items = [];
+    timelines.forEach(function (tl) {
+      var bar = tl.querySelector('.exp-progress-line');
+      if (!bar) {
+        bar = document.createElement('span');
+        bar.className = 'exp-progress-line';
+        tl.insertBefore(bar, tl.firstChild);
+      }
+      items.push({ tl: tl, bar: bar, cards: Array.prototype.slice.call(tl.querySelectorAll('.exp-card')) });
+    });
+
+    var ticking = false;
+    function update() {
+      ticking = false;
+      var triggerY = window.innerHeight * 0.62; // Garis aktif di ~62% ketinggian skrin
+
+      items.forEach(function (entry) {
+        var rect = entry.tl.getBoundingClientRect();
+        var topOffset = 16; // Selari dengan top: 1rem
+        var maxH = Math.max(0, entry.tl.offsetHeight - 32);
+        var progress = Math.max(0, Math.min(maxH, triggerY - rect.top - topOffset));
+        entry.bar.style.height = progress + 'px';
+
+        entry.cards.forEach(function (card) {
+          var node = card.querySelector('.exp-node');
+          if (!node) return;
+          var nodeRect = node.getBoundingClientRect();
+          var nodeCenter = nodeRect.top + nodeRect.height / 2;
+          if (nodeCenter <= triggerY) {
+            card.classList.add('is-reached');
+          } else {
+            card.classList.remove('is-reached');
+          }
+        });
+      });
+    }
+
+    function onScroll() {
+      if (!ticking) {
+        ticking = true;
+        window.requestAnimationFrame(update);
+      }
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    update();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initScrollTimelines);
+  } else {
+    initScrollTimelines();
+  }
+})();
+</script>
+<!-- Scroll Milestone Timeline End -->
 </body>
 
 </html>
