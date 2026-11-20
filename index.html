@@ -74,6 +74,35 @@
   }
 </style>
 <!-- Mobile Polish End -->
+  
+    <!-- Schema JSON-LD Start -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Person",
+          "name": "Ameer Ridzuan",
+          "url": "https://ridzu.one/",
+          "image": "https://ridzu.one/img/og-image.png",
+          "email": "mailto:mailto:ameerridzuan01@gmail.com ameerridzuan01@gmail.com",
+          "jobTitle": "System Engineer, Web Developer & UI/UX Designer",
+          "worksFor": {
+            "@type": "Organization",
+            "name": "Kossan Rubber Industries Berhad"
+          },
+          "sameAs": ["https://www.linkedin.com/in/ameeridz/", "https://github.com/ameeridz", "https://by.ridzu.one/"]
+        },
+        {
+          "@type": "WebSite",
+          "name": "Ameer Ridzuan Portfolio",
+          "url": "https://ridzu.one/",
+          "description": "Personal portfolio of Ameer Ridzuan featuring enterprise system engineering, internal web applications, UI/UX design and by.ridzu.one."
+        }
+      ]
+    }
+    </script>
+    <!-- Schema JSON-LD End -->
   </head>
 
   <body>
@@ -2778,6 +2807,527 @@
 })();
 </script>
 <!-- Scroll Milestone Timeline End -->
+
+<!-- Command Palette & Copy Email Start -->
+<style id="cmdk-style">
+  .quick-dock {
+    position: fixed; right: 2rem; bottom: 2rem; z-index: 9990;
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    padding: 0.55rem; border-radius: 999px;
+    border: 1px solid var(--stroke-elements, rgba(255,255,255,0.14));
+    background: rgba(18, 18, 20, 0.78);
+    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.35);
+  }
+  [color-scheme="light"] .quick-dock {
+    background: rgba(255, 255, 255, 0.86);
+    box-shadow: 0 10px 28px rgba(0,0,0,0.12);
+  }
+  .quick-dock-btn {
+    display: inline-flex; align-items: center; gap: 0.55rem;
+    padding: 0.65rem 1.2rem; border-radius: 999px; border: 1px solid transparent;
+    background: transparent; color: var(--t-bright, #f4f4f5);
+    font-size: 1.3rem; font-weight: 600; cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  }
+  .quick-dock-btn:hover {
+    background: rgba(228,184,191,0.14);
+    border-color: var(--accent, #e4b8bf);
+    transform: translateY(-1px);
+  }
+  .quick-dock-kbd {
+    padding: 0.15rem 0.55rem; border-radius: 6px; font-size: 1.1rem; font-weight: 700;
+    border: 1px solid var(--stroke-elements, rgba(255,255,255,0.2));
+    background: rgba(255,255,255,0.06); color: var(--accent, #e4b8bf);
+  }
+
+  .cmdk-backdrop {
+    position: fixed; inset: 0; z-index: 10050; display: none;
+    align-items: flex-start; justify-content: center; padding: 11vh 1.6rem 2rem;
+    background: rgba(8, 8, 10, 0.68);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  }
+  .cmdk-backdrop.is-open { display: flex; }
+  .cmdk-modal {
+    width: 100%; max-width: 560px; border-radius: 2rem; overflow: hidden;
+    border: 1px solid var(--stroke-elements, rgba(255,255,255,0.16));
+    background: var(--base, #111111); color: var(--t-bright, #f4f4f5);
+    box-shadow: 0 28px 70px rgba(0,0,0,0.55);
+  }
+  .cmdk-header {
+    display: flex; align-items: center; gap: 1rem; padding: 1.5rem 1.8rem;
+    border-bottom: 1px solid var(--stroke-elements, rgba(255,255,255,0.12));
+  }
+  .cmdk-header i { font-size: 1.9rem; color: var(--accent, #e4b8bf); }
+  .cmdk-input {
+    flex: 1; background: transparent; border: none; outline: none;
+    font-size: 1.55rem; color: var(--t-bright, #f4f4f5);
+  }
+  .cmdk-input::placeholder { color: var(--t-muted, #8b8b96); }
+  .cmdk-esc {
+    padding: 0.25rem 0.7rem; border-radius: 7px; font-size: 1.15rem; font-weight: 600;
+    border: 1px solid var(--stroke-elements, rgba(255,255,255,0.16));
+    color: var(--t-medium, #a1a1aa); cursor: pointer; background: transparent;
+  }
+  .cmdk-list { max-height: 360px; overflow-y: auto; padding: 0.8rem; display: flex; flex-direction: column; gap: 0.35rem; }
+  .cmdk-item {
+    display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    width: 100%; padding: 1.1rem 1.3rem; border-radius: 1.2rem; border: 1px solid transparent;
+    background: transparent; color: var(--t-bright, #f4f4f5); text-align: left; cursor: pointer;
+    font-size: 1.45rem; font-weight: 500; transition: background-color 0.15s ease, border-color 0.15s ease;
+  }
+  .cmdk-item-left { display: inline-flex; align-items: center; gap: 1rem; }
+  .cmdk-item-left i { font-size: 1.75rem; color: var(--accent, #e4b8bf); }
+  .cmdk-item-tag { font-size: 1.15rem; color: var(--t-muted, #8b8b96); }
+  .cmdk-item:hover, .cmdk-item.is-active {
+    background: var(--base-tint, rgba(255,255,255,0.06));
+    border-color: rgba(228,184,191,0.35);
+  }
+  .cmdk-empty { padding: 2rem; text-align: center; font-size: 1.4rem; color: var(--t-muted, #8b8b96); }
+
+  .ridzu-toast {
+    position: fixed; left: 50%; bottom: 2.6rem; z-index: 10100;
+    transform: translate(-50%, 24px); opacity: 0; pointer-events: none;
+    display: inline-flex; align-items: center; gap: 0.7rem;
+    padding: 1rem 1.8rem; border-radius: 999px;
+    border: 1px solid var(--accent, #e4b8bf);
+    background: rgba(17, 17, 19, 0.92); color: #ffffff;
+    font-size: 1.38rem; font-weight: 600;
+    box-shadow: 0 12px 32px rgba(0,0,0,0.4);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+  }
+  .ridzu-toast.is-visible { opacity: 1; transform: translate(-50%, 0); }
+  .ridzu-toast i { color: #4ade80; font-size: 1.65rem; }
+
+  @media (max-width: 575px) {
+    .quick-dock { right: 1.2rem; bottom: 1.2rem; }
+    .quick-dock-label { display: none; }
+  }
+</style>
+
+<div class="quick-dock" aria-label="Quick actions">
+  <button type="button" class="quick-dock-btn" id="quickCopyEmailBtn" title="Copy Email (mailto:ameerridzuan01@gmail.com ameerridzuan01@gmail.com)">
+    <i class="ph-bold ph-copy"></i>
+    <span class="quick-dock-label">Copy Email</span>
+  </button>
+  <button type="button" class="quick-dock-btn" id="quickCmdkBtn" title="Open Command Palette (Ctrl+K)">
+    <i class="ph-bold ph-command"></i>
+    <span class="quick-dock-kbd">Ctrl K</span>
+  </button>
+</div>
+
+<div class="cmdk-backdrop" id="cmdkBackdrop" role="dialog" aria-modal="true" aria-label="Quick Command Palette">
+  <div class="cmdk-modal">
+    <div class="cmdk-header">
+      <i class="ph-bold ph-magnifying-glass"></i>
+      <input type="text" class="cmdk-input" id="cmdkInput" placeholder="Type a command or jump to section..." autocomplete="off">
+      <button type="button" class="cmdk-esc" id="cmdkCloseBtn">ESC</button>
+    </div>
+    <div class="cmdk-list" id="cmdkList"></div>
+  </div>
+</div>
+
+<div class="ridzu-toast" id="ridzuToast" role="status" aria-live="polite">
+  <i class="ph-bold ph-check-circle"></i>
+  <span id="ridzuToastText">Email copied!</span>
+</div>
+
+<script id="cmdk-script">
+(function () {
+  var USER_EMAIL = 'mailto:ameerridzuan01@gmail.com ameerridzuan01@gmail.com';
+  var backdrop = document.getElementById('cmdkBackdrop');
+  var input = document.getElementById('cmdkInput');
+  var listEl = document.getElementById('cmdkList');
+  var toastEl = document.getElementById('ridzuToast');
+  var toastText = document.getElementById('ridzuToastText');
+  var toastTimer = null;
+  var activeIdx = 0;
+
+  function showToast(msg) {
+    toastText.textContent = msg;
+    toastEl.classList.add('is-visible');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () {
+      toastEl.classList.remove('is-visible');
+    }, 2400);
+  }
+
+  function copyEmail() {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(USER_EMAIL).then(function () {
+        showToast('Email copied: ' + USER_EMAIL);
+      }).catch(function () { fallbackCopy(); });
+    } else {
+      fallbackCopy();
+    }
+  }
+
+  function fallbackCopy() {
+    var ta = document.createElement('textarea');
+    ta.value = USER_EMAIL;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); showToast('Email copied: ' + USER_EMAIL); } catch (e) {}
+    document.body.removeChild(ta);
+  }
+
+  function scrollToId(id) {
+    var el = document.getElementById(id);
+    if (el) { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+  }
+
+  var commands = [
+    { label: 'View My Resume (Quick Look)', tag: 'PDF', icon: 'ph-file-text', keys: 'resume cv pdf', run: function () {
+      var btn = document.querySelector('.js-resume-preview');
+      if (btn) { btn.click(); } else { window.open('resume/Resume_Ameer_Ridzuan.pdf', '_blank', 'noopener'); }
+    }},
+    { label: 'Copy Email Address', tag: USER_EMAIL, icon: 'ph-copy', keys: 'email mail contact copy', run: copyEmail },
+    { label: 'Jump to My Works', tag: 'Portfolio', icon: 'ph-squares-four', keys: 'works portfolio projects', run: function () { scrollToId('portfolio'); } },
+    { label: 'Jump to Working Experience', tag: 'Timeline', icon: 'ph-briefcase', keys: 'experience work kossan career', run: function () { scrollToId('experience'); } },
+    { label: 'Jump to Education & Resume', tag: 'Academic', icon: 'ph-graduation-cap', keys: 'education degree diploma', run: function () { scrollToId('resume'); } },
+    { label: 'Jump to About Me', tag: 'Profile', icon: 'ph-user', keys: 'about bio services', run: function () { scrollToId('about'); } },
+    { label: 'Jump to Contact Form', tag: 'Message', icon: 'ph-paper-plane-tilt', keys: 'contact message form', run: function () { scrollToId('contact'); } },
+    { label: 'Toggle Dark / Light Mode', tag: 'Theme', icon: 'ph-moon-stars', keys: 'theme dark light mode color', run: function () {
+      var switcher = document.getElementById('color-switcher');
+      if (switcher) { switcher.click(); showToast('Theme switched!'); }
+    }},
+    { label: 'Open by.ridzu.one (Digital Wedding Cards)', tag: 'External', icon: 'ph-arrow-up-right', keys: 'wedding kad kahwin by.ridzu.one', run: function () {
+      window.open('https://by.ridzu.one/', '_blank', 'noopener');
+    }}
+  ];
+
+  var filtered = commands.slice();
+
+  function renderList() {
+    listEl.innerHTML = '';
+    if (!filtered.length) {
+      listEl.innerHTML = '<div class="cmdk-empty">No matching command found.</div>';
+      return;
+    }
+    filtered.forEach(function (cmd, idx) {
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'cmdk-item' + (idx === activeIdx ? ' is-active' : '');
+      btn.innerHTML = '<span class="cmdk-item-left"><i class="ph-bold ' + cmd.icon + '"></i><span>' + cmd.label + '</span></span><span class="cmdk-item-tag">' + cmd.tag + '</span>';
+      btn.addEventListener('click', function () {
+        closeCmdk();
+        cmd.run();
+      });
+      btn.addEventListener('mouseenter', function () {
+        activeIdx = idx;
+        updateActiveClass();
+      });
+      listEl.appendChild(btn);
+    });
+  }
+
+  function updateActiveClass() {
+    var nodes = listEl.querySelectorAll('.cmdk-item');
+    nodes.forEach(function (n, i) {
+      n.classList.toggle('is-active', i === activeIdx);
+    });
+  }
+
+  function openCmdk() {
+    backdrop.classList.add('is-open');
+    input.value = '';
+    filtered = commands.slice();
+    activeIdx = 0;
+    renderList();
+    setTimeout(function () { input.focus(); }, 20);
+  }
+
+  function closeCmdk() {
+    backdrop.classList.remove('is-open');
+  }
+
+  input.addEventListener('input', function () {
+    var q = input.value.trim().toLowerCase();
+    filtered = commands.filter(function (c) {
+      return c.label.toLowerCase().indexOf(q) !== -1 || c.keys.indexOf(q) !== -1 || c.tag.toLowerCase().indexOf(q) !== -1;
+    });
+    activeIdx = 0;
+    renderList();
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+      e.preventDefault();
+      if (backdrop.classList.contains('is-open')) { closeCmdk(); } else { openCmdk(); }
+      return;
+    }
+    if (!backdrop.classList.contains('is-open')) return;
+    if (e.key === 'Escape') { closeCmdk(); }
+    else if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      if (filtered.length) { activeIdx = (activeIdx + 1) % filtered.length; updateActiveClass(); }
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      if (filtered.length) { activeIdx = (activeIdx - 1 + filtered.length) % filtered.length; updateActiveClass(); }
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+      if (filtered[activeIdx]) { closeCmdk(); filtered[activeIdx].run(); }
+    }
+  });
+
+  backdrop.addEventListener('click', function (e) {
+    if (e.target === backdrop) closeCmdk();
+  });
+  document.getElementById('cmdkCloseBtn').addEventListener('click', closeCmdk);
+  document.getElementById('quickCmdkBtn').addEventListener('click', openCmdk);
+  document.getElementById('quickCopyEmailBtn').addEventListener('click', copyEmail);
+})();
+</script>
+<!-- Command Palette & Copy Email End -->
+
+<!-- Case Study Quick View Start -->
+<style id="case-study-style">
+  .cs-trigger-btn {
+    position: absolute; top: 1.4rem; right: 1.4rem; z-index: 25;
+    display: inline-flex; align-items: center; gap: 0.45rem;
+    padding: 0.55rem 1.2rem; border-radius: 999px;
+    border: 1px solid rgba(228,184,191,0.55);
+    background: rgba(15, 15, 18, 0.82); color: #ffffff;
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    font-size: 1.2rem; font-weight: 600; cursor: pointer;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.35);
+    transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+  }
+  .cs-trigger-btn:hover {
+    transform: translateY(-2px);
+    background: var(--accent, #e4b8bf);
+    color: #111111;
+    border-color: var(--accent, #e4b8bf);
+  }
+  .cs-backdrop {
+    position: fixed; inset: 0; z-index: 10060; display: none;
+    align-items: center; justify-content: center; padding: 2rem;
+    background: rgba(8, 8, 10, 0.72);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  }
+  .cs-backdrop.is-open { display: flex; }
+  .cs-modal {
+    width: 100%; max-width: 680px; max-height: 88vh; overflow-y: auto;
+    border-radius: 2.2rem; padding: 2.6rem 2.8rem;
+    border: 1px solid var(--stroke-elements, rgba(255,255,255,0.16));
+    background: var(--base, #111111); color: var(--t-bright, #f4f4f5);
+    box-shadow: 0 30px 80px rgba(0,0,0,0.55);
+  }
+  .cs-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 1.2rem; margin-bottom: 1.8rem; }
+  .cs-badge {
+    display: inline-flex; align-items: center; gap: 0.45rem;
+    padding: 0.35rem 1rem; border-radius: 999px; font-size: 1.15rem; font-weight: 600;
+    border: 1px solid var(--accent, #e4b8bf); color: var(--accent, #e4b8bf);
+    margin-bottom: 0.8rem;
+  }
+  .cs-title { margin: 0; font-size: 2.4rem; font-weight: 700; line-height: 1.2; color: var(--t-bright, #f4f4f5); }
+  .cs-close {
+    width: 3.8rem; height: 3.8rem; border-radius: 50%; flex-shrink: 0;
+    border: 1px solid var(--stroke-elements, rgba(255,255,255,0.16));
+    background: var(--base-tint, rgba(255,255,255,0.04)); color: var(--t-bright, #f4f4f5);
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 1.8rem; cursor: pointer; transition: border-color 0.2s ease;
+  }
+  .cs-close:hover { border-color: var(--accent, #e4b8bf); }
+  .cs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem; margin-bottom: 1.8rem; }
+  .cs-box {
+    padding: 1.5rem 1.7rem; border-radius: 1.5rem;
+    border: 1px solid var(--stroke-elements, rgba(255,255,255,0.12));
+    background: var(--base-tint, rgba(255,255,255,0.03));
+  }
+  .cs-box h5 { margin: 0 0 0.65rem; font-size: 1.25rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--accent, #e4b8bf); }
+  .cs-box p { margin: 0; font-size: 1.4rem; line-height: 1.55; color: var(--t-medium, #b4b4bc); }
+  .cs-highlights { margin: 0 0 1.8rem; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
+  .cs-highlights li { position: relative; padding-left: 1.7rem; font-size: 1.42rem; line-height: 1.5; color: var(--t-medium, #b4b4bc); }
+  .cs-highlights li::before { content: ""; position: absolute; left: 0; top: 0.85rem; width: 6px; height: 6px; border-radius: 50%; background: var(--accent, #e4b8bf); }
+  .cs-tags { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 2rem; }
+  .cs-tag {
+    padding: 0.35rem 1rem; border-radius: 999px; font-size: 1.2rem; font-weight: 600;
+    border: 1px solid var(--stroke-elements, rgba(255,255,255,0.14));
+    background: var(--base-tint, rgba(255,255,255,0.04)); color: var(--t-medium, #b4b4bc);
+  }
+  .cs-footer { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; padding-top: 1.6rem; border-top: 1px solid var(--stroke-elements, rgba(255,255,255,0.12)); }
+  .cs-live-btn {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    padding: 1rem 2rem; border-radius: 999px; text-decoration: none;
+    background: var(--accent, #e4b8bf); color: #111111; font-size: 1.4rem; font-weight: 700;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+  .cs-live-btn:hover { transform: translateY(-2px); opacity: 0.92; }
+  @media (max-width: 640px) {
+    .cs-modal { padding: 2rem 1.8rem; }
+    .cs-grid { grid-template-columns: 1fr; }
+    .cs-title { font-size: 2rem; }
+  }
+</style>
+
+<div class="cs-backdrop" id="csBackdrop" role="dialog" aria-modal="true" aria-label="Project Case Study">
+  <div class="cs-modal">
+    <div class="cs-head">
+      <div>
+        <span class="cs-badge" id="csBadge">Case Study</span>
+        <h3 class="cs-title" id="csTitle">Project Title</h3>
+      </div>
+      <button type="button" class="cs-close" id="csCloseBtn" aria-label="Close modal">
+        <i class="ph-bold ph-x"></i>
+      </button>
+    </div>
+    <div class="cs-grid">
+      <div class="cs-box">
+        <h5>The Challenge</h5>
+        <p id="csChallenge"></p>
+      </div>
+      <div class="cs-box">
+        <h5>Architecture &amp; Solution</h5>
+        <p id="csSolution"></p>
+      </div>
+    </div>
+    <ul class="cs-highlights" id="csHighlights"></ul>
+    <div class="cs-tags" id="csTags"></div>
+    <div class="cs-footer">
+      <a href="#" target="_blank" rel="noopener noreferrer" class="cs-live-btn" id="csLiveLink">
+        <span>Visit Live Site</span>
+        <i class="ph-bold ph-arrow-up-right"></i>
+      </a>
+    </div>
+  </div>
+</div>
+
+<script id="case-study-script">
+(function () {
+  var CASES = [
+    {
+      match: 'by.ridzu.one',
+      badge: 'Flagship Digital Product',
+      title: 'by.ridzu.one (Digital Wedding Cards)',
+      challenge: 'Couples needed modern, mobile-first wedding invitations with instant RSVP tracking, maps and custom themes without paying agency prices.',
+      solution: 'Designed a tiered product system (Lite, Pro and Custom) with interactive phone previews, fast static delivery on Cloudflare Pages and modular templates.',
+      highlights: [
+        '15+ themed wedding card packages ranging from Minimalist Gold to 8-Bit Pixel Arcade',
+        'Mobile-first UI with built-in RSVP, Waze/Google Maps links and background music controls',
+        'Automated deployment pipeline for fast client turnaround and zero hosting overhead'
+      ],
+      tags: ['UI/UX Design', 'HTML/CSS/JS', 'Cloudflare Pages', 'Product Architecture', 'Responsive'],
+      url: 'https://by.ridzu.one/'
+    },
+    {
+      match: 'pakatlah',
+      badge: 'Web Application',
+      title: 'Pakatlah (Group Coordination App)',
+      challenge: 'Organizing group hangouts and trips across chat groups often leads to messy polls, lost schedules and unclear headcounts.',
+      solution: 'Built a lightweight, shareable coordination web app that centralizes group availability, voting and trip details in one clean mobile interface.',
+      highlights: [
+        'Zero-friction link sharing designed for Malaysian friend groups on WhatsApp',
+        'Clean status tracking so everyone sees confirmed attendees and plans at a glance',
+        'Deployed on Cloudflare edge network for instant loading on mobile data'
+      ],
+      tags: ['Web App', 'UI/UX', 'Mobile-First', 'Cloudflare Pages'],
+      url: 'https://pakatlah.ridzu.one/'
+    },
+    {
+      match: 'splitsukan',
+      badge: 'Utility Web App',
+      title: 'SplitSukan (Sports Cost Splitter)',
+      challenge: 'Splitting badminton, futsal or pickleball court bookings and shuttlecock fees manually after every game is repetitive and error-prone.',
+      solution: 'Created an instant sports session calculator that splits court fees, equipment costs and player shares accurately with a ready-to-paste WhatsApp summary.',
+      highlights: [
+        'Handles uneven player counts, extra equipment fees and instant per-person breakdown',
+        'Generates clean copy-paste payment summaries tailored for group chats',
+        'Fast, zero-login interface usable right at the sports court'
+      ],
+      tags: ['Utility App', 'JavaScript', 'UX Design', 'Cloudflare Pages'],
+      url: 'https://splitsukan.ridzu.one/'
+    },
+    {
+      match: 'gym',
+      badge: 'Personal Productivity App',
+      title: 'Gym Tracker (Workout Companion)',
+      challenge: 'Many fitness apps are bloated with paywalls and slow menus when all you need at the gym is fast set, rep and weight logging.',
+      solution: 'Built a focused, dark-mode workout tracker optimized for one-handed phone use between sets with clear progress visibility.',
+      highlights: [
+        'Streamlined exercise logging built for quick input during rest timers',
+        'High-contrast dark UI tailored for gym lighting conditions',
+        'Lightweight web architecture with fast load times and clean visual hierarchy'
+      ],
+      tags: ['Web App', 'Dark UI', 'Mobile UX', 'Cloudflare Pages'],
+      url: 'https://gym.ridzu.one/'
+    }
+  ];
+
+  var backdrop = document.getElementById('csBackdrop');
+  var elBadge = document.getElementById('csBadge');
+  var elTitle = document.getElementById('csTitle');
+  var elChallenge = document.getElementById('csChallenge');
+  var elSolution = document.getElementById('csSolution');
+  var elHighlights = document.getElementById('csHighlights');
+  var elTags = document.getElementById('csTags');
+  var elLiveLink = document.getElementById('csLiveLink');
+
+  function openCase(data) {
+    elBadge.textContent = data.badge;
+    elTitle.textContent = data.title;
+    elChallenge.textContent = data.challenge;
+    elSolution.textContent = data.solution;
+    elHighlights.innerHTML = data.highlights.map(function (h) { return '<li>' + h + '</li>'; }).join('');
+    elTags.innerHTML = data.tags.map(function (t) { return '<span class="cs-tag">' + t + '</span>'; }).join('');
+    elLiveLink.href = data.url;
+    backdrop.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeCase() {
+    backdrop.classList.remove('is-open');
+    document.body.style.overflow = '';
+  }
+
+  function attachButtons() {
+    var portfolio = document.getElementById('portfolio');
+    if (!portfolio) return;
+    var cards = portfolio.querySelectorAll('figure.gallery__item, .gallery__item');
+    cards.forEach(function (card) {
+      if (card.querySelector('.cs-trigger-btn')) return;
+      var textAndHref = (card.innerText + ' ' + card.innerHTML).toLowerCase();
+      var matched = null;
+      for (var i = 0; i < CASES.length; i++) {
+        if (textAndHref.indexOf(CASES[i].match) !== -1) {
+          matched = CASES[i];
+          break;
+        }
+      }
+      if (!matched) return;
+
+      if (window.getComputedStyle(card).position === 'static') {
+        card.style.position = 'relative';
+      }
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'cs-trigger-btn';
+      btn.innerHTML = '<i class="ph-bold ph-book-open-text"></i><span>Case Study</span>';
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        openCase(matched);
+      });
+      card.appendChild(btn);
+    });
+  }
+
+  document.getElementById('csCloseBtn').addEventListener('click', closeCase);
+  backdrop.addEventListener('click', function (e) { if (e.target === backdrop) closeCase(); });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && backdrop.classList.contains('is-open')) closeCase();
+  });
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', attachButtons);
+  } else {
+    attachButtons();
+  }
+})();
+</script>
+<!-- Case Study Quick View End -->
 </body>
 
 </html>
