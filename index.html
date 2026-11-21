@@ -6027,7 +6027,7 @@
     }
 
     function render() {
-      var rad = Math.max(78, (Math.min(stage.clientWidth || 240, stage.clientHeight || 240) * 0.5) - 26);
+      var rad = Math.max(92, (Math.min(stage.clientWidth || 260, stage.clientHeight || 260) * 0.5) - 19);
       for (var i = 0; i < nodes.length; i++) {
         var p = nodes[i];
         var depth = (p.z + 1) * 0.5;
@@ -7636,14 +7636,21 @@
 
 <!-- Sidebar Globe Size & Touch Polish Start -->
 <style id="sidebar-globe-size-touch-style">
+  #sidebarTechCard {
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
   #sidebarTechCard .sidebar-tech-filters {
-    margin-bottom: 0.6rem !important;
+    margin-bottom: 0.4rem !important;
   }
 
   #sidebarSphereStage.sidebar-sphere-stage {
-    height: 260px !important;
-    min-height: 260px !important;
-    margin: 0.2rem 0 0.4rem !important;
+    width: 100% !important;
+    height: 270px !important;
+    min-height: 270px !important;
+    margin: 0 !important;
+    padding: 0 !important;
     touch-action: none !important;
     user-select: none !important;
     -webkit-user-select: none !important;
@@ -7655,13 +7662,19 @@
   }
 
   #sidebarTechCard .sidebar-sphere-hud {
-    margin-top: 0.2rem !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    min-height: 0 !important;
   }
 
   @media (max-width: 767px) {
     #sidebarSphereStage.sidebar-sphere-stage {
-      height: 245px !important;
-      min-height: 245px !important;
+      width: 100% !important;
+      aspect-ratio: 1 / 1 !important;
+      height: auto !important;
+      min-height: 280px !important;
+      max-height: 330px !important;
+      margin: 0.4rem auto 0 !important;
     }
   }
 </style>
