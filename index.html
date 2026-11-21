@@ -398,7 +398,7 @@
               </svg>
               <span>Let's meet!</span>
             </p>
-            <h1 class="headline__title animate-headline">I am Ameer Ridzuan<br>System Engineer and UI/UX Designer</h1>
+            <p class="headline__title animate-headline">I am Ameer Ridzuan<br>System Engineer and UI/UX Designer</p>
             <div class="headline__btnholder d-flex flex-column flex-sm-row">
               <a class="btn mobile-vertical btn-default btn-hover btn-hover-accent-mobile animate-headline" href="#portfolio">
                 <span class="btn-caption">My Works</span>
@@ -2347,7 +2347,7 @@
                         </div>
                       </div>
                       <div class="testimonials-card__descr animate-in-up">
-                        <img src="img/cert/Web Technologies and Security" alt="" loading="lazy" decoding="async">
+                        <img src="img/cert/Web Technologies and Security.jpg" alt="" loading="lazy" decoding="async">
                       </div>
                       <div class="testimonials-card__btnholder animate-in-up">
                         <a class="btn mobile-vertical btn-line btn-transparent slide-right" href="https://coursera.org/verify/specialization/VY2YXK9BZ9LL" target="_blank" rel="noopener noreferrer">
@@ -2380,7 +2380,7 @@
                         </div>
                       </div>
                       <div class="testimonials-card__descr animate-in-up">
-                        <img src="img/cert/Generative AI for Data Analysts" alt="" loading="lazy" decoding="async">
+                        <img src="img/cert/Generative AI for Data Analysts.jpg" alt="" loading="lazy" decoding="async">
                       </div>
                       <div class="testimonials-card__btnholder animate-in-up">
                         <a class="btn mobile-vertical btn-line btn-transparent slide-right" href="https://coursera.org/verify/specialization/Z4CI8XTTA23F" target="_blank" rel="noopener noreferrer">
@@ -2413,7 +2413,7 @@
                         </div>
                       </div>
                       <div class="testimonials-card__descr animate-in-up">
-                        <img src="img/cert/Generative AI for Business Intelligence (BI) Analysts" alt="" loading="lazy" decoding="async">
+                        <img src="img/cert/Generative AI for Business Intelligence (BI) Analysts.jpg" alt="" loading="lazy" decoding="async">
                       </div>
                       <div class="testimonials-card__btnholder animate-in-up">
                         <a class="btn mobile-vertical btn-line btn-transparent slide-right" href="https://coursera.org/verify/specialization/LFJ5B3BMSBP9" target="_blank" rel="noopener noreferrer">
@@ -2512,7 +2512,7 @@
                         </div>
                       </div>
                       <div class="testimonials-card__descr animate-in-up">
-                        <img src="img/cert/Computer Forensics" alt="" loading="lazy" decoding="async">
+                        <img src="img/cert/Computer Forensics.jpg" alt="" loading="lazy" decoding="async">
                       </div>
                       <div class="testimonials-card__btnholder animate-in-up">
                         <a class="btn mobile-vertical btn-line btn-transparent slide-right" href="https://coursera.org/verify/specialization/0B1NV0V8G33V" target="_blank" rel="noopener noreferrer">
@@ -6284,6 +6284,45 @@
   }
 </style>
 <!-- Certs Desktop Compact Polish End -->
+
+<!-- UIUX Polish & Accessibility Start -->
+<style id="uiux-polish-a11y-style">
+  /* Sorok Ctrl K pada skrin mobile supaya Quick Dock lebih padat dan kemas */
+  @media (max-width: 767px) {
+    #quickCmdkBtn {
+      display: none !important;
+    }
+    .quick-dock {
+      gap: 0.35rem;
+      padding: 0.45rem;
+    }
+  }
+
+  /* Fokus papan kekunci yang jelas untuk aksesibiliti */
+  .quick-dock-btn:focus-visible,
+  a:focus-visible,
+  button:focus-visible {
+    outline: 2px solid var(--accent, #e4b8bf);
+    outline-offset: 2px;
+  }
+
+  /* Hormati tetapan reduced motion pengguna */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto !important;
+    }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+    .cursor-spotlight,
+    #cursorSpotlight {
+      display: none !important;
+    }
+  }
+</style>
+<!-- UIUX Polish & Accessibility End -->
 </body>
 
 </html>
