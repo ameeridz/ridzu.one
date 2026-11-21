@@ -1760,7 +1760,7 @@
 
     <!-- Kad Profil ID Holografik 3D -->
     <div class="about-id-scene" id="aboutIdScene">
-      <div class="about-id-tilt js-about-3d">
+      <div class="about-id-tilt js-about-id-3d">
         <div class="about-id-inner">
 
           <!-- Depan Kad ID -->
@@ -7177,6 +7177,106 @@
   })();
 </script>
 <!-- About ID QR Button Assets End -->
+
+<!-- About ID Click Flip & 3D Hover Start -->
+<style id="about-id-click-3d-style">
+  #aboutIdScene {
+    perspective: 950px;
+  }
+
+  #aboutIdScene .about-id-face {
+    cursor: pointer;
+    user-select: text;
+  }
+
+  #aboutIdScene .about-id-tilt {
+    transform-style: preserve-3d;
+    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform;
+  }
+
+  #aboutIdScene .about-id-tilt.is-tilting {
+    transition: transform 0.08s linear;
+  }
+
+  #aboutIdScene:hover .about-id-face {
+    border-color: var(--accent, #e4b8bf);
+    box-shadow: 0 22px 44px rgba(0, 0, 0, 0.24);
+  }
+
+  [color-scheme="light"] #aboutIdScene:hover .about-id-face {
+    box-shadow: 0 18px 38px rgba(34, 35, 44, 0.14);
+  }
+
+  #aboutIdScene .about-id-holo {
+    background:
+      radial-gradient(circle 220px at var(--mx, 50%) var(--my, 50%), rgba(255, 255, 255, 0.34), transparent 62%),
+      linear-gradient(120deg, transparent 15%, rgba(228, 184, 191, 0.22) 45%, rgba(143, 86, 204, 0.22) 58%, transparent 85%);
+  }
+</style>
+<script id="about-id-click-3d-script">
+  (function () {
+    var scene = document.getElementById("aboutIdScene");
+    if (!scene) return;
+    var tiltEl = scene.querySelector(".about-id-tilt");
+
+    // 1. Klik di mana-mana ruang kad untuk flip 3D (kecuali butang QR, copy, link dan butang flip asal)
+    scene.addEventListener("click", function (e) {
+      if (e.target.closest("a, #aboutOpenQrBtn, #aboutCopyEmailBtn, .js-about-flip")) {
+        return;
+      }
+      var sel = window.getSelection ? window.getSelection().toString() : "";
+      if (sel && sel.length > 0) {
+        return;
+      }
+      scene.classList.toggle("is-flipped");
+    });
+
+    // 2. Kesan 3D Hover Tilt gaya portfolio pada desktop
+    var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var canHover = window.matchMedia && window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+    if (!reduceMotion && canHover && tiltEl) {
+      var rafId = null;
+
+      scene.addEventListener("pointerenter", function () {
+        tiltEl.classList.add("is-tilting");
+      });
+
+      scene.addEventListener("pointermove", function (e) {
+        var clientX = e.clientX;
+        var clientY = e.clientY;
+
+        if (rafId) cancelAnimationFrame(rafId);
+        rafId = requestAnimationFrame(function () {
+          var rect = scene.getBoundingClientRect();
+          if (!rect.width || !rect.height) return;
+
+          var x = Math.max(0, Math.min(rect.width, clientX - rect.left));
+          var y = Math.max(0, Math.min(rect.height, clientY - rect.top));
+
+          var px = (x / rect.width) * 100;
+          var py = (y / rect.height) * 100;
+
+          var rotY = ((x / rect.width) - 0.5) * 24;
+          var rotX = ((y / rect.height) - 0.5) * -24;
+
+          tiltEl.style.setProperty("--mx", px.toFixed(1) + "%");
+          tiltEl.style.setProperty("--my", py.toFixed(1) + "%");
+          tiltEl.style.transform =
+            "rotateX(" + rotX.toFixed(2) + "deg) rotateY(" + rotY.toFixed(2) + "deg) scale3d(1.025, 1.025, 1.025)";
+        });
+      });
+
+      scene.addEventListener("pointerleave", function () {
+        if (rafId) cancelAnimationFrame(rafId);
+        tiltEl.classList.remove("is-tilting");
+        tiltEl.style.transform = "rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)";
+      });
+    }
+  })();
+</script>
+<!-- About ID Click Flip & 3D Hover End -->
 </body>
 
 </html>
