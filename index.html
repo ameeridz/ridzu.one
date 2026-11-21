@@ -1812,6 +1812,14 @@
                 </div>
               </div>
             </div>
+
+            <!-- About ID QR Button Start -->
+            <button type="button" class="about-id-qr-cta" id="aboutOpenQrBtn" aria-label="Open QR Business Card">
+              <i class="ph-bold ph-qr-code"></i>
+              <span>Open QR Business Card</span>
+              <i class="ph-bold ph-arrow-up-right about-id-qr-arrow"></i>
+            </button>
+            <!-- About ID QR Button End -->
           </div>
 
           <!-- Belakang Kad ID -->
@@ -7097,6 +7105,78 @@
   }
 </style>
 <!-- About Bento Mobile Padding Fix End -->
+
+<!-- About ID QR Button Assets Start -->
+<style id="about-id-qr-cta-style">
+  .about-id-qr-cta {
+    width: 100%;
+    border: 1px solid rgba(143, 86, 204, 0.32);
+    background: linear-gradient(135deg, rgba(143, 86, 204, 0.16), rgba(228, 184, 191, 0.16));
+    color: var(--t-bright, #ffffff);
+    padding: 0.9rem 1.2rem;
+    border-radius: 1.35rem;
+    font-size: 1.28rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.65rem;
+    transition: transform 0.2s ease, background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  [color-scheme="light"] .about-id-qr-cta {
+    background: linear-gradient(135deg, rgba(143, 86, 204, 0.12), rgba(228, 184, 191, 0.22));
+    color: #22232c;
+    border-color: rgba(143, 86, 204, 0.28);
+  }
+
+  .about-id-qr-cta:hover {
+    background: var(--accent, #8f56cc);
+    border-color: var(--accent, #8f56cc);
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(143, 86, 204, 0.3);
+  }
+
+  [color-scheme="dark"] .about-id-qr-cta:hover {
+    color: #111111;
+  }
+
+  .about-id-qr-arrow {
+    font-size: 1.2rem;
+    opacity: 0.8;
+    transition: transform 0.2s ease;
+  }
+
+  .about-id-qr-cta:hover .about-id-qr-arrow {
+    transform: translate(2px, -2px);
+    opacity: 1;
+  }
+
+  @media (max-width: 767px) {
+    .about-id-qr-cta {
+      padding: 0.85rem 1rem;
+      font-size: 1.22rem;
+    }
+  }
+</style>
+<script id="about-id-qr-cta-script">
+  (function () {
+    var btn = document.getElementById("aboutOpenQrBtn");
+    if (!btn) return;
+    btn.addEventListener("click", function () {
+      var trigger =
+        document.getElementById("quickQrBtn") ||
+        document.getElementById("bentoOpenQrBtn") ||
+        document.getElementById("sidebarQrSocialBtn");
+      if (trigger) {
+        trigger.click();
+      }
+    });
+  })();
+</script>
+<!-- About ID QR Button Assets End -->
 </body>
 
 </html>
