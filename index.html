@@ -6032,7 +6032,7 @@
     }
 
     function render() {
-      var rad = Math.max(92, (Math.min(stage.clientWidth || 260, stage.clientHeight || 260) * 0.5) - 19);
+      var edgePad = window.innerWidth >= 992 ? 14 : 19; var rad = Math.max(92, (Math.min(stage.clientWidth || 260, stage.clientHeight || 260) * 0.5) - edgePad);
       for (var i = 0; i < nodes.length; i++) {
         var p = nodes[i];
         var depth = (p.z + 1) * 0.5;
@@ -7672,6 +7672,28 @@
     min-height: 0 !important;
   }
 
+  @media (min-width: 992px) {
+    #sidebarTechCard {
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
+
+    #sidebarTechCard .sidebar-tech-filters {
+      margin-bottom: 1.1rem !important;
+    }
+
+    #sidebarSphereStage.sidebar-sphere-stage {
+      width: 100% !important;
+      height: 285px !important;
+      min-height: 285px !important;
+      margin: 0.35rem auto 0 !important;
+    }
+
+    #sidebarSphereStage .sidebar-sphere-item {
+      top: 51% !important;
+    }
+  }
+
   @media (max-width: 767px) {
     #sidebarSphereStage.sidebar-sphere-stage {
       width: 100% !important;
@@ -7774,15 +7796,21 @@
       dock.appendChild(nextBtn);
 
       function getOrderedTargets() {
-        var ids = ["home", "about", "resume", "portfolio", "certifications", "certs", "contact"];
         var list = [];
         var seen = {};
-        ids.forEach(function (id) {
+        var links = document.querySelectorAll('.menu__link[href^="#"]');
+        links.forEach(function (link) {
+          var href = link.getAttribute("href") || "";
+          var id = href.replace(/^#/, "").trim();
+          if (!id || seen[id]) return;
           var el = document.getElementById(id);
-          if (el && !seen[el.id]) {
-            seen[el.id] = true;
+          if (el) {
+            seen[id] = true;
             list.push(el);
           }
+        });
+        list.sort(function (a, b) {
+          return (a.getBoundingClientRect().top + window.scrollY) - (b.getBoundingClientRect().top + window.scrollY);
         });
         return list;
       }
