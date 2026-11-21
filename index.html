@@ -6027,7 +6027,7 @@
     }
 
     function render() {
-      var rad = Math.min(stage.clientWidth || 180, stage.clientHeight || 180) * 0.45;
+      var rad = Math.max(78, (Math.min(stage.clientWidth || 240, stage.clientHeight || 240) * 0.5) - 26);
       for (var i = 0; i < nodes.length; i++) {
         var p = nodes[i];
         var depth = (p.z + 1) * 0.5;
@@ -6081,10 +6081,10 @@
       lastX = e.clientX;
       lastY = e.clientY;
 
-      if (Math.abs(dx) > 0.4) dirY = dx > 0 ? 1 : -1;
+      if (Math.abs(dx) > 0.4) dirY = dx > 0 ? -1 : 1;
       if (Math.abs(dy) > 0.4) dirX = dy < 0 ? 1 : -1;
 
-      velY = Math.max(-0.24, Math.min(0.24, dx * 0.01));
+      velY = Math.max(-0.24, Math.min(0.24, -dx * 0.01));
       velX = Math.max(-0.24, Math.min(0.24, -dy * 0.01));
     });
 
@@ -7633,6 +7633,39 @@
   })();
 </script>
 <!-- Footer 3D Logo Assets End -->
+
+<!-- Sidebar Globe Size & Touch Polish Start -->
+<style id="sidebar-globe-size-touch-style">
+  #sidebarTechCard .sidebar-tech-filters {
+    margin-bottom: 0.6rem !important;
+  }
+
+  #sidebarSphereStage.sidebar-sphere-stage {
+    height: 260px !important;
+    min-height: 260px !important;
+    margin: 0.2rem 0 0.4rem !important;
+    touch-action: none !important;
+    user-select: none !important;
+    -webkit-user-select: none !important;
+  }
+
+  #sidebarSphereStage .sidebar-sphere-item {
+    top: 50% !important;
+    left: 50% !important;
+  }
+
+  #sidebarTechCard .sidebar-sphere-hud {
+    margin-top: 0.2rem !important;
+  }
+
+  @media (max-width: 767px) {
+    #sidebarSphereStage.sidebar-sphere-stage {
+      height: 245px !important;
+      min-height: 245px !important;
+    }
+  }
+</style>
+<!-- Sidebar Globe Size & Touch Polish End -->
 </body>
 
 </html>
