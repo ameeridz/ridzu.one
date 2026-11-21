@@ -1905,90 +1905,795 @@
           </div>
           <!-- Content Block - H2 Section Title End -->
 
-          <!-- Content Block - Achievements Start -->
-          <div class="content__block grid-block">
-            <div class="achievements d-flex flex-column flex-md-row align-items-md-stretch">
-              <!-- achievements single item -->
-              <div class="achievements__item d-flex flex-column grid-item animate-card-3">
-                <div class="achievements__card">
-                  <p class="achievements__number">95-100%</p>
-                  <p class="achievements__descr">SLA compliance rate</p>
-                </div>
-              </div>
-              <!-- achievements single item -->
-              <div class="achievements__item d-flex flex-column grid-item animate-card-3">
-                <div class="achievements__card">
-                  <p class="achievements__number">15-20%</p>
-                  <p class="achievements__descr">Recurring ticket reduction</p>
-                </div>
-              </div>
-              <!-- achievements single item -->
-              <div class="achievements__item d-flex flex-column grid-item animate-card-3">
-                <div class="achievements__card">
-                  <p class="achievements__number">2+</p>
-                  <p class="achievements__descr">Years in Enterprise IT &amp; Web</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- Content Block - Achievements End -->
+          <!-- About Bento 3D Start -->
+<style id="about-bento-3d-style">
+  .about-bento-wrap {
+    margin-top: 2.4rem;
+    margin-bottom: 3.6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+  }
 
-          <!-- Content Block - About Me Data Start -->
-          <div class="content__block grid-block block-large">
-            <div class="container-fluid p-0">
-              <div class="row g-0 justify-content-between">
-                
-                <!-- About Me Description Start -->
-                <div class="col-12 col-xl-8 grid-item about-descr">
-                  <p class="about-descr__text animate-in-up" style="text-align: justify;">
-                    I'm Ameer Ridzuan (Juan), a System Engineer and MBOT Graduate Technologist (GR.TECH) at Kossan Rubber Industries Berhad. I specialise in enterprise application support, relational database management, and full-stack workflow automation—turning manual Excel processes into scalable internal web systems with multi-role RBAC.
-                    <br><br>
-                    My day-to-day work covers modernising legacy platforms (Delphi 5 to Delphi 12/13 &amp; Firebird 2.5 to 5), supporting production-critical ERP/WMS environments (KPCSv1/v2, SAP Business One, MS D365), and building in-house platforms such as our Internal PMO Web Portal and CNI Server Room Management System.
-                    <br><br>
-                    Previously, I interned at HeiTech Padu Berhad as a UI/UX &amp; System Designer, crafting interfaces and front-end modules for the HeiDi digital platform and JPJ Portal. Outside enterprise work, I build independent digital products—including <strong>by.ridzu.one</strong> (digital wedding invitation cards), <strong>GymFlow</strong>, and <strong>SplitSukan</strong>.
-                  </p>
-                  <p class="about-descr__text animate-in-up" style="text-align: justify;">
-                    <strong>Core Technical Focus</strong><br>
-                    • <strong>Web &amp; App Engineering:</strong> PHP, JavaScript, Next.js/PWA, .NET, Delphi, RESTful APIs &amp; RBAC.<br>
-                    • <strong>Database &amp; Enterprise:</strong> MS SQL Server (SSMS), MySQL, Firebird, SAP B1, SIT/UAT &amp; CI/CD.<br>
-                    • <strong>UI/UX &amp; Creative:</strong> Figma, Design-to-Code, Adobe Lightroom, Photoshop &amp; Premiere Pro.
-                  </p>
+  /* Bar Statistik 3 Kolum Kompak (Desktop & Mobile) */
+  .about-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.4rem;
+    perspective: 1000px;
+  }
+
+  .about-stat-card {
+    position: relative;
+    overflow: hidden;
+    padding: 1.6rem 1.8rem;
+    border-radius: 2rem;
+    border: 1px solid var(--stroke-elements, rgba(255, 255, 255, 0.14));
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    transform-style: preserve-3d;
+    transition: transform 0.18s ease-out, border-color 0.25s ease, box-shadow 0.25s ease;
+    will-change: transform;
+  }
+
+  [color-scheme="light"] .about-stat-card {
+    background: rgba(255, 255, 255, 0.68);
+    border-color: rgba(34, 35, 44, 0.1);
+    box-shadow: 0 8px 24px rgba(34, 35, 44, 0.05);
+  }
+
+  .about-stat-card:hover {
+    border-color: var(--accent, #e4b8bf);
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.16);
+  }
+
+  .about-stat-glare {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    background: radial-gradient(circle 160px at var(--mx, 50%) var(--my, 50%), rgba(228, 184, 191, 0.28), transparent 72%);
+  }
+
+  .about-stat-card:hover .about-stat-glare {
+    opacity: 1;
+  }
+
+  .about-stat-num {
+    margin: 0 0 0.35rem 0;
+    font-size: clamp(2.1rem, 2.7vw, 3.2rem);
+    font-weight: 700;
+    line-height: 1.1;
+    white-space: nowrap;
+    letter-spacing: -0.02em;
+    background: linear-gradient(125deg, var(--accent, #8f56cc), var(--secondary, #e4b8bf));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .about-stat-label {
+    margin: 0;
+    font-size: 1.3rem;
+    line-height: 1.35;
+    color: var(--t-medium, #a1a1aa);
+    font-weight: 500;
+  }
+
+  /* Grid Utama Bento: Bio Bertab + Kad ID 3D */
+  .about-main-bento {
+    display: grid;
+    grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+    gap: 1.6rem;
+    align-items: stretch;
+  }
+
+  /* Kad Bio Kaca Bertab */
+  .about-bio-card {
+    position: relative;
+    overflow: hidden;
+    padding: 2.2rem 2.4rem;
+    border-radius: 2.4rem;
+    border: 1px solid var(--stroke-elements, rgba(255, 255, 255, 0.14));
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1.6rem;
+  }
+
+  [color-scheme="light"] .about-bio-card {
+    background: rgba(255, 255, 255, 0.72);
+    border-color: rgba(34, 35, 44, 0.1);
+    box-shadow: 0 10px 28px rgba(34, 35, 44, 0.06);
+  }
+
+  .about-tabs-bar {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 0.4rem;
+    border-radius: 999px;
+    background: rgba(128, 128, 148, 0.12);
+    border: 1px solid var(--stroke-elements, rgba(255, 255, 255, 0.1));
+    width: fit-content;
+    max-width: 100%;
+  }
+
+  .about-tab-btn {
+    border: 0;
+    background: transparent;
+    color: var(--t-medium, #9ca3af);
+    padding: 0.65rem 1.35rem;
+    border-radius: 999px;
+    font-size: 1.3rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  }
+
+  .about-tab-btn:hover {
+    color: var(--t-bright, #ffffff);
+  }
+
+  .about-tab-btn.is-active {
+    background: var(--accent, #8f56cc);
+    color: #ffffff;
+    box-shadow: 0 4px 14px rgba(143, 86, 204, 0.35);
+  }
+
+  [color-scheme="dark"] .about-tab-btn.is-active {
+    color: #111111;
+  }
+
+  .about-tab-panel {
+    display: none;
+    animation: aboutTabFade 0.28s ease;
+  }
+
+  .about-tab-panel.is-active {
+    display: block;
+  }
+
+  @keyframes aboutTabFade {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .about-bio-p {
+    margin: 0 0 1.2rem 0;
+    font-size: 1.5rem;
+    line-height: 1.65;
+    text-align: left;
+    color: var(--t-bright, #e4e4e7);
+  }
+
+  .about-bio-p:last-child {
+    margin-bottom: 0;
+  }
+
+  .about-bio-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 1rem;
+  }
+
+  .about-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.45rem 1rem;
+    border-radius: 999px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    border: 1px solid var(--stroke-elements, rgba(255, 255, 255, 0.14));
+    background: rgba(143, 86, 204, 0.08);
+    color: var(--t-bright, #f4f4f5);
+  }
+
+  [color-scheme="light"] .about-chip {
+    background: rgba(143, 86, 204, 0.08);
+    border-color: rgba(143, 86, 204, 0.2);
+    color: #22232c;
+  }
+
+  .about-focus-group {
+    margin-bottom: 1.15rem;
+  }
+
+  .about-focus-group:last-child {
+    margin-bottom: 0;
+  }
+
+  .about-focus-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 0 0 0.55rem 0;
+    color: var(--t-bright, #ffffff);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  /* Kad Profil ID Holografik 3D (Boleh Condong & Flip) */
+  .about-id-scene {
+    perspective: 1200px;
+    display: flex;
+  }
+
+  .about-id-tilt {
+    width: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.18s ease-out;
+    will-change: transform;
+    display: flex;
+  }
+
+  .about-id-inner {
+    position: relative;
+    width: 100%;
+    display: grid;
+    transform-style: preserve-3d;
+    transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .about-id-scene.is-flipped .about-id-inner {
+    transform: rotateY(180deg);
+  }
+
+  .about-id-face {
+    grid-area: 1 / 1;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    position: relative;
+    overflow: hidden;
+    padding: 2.1rem 2rem;
+    border-radius: 2.4rem;
+    border: 1px solid var(--stroke-elements, rgba(255, 255, 255, 0.16));
+    background: linear-gradient(145deg, rgba(143, 86, 204, 0.14), rgba(255, 255, 255, 0.04) 55%, rgba(228, 184, 191, 0.12));
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1.35rem;
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.14);
+  }
+
+  [color-scheme="light"] .about-id-face {
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.88), rgba(235, 228, 248, 0.72));
+    border-color: rgba(143, 86, 204, 0.22);
+    box-shadow: 0 12px 30px rgba(34, 35, 44, 0.08);
+  }
+
+  .about-id-back {
+    transform: rotateY(180deg);
+  }
+
+  .about-id-holo {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    background:
+      radial-gradient(circle 200px at var(--mx, 50%) var(--my, 50%), rgba(255, 255, 255, 0.28), transparent 65%),
+      linear-gradient(115deg, transparent 20%, rgba(228, 184, 191, 0.18) 45%, rgba(143, 86, 204, 0.18) 55%, transparent 80%);
+  }
+
+  .about-id-scene:hover .about-id-holo {
+    opacity: 1;
+  }
+
+  .about-id-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.8rem;
+  }
+
+  .about-id-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 0.9rem;
+    border-radius: 999px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    background: rgba(34, 197, 94, 0.14);
+    color: #22c55e;
+    border: 1px solid rgba(34, 197, 94, 0.3);
+  }
+
+  .about-id-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #22c55e;
+    box-shadow: 0 0 8px #22c55e;
+  }
+
+  .about-id-flip-btn {
+    border: 1px solid var(--stroke-elements, rgba(255, 255, 255, 0.2));
+    background: rgba(128, 128, 148, 0.14);
+    color: var(--t-bright, #ffffff);
+    padding: 0.4rem 0.9rem;
+    border-radius: 999px;
+    font-size: 1.15rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+  }
+
+  .about-id-flip-btn:hover {
+    border-color: var(--accent, #e4b8bf);
+    background: rgba(228, 184, 191, 0.18);
+  }
+
+  .about-id-name {
+    margin: 0;
+    font-size: 1.85rem;
+    font-weight: 700;
+    line-height: 1.25;
+    color: var(--t-bright, #ffffff);
+  }
+
+  .about-id-role {
+    margin: 0.3rem 0 0 0;
+    font-size: 1.25rem;
+    color: var(--t-medium, #a1a1aa);
+    font-weight: 500;
+  }
+
+  .about-id-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+
+  .about-id-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.8rem;
+    padding: 0.75rem 1rem;
+    border-radius: 1.3rem;
+    background: rgba(128, 128, 148, 0.08);
+    border: 1px solid var(--stroke-elements, rgba(255, 255, 255, 0.08));
+  }
+
+  .about-id-row-left {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    min-width: 0;
+  }
+
+  .about-id-icon {
+    width: 3.1rem;
+    height: 3.1rem;
+    border-radius: 1rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 1.5rem;
+    background: rgba(143, 86, 204, 0.14);
+    color: var(--accent, #8f56cc);
+  }
+
+  .about-id-meta {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .about-id-label {
+    font-size: 1.05rem;
+    color: var(--t-medium, #a1a1aa);
+    line-height: 1.1;
+  }
+
+  .about-id-val {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--t-bright, #ffffff);
+    text-decoration: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .about-id-val:hover {
+    color: var(--accent, #8f56cc);
+  }
+
+  .about-copy-mini {
+    border: 0;
+    background: rgba(143, 86, 204, 0.14);
+    color: var(--t-bright, #ffffff);
+    width: 2.9rem;
+    height: 2.9rem;
+    border-radius: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    cursor: pointer;
+    font-size: 1.4rem;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+  }
+
+  .about-copy-mini:hover {
+    background: var(--accent, #8f56cc);
+    color: #ffffff;
+    transform: scale(1.05);
+  }
+
+  .about-back-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .about-back-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.7rem;
+    font-size: 1.32rem;
+    line-height: 1.45;
+    color: var(--t-bright, #e4e4e7);
+  }
+
+  .about-back-list i {
+    color: var(--accent, #8f56cc);
+    margin-top: 0.25rem;
+    flex-shrink: 0;
+  }
+
+  /* Responsif Tablet & Mobile */
+  @media (max-width: 1024px) {
+    .about-main-bento {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .about-bento-wrap {
+      margin-top: 1.6rem;
+      margin-bottom: 2.4rem;
+      gap: 1.2rem;
+    }
+
+    .about-stats-grid {
+      gap: 0.75rem;
+    }
+
+    .about-stat-card {
+      padding: 1.1rem 0.75rem;
+      border-radius: 1.5rem;
+      text-align: center;
+    }
+
+    .about-stat-num {
+      font-size: 1.65rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .about-stat-label {
+      font-size: 1.05rem;
+      line-height: 1.25;
+    }
+
+    .about-bio-card,
+    .about-id-face {
+      padding: 1.55rem 1.45rem;
+      border-radius: 1.9rem;
+    }
+
+    .about-tabs-bar {
+      width: 100%;
+      justify-content: space-between;
+    }
+
+    .about-tab-btn {
+      flex: 1 1 auto;
+      justify-content: center;
+      padding: 0.55rem 0.8rem;
+      font-size: 1.18rem;
+    }
+
+    .about-bio-p {
+      font-size: 1.38rem;
+      line-height: 1.6;
+    }
+
+    .about-id-name {
+      font-size: 1.65rem;
+    }
+
+    .about-id-val {
+      font-size: 1.22rem;
+    }
+  }
+</style>
+
+<div class="content__block grid-block about-bento-wrap">
+
+  <!-- Bar Statistik 3D Kompak -->
+  <div class="about-stats-grid">
+    <div class="about-stat-card js-about-3d">
+      <div class="about-stat-glare"></div>
+      <p class="about-stat-num">95-100%</p>
+      <p class="about-stat-label">SLA compliance rate</p>
+    </div>
+    <div class="about-stat-card js-about-3d">
+      <div class="about-stat-glare"></div>
+      <p class="about-stat-num">15-20%</p>
+      <p class="about-stat-label">Recurring ticket reduction</p>
+    </div>
+    <div class="about-stat-card js-about-3d">
+      <div class="about-stat-glare"></div>
+      <p class="about-stat-num">2+</p>
+      <p class="about-stat-label">Years in Enterprise IT &amp; Web</p>
+    </div>
+  </div>
+
+  <!-- Grid Utama: Kad Bio Bertab + Kad Profil ID 3D -->
+  <div class="about-main-bento">
+
+    <!-- Kad Bio Interaktif -->
+    <div class="about-bio-card">
+      <div class="about-tabs-bar" role="tablist" aria-label="About Me Sections">
+        <button type="button" class="about-tab-btn is-active" role="tab" aria-selected="true" data-about-tab="overview">
+          <i class="ph-bold ph-user-circle"></i>
+          <span>Overview</span>
+        </button>
+        <button type="button" class="about-tab-btn" role="tab" aria-selected="false" data-about-tab="enterprise">
+          <i class="ph-bold ph-buildings"></i>
+          <span>Enterprise</span>
+        </button>
+        <button type="button" class="about-tab-btn" role="tab" aria-selected="false" data-about-tab="focus">
+          <i class="ph-bold ph-cpu"></i>
+          <span>Tech Focus</span>
+        </button>
+      </div>
+
+      <div class="about-tab-panels">
+        <div class="about-tab-panel is-active" data-about-panel="overview">
+          <p class="about-bio-p">
+            I&rsquo;m <strong>Ameer Ridzuan (Juan)</strong>, a System Engineer and MBOT Graduate Technologist (GR.TECH) at Kossan Rubber Industries Berhad. I specialise in enterprise application support, relational database management and full-stack workflow automation, turning manual Excel processes into scalable internal web systems with multi-role RBAC.
+          </p>
+          <p class="about-bio-p">
+            Outside enterprise engineering, I design and ship independent digital products focused on clean UI/UX and practical everyday utility.
+          </p>
+          <div class="about-bio-chips">
+            <span class="about-chip"><i class="ph-bold ph-sparkle"></i> by.ridzu.one</span>
+            <span class="about-chip"><i class="ph-bold ph-barbell"></i> GymFlow</span>
+            <span class="about-chip"><i class="ph-bold ph-soccer-ball"></i> SplitSukan</span>
+            <span class="about-chip"><i class="ph-bold ph-seal-check"></i> MBOT GR.TECH</span>
+          </div>
+        </div>
+
+        <div class="about-tab-panel" data-about-panel="enterprise">
+          <p class="about-bio-p">
+            My day-to-day work covers modernising legacy platforms (<strong>Delphi 5 to Delphi 12/13</strong> and <strong>Firebird 2.5 to 5</strong>), supporting production-critical ERP/WMS environments (<strong>KPCSv1/v2</strong>, <strong>SAP Business One</strong> and <strong>MS D365</strong>) and building in-house platforms such as our Internal PMO Web Portal and CNI Server Room Management System.
+          </p>
+          <p class="about-bio-p">
+            Previously, I interned at <strong>HeiTech Padu Berhad</strong> as a UI/UX &amp; System Designer, crafting interfaces and front-end modules for the HeiDi digital platform and JPJ Portal.
+          </p>
+        </div>
+
+        <div class="about-tab-panel" data-about-panel="focus">
+          <div class="about-focus-group">
+            <p class="about-focus-title"><i class="ph-bold ph-code"></i> Web &amp; App Engineering</p>
+            <div class="about-bio-chips">
+              <span class="about-chip">PHP</span>
+              <span class="about-chip">JavaScript</span>
+              <span class="about-chip">Next.js / PWA</span>
+              <span class="about-chip">.NET</span>
+              <span class="about-chip">Delphi</span>
+              <span class="about-chip">REST APIs &amp; RBAC</span>
+            </div>
+          </div>
+          <div class="about-focus-group">
+            <p class="about-focus-title"><i class="ph-bold ph-database"></i> Database &amp; Enterprise</p>
+            <div class="about-bio-chips">
+              <span class="about-chip">MS SQL Server</span>
+              <span class="about-chip">MySQL</span>
+              <span class="about-chip">Firebird</span>
+              <span class="about-chip">SAP B1</span>
+              <span class="about-chip">SIT / UAT &amp; CI/CD</span>
+            </div>
+          </div>
+          <div class="about-focus-group">
+            <p class="about-focus-title"><i class="ph-bold ph-paint-brush"></i> UI/UX &amp; Creative</p>
+            <div class="about-bio-chips">
+              <span class="about-chip">Figma</span>
+              <span class="about-chip">Design-to-Code</span>
+              <span class="about-chip">Lightroom</span>
+              <span class="about-chip">Photoshop</span>
+              <span class="about-chip">Premiere Pro</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Kad Profil ID Holografik 3D -->
+    <div class="about-id-scene" id="aboutIdScene">
+      <div class="about-id-tilt js-about-3d">
+        <div class="about-id-inner">
+
+          <!-- Depan Kad ID -->
+          <div class="about-id-face about-id-front">
+            <div class="about-id-holo"></div>
+            <div>
+              <div class="about-id-top">
+                <span class="about-id-badge"><span class="about-id-dot"></span> Digital ID</span>
+                <button type="button" class="about-id-flip-btn js-about-flip" aria-label="Flip profile card">
+                  <i class="ph-bold ph-arrows-clockwise"></i>
+                  <span>Flip 3D</span>
+                </button>
+              </div>
+              <h3 class="about-id-name" style="margin-top: 1.1rem;">Ameer Ridzuan Bin Muhammad Izudin</h3>
+              <p class="about-id-role">System Engineer (DEE) &middot; Kossan</p>
+            </div>
+
+            <div class="about-id-list">
+              <div class="about-id-row">
+                <div class="about-id-row-left">
+                  <span class="about-id-icon"><i class="ph-bold ph-phone"></i></span>
+                  <div class="about-id-meta">
+                    <span class="about-id-label">Phone</span>
+                    <a class="about-id-val" href="tel:+601162157217">+60 11-6215 7217</a>
+                  </div>
                 </div>
-                <!-- About Me Description End -->
-      
-                <!-- About Me Information Start -->
-                <div class="col-12 col-xl-4 grid-item about-info">
-                  <div class="about-info__item animate-in-up">
-                    <h6>
-                      <small class="top">Name</small>
-                      Ameer Ridzuan <br> Bin Muhammad Izudin
-                    </h6>
-                  </div>
-                  <div class="about-info__item animate-in-up">
-                    <h6>
-                      <small class="top">Phone</small>
-                      <a class="text-link-bold" href="tel:+601162157217">+60 11-6215 7217</a>
-                    </h6>
-                  </div>
-                  <div class="about-info__item animate-in-up">
-                    <h6>
-                      <small class="top">Email</small>
-                      <a class="text-link-bold" href="mailto:ameerridzuan01@gmail.com?subject=Message%20from%20your%20site">ameerridzuan01@gmail.com</a>
-                    </h6>
-                  </div>
-                  <div class="about-info__item animate-in-up">
-                    <h6>
-                      <small class="top">Location</small>
-                      <a class="text-link-bold" href="https://maps.app.goo.gl/ru8xo5e53oWpXXga8" target="_blank" rel="noopener noreferrer">Shah Alam, Malaysia</a>
-                    </h6>
+              </div>
+
+              <div class="about-id-row">
+                <div class="about-id-row-left">
+                  <span class="about-id-icon"><i class="ph-bold ph-envelope-simple"></i></span>
+                  <div class="about-id-meta">
+                    <span class="about-id-label">Email</span>
+                    <a class="about-id-val" href="mailto:ameerridzuan01@gmail.com?subject=Message%20from%20your%20site">ameerridzuan01@gmail.com</a>
                   </div>
                 </div>
-                <!-- About Me Information End -->
-      
+                <button type="button" class="about-copy-mini" id="aboutCopyEmailBtn" aria-label="Copy email">
+                  <i class="ph-bold ph-copy"></i>
+                </button>
+              </div>
+
+              <div class="about-id-row">
+                <div class="about-id-row-left">
+                  <span class="about-id-icon"><i class="ph-bold ph-map-pin"></i></span>
+                  <div class="about-id-meta">
+                    <span class="about-id-label">Location</span>
+                    <a class="about-id-val" href="https://maps.app.goo.gl/ru8xo5e53oWpXXga8" target="_blank" rel="noopener noreferrer">Shah Alam, Malaysia</a>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-          <!-- Content Block - About Me Data End -->
+
+          <!-- Belakang Kad ID -->
+          <div class="about-id-face about-id-back">
+            <div class="about-id-holo"></div>
+            <div>
+              <div class="about-id-top">
+                <span class="about-id-badge"><span class="about-id-dot"></span> Highlights</span>
+                <button type="button" class="about-id-flip-btn js-about-flip" aria-label="Flip back to front">
+                  <i class="ph-bold ph-arrow-u-up-left"></i>
+                  <span>Front</span>
+                </button>
+              </div>
+              <h3 class="about-id-name" style="margin-top: 1.1rem;">What I Build &amp; Lead</h3>
+              <p class="about-id-role">Bridging enterprise ops &amp; modern web</p>
+            </div>
+
+            <ul class="about-back-list">
+              <li><i class="ph-bold ph-check-circle"></i><span>In-house PMO Web Portal &amp; CNI Server Room Checklist with RBAC.</span></li>
+              <li><i class="ph-bold ph-check-circle"></i><span>Legacy Delphi &amp; Firebird modernisation + ERP/WMS L1/L2 support.</span></li>
+              <li><i class="ph-bold ph-check-circle"></i><span>Founder of <strong>by.ridzu.one</strong> digital wedding invitation cards.</span></li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script id="about-bento-3d-script">
+  (function () {
+    // 1. Tukar Tab Bio
+    var tabBtns = document.querySelectorAll(".about-tab-btn");
+    var tabPanels = document.querySelectorAll(".about-tab-panel");
+    tabBtns.forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var target = btn.getAttribute("data-about-tab");
+        tabBtns.forEach(function (b) {
+          var active = b === btn;
+          b.classList.toggle("is-active", active);
+          b.setAttribute("aria-selected", active ? "true" : "false");
+        });
+        tabPanels.forEach(function (p) {
+          p.classList.toggle("is-active", p.getAttribute("data-about-panel") === target);
+        });
+      });
+    });
+
+    // 2. Flip 3D Kad Profil ID
+    var idScene = document.getElementById("aboutIdScene");
+    document.querySelectorAll(".js-about-flip").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        if (idScene) idScene.classList.toggle("is-flipped");
+      });
+    });
+
+    // 3. Salin Emel Pantas
+    var copyBtn = document.getElementById("aboutCopyEmailBtn");
+    if (copyBtn) {
+      copyBtn.addEventListener("click", function () {
+        var email = "ameerridzuan01@gmail.com";
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(email);
+        }
+        var toast = document.getElementById("ridzuToast");
+        var toastText = document.getElementById("ridzuToastText");
+        if (toast && toastText) {
+          toastText.textContent = "Email copied: " + email;
+          toast.classList.add("is-visible");
+          setTimeout(function () { toast.classList.remove("is-visible"); }, 2200);
+        } else {
+          copyBtn.innerHTML = '<i class="ph-bold ph-check"></i>';
+          setTimeout(function () { copyBtn.innerHTML = '<i class="ph-bold ph-copy"></i>'; }, 1600);
+        }
+      });
+    }
+
+    // 4. Kesan 3D Tilt & Glare (Desktop sahaja & hormati reduced motion)
+    var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var canHover = window.matchMedia && window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+    if (!reduceMotion && canHover) {
+      document.querySelectorAll(".js-about-3d").forEach(function (card) {
+        card.addEventListener("pointermove", function (e) {
+          var rect = card.getBoundingClientRect();
+          var x = e.clientX - rect.left;
+          var y = e.clientY - rect.top;
+          var px = (x / rect.width) * 100;
+          var py = (y / rect.height) * 100;
+          var rotY = ((x / rect.width) - 0.5) * 10;
+          var rotX = ((y / rect.height) - 0.5) * -10;
+          card.style.setProperty("--mx", px.toFixed(1) + "%");
+          card.style.setProperty("--my", py.toFixed(1) + "%");
+          card.style.transform = "rotateX(" + rotX.toFixed(2) + "deg) rotateY(" + rotY.toFixed(2) + "deg) translateZ(6px)";
+        });
+        card.addEventListener("pointerleave", function () {
+          card.style.transform = "rotateX(0deg) rotateY(0deg) translateZ(0px)";
+        });
+      });
+    }
+  })();
+</script>
+<!-- About Bento 3D End -->
 
           <!-- Content Block - Services Start -->
           <div class="content__block grid-block">
