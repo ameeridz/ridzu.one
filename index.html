@@ -3188,6 +3188,36 @@
                     </div>
                   </div>
                   <!-- Safe-Patch 53 New Certs End -->
+                  <!-- Safe-Patch 55 New Cert Start -->
+                  <div class="swiper-slide">
+                    <div class="testimonials-card animate-in-up">
+                      <div class="testimonials-card__tauthor d-flex animate-in-up">
+                        <div class="tauthor__avatar">
+                          <a href="https://cloud.google.com" target="_blank" rel="noopener noreferrer">
+                            <img decoding="async" loading="lazy" src="img/icons/googlecloud-logo.svg" alt="Google Cloud Logo">
+                          </a>
+                        </div>
+                        <div class="tauthor__info d-flex flex-column justify-content-center">
+                          <p class="tauthor__name">Google Cloud Big Data and Machine Learning Fundamentals</p>
+                          <p class="tauthor__position">
+                            <a href="https://cloud.google.com" class="text-link-bold" target="_blank" rel="noopener noreferrer">Google Cloud (Awantec)</a>
+                          </p>
+                          <div class="tauthor__rating d-flex">
+                            <i class="ph-fill ph-star"></i>
+                            <i class="ph-fill ph-star"></i>
+                            <i class="ph-fill ph-star"></i>
+                            <i class="ph-fill ph-star"></i>
+                            <i class="ph-fill ph-star"></i>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="testimonials-card__descr animate-in-up">
+                        <img decoding="async" loading="lazy" src="img/cert/Google Cloud Big Data and Machine Learning Fundamentals.jpg" alt="Google Cloud Big Data and Machine Learning Fundamentals">
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Safe-Patch 55 New Cert End -->
+
 
                   <div class="swiper-slide">
                     <div class="testimonials-card animate-in-up">
@@ -10271,6 +10301,235 @@
   })();
 </script>
 <!-- Certs Vault Scroll & Flick Fix End -->
+
+<!-- Certs Vault Provider Filter Start -->
+<style id="certs-vault-provider-filter-style">
+  .certs-provider-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--stroke-elements, rgba(255, 255, 255, 0.1));
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    flex-shrink: 0;
+  }
+
+  .certs-provider-bar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .certs-provider-pill {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.32rem 0.78rem;
+    border-radius: 999px;
+    border: 1px solid var(--stroke-elements, rgba(255, 255, 255, 0.16));
+    background: rgba(128, 128, 148, 0.1);
+    color: var(--t-medium, #a1a1aa);
+    font-size: 1.05rem;
+    font-weight: 600;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  }
+
+  [color-scheme="light"] .certs-provider-pill {
+    background: rgba(255, 255, 255, 0.75);
+    color: #4b5563;
+  }
+
+  .certs-provider-pill:hover {
+    border-color: var(--accent, #e4b8bf);
+    color: var(--t-bright, #ffffff);
+  }
+
+  [color-scheme="light"] .certs-provider-pill:hover {
+    color: #111111;
+  }
+
+  .certs-provider-pill.is-active {
+    background: var(--accent, #e4b8bf);
+    border-color: var(--accent, #e4b8bf);
+    color: #111111 !important;
+  }
+
+  .certs-provider-pill .pill-cnt {
+    font-size: 0.95rem;
+    opacity: 0.78;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .certs-rail-item.is-provider-hidden {
+    display: none !important;
+  }
+</style>
+<script id="certs-vault-provider-filter-script">
+  (function () {
+    function normalizeProvider(raw) {
+      var s = (raw || "").trim();
+      if (!s) return "Other";
+      var low = s.toLowerCase();
+      if (low.indexOf("malaysian board of technologist") !== -1 || low.indexOf("mbot") !== -1) return "MBOT";
+      if (low.indexOf("ibm") !== -1) return "IBM";
+      if (low.indexOf("red hat") !== -1 || low.indexOf("redhat") !== -1) return "Red Hat";
+      if (low.indexOf("microsoft") !== -1) return "Microsoft";
+      if (low.indexOf("oracle") !== -1) return "Oracle";
+      if (low.indexOf("scrimba") !== -1) return "Scrimba";
+      if (low.indexOf("ec-council") !== -1) return "EC-Council";
+      if (low.indexOf("pearson") !== -1) return "Pearson";
+      if (low.indexOf("hackerrank") !== -1) return "HackerRank";
+      if (low.indexOf("google") !== -1) return "Google";
+      if (low.indexOf("amazon") !== -1 || low.indexOf("aws") !== -1) return "AWS";
+      if (low.indexOf("cisco") !== -1) return "Cisco";
+      if (low.indexOf("isc2") !== -1) return "ISC2";
+      if (low.indexOf("packt") !== -1) return "Packt";
+      if (low.indexOf("fortinet") !== -1) return "Fortinet";
+      if (low.indexOf("uipath") !== -1) return "UiPath";
+      if (low.indexOf("deeplearning") !== -1) return "DeepLearning.AI";
+      return s;
+    }
+
+    function initProviderFilter() {
+      var railBox = document.querySelector("#certsVault .certs-vault-rail");
+      var railHead = railBox ? railBox.querySelector(".certs-rail-head") : null;
+      var railList = document.getElementById("certRailList");
+      var railTitle = railHead ? railHead.querySelector(".certs-rail-title") : null;
+      var searchInput = document.getElementById("certSearchInput");
+
+      if (!railBox || !railHead || !railList || document.getElementById("certsProviderBar")) return;
+
+      var initialItems = railList.querySelectorAll(".certs-rail-item");
+      if (!initialItems.length) return;
+
+      var totalCount = initialItems.length;
+      var counts = {};
+      var order = [];
+
+      initialItems.forEach(function (item) {
+        var orgEl = item.querySelector(".certs-rail-org");
+        var provider = normalizeProvider(orgEl ? orgEl.textContent : "");
+        if (!counts[provider]) {
+          counts[provider] = 0;
+          order.push(provider);
+        }
+        counts[provider]++;
+      });
+
+      // Susun pengeluar ikut bilangan sijil terbanyak dahulu (kecuali MBOT kekal di depan selepas All)
+      order.sort(function (a, b) {
+        if (a === "MBOT") return -1;
+        if (b === "MBOT") return 1;
+        return counts[b] - counts[a] || a.localeCompare(b);
+      });
+
+      var activeProvider = "ALL";
+
+      var bar = document.createElement("div");
+      bar.className = "certs-provider-bar";
+      bar.id = "certsProviderBar";
+      bar.setAttribute("data-lenis-prevent", "");
+      bar.setAttribute("role", "tablist");
+      bar.setAttribute("aria-label", "Filter certificates by provider");
+
+      function makePill(label, value, count) {
+        var btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "certs-provider-pill" + (value === "ALL" ? " is-active" : "");
+        btn.dataset.provider = value;
+        btn.innerHTML = '<span>' + label + '</span><span class="pill-cnt">' + count + '</span>';
+        btn.addEventListener("click", function () {
+          activeProvider = value;
+          bar.querySelectorAll(".certs-provider-pill").forEach(function (p) {
+            p.classList.toggle("is-active", p.dataset.provider === activeProvider);
+          });
+          applyProviderFilter(true);
+        });
+        return btn;
+      }
+
+      bar.appendChild(makePill("All", "ALL", totalCount));
+      order.forEach(function (prov) {
+        bar.appendChild(makePill(prov, prov, counts[prov]));
+      });
+
+      // Skrol melintang dengan roda tetikus pada bar chip
+      bar.addEventListener("wheel", function (e) {
+        if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+          e.preventDefault();
+          e.stopPropagation();
+          bar.scrollLeft += e.deltaY;
+        }
+      }, { passive: false });
+
+      railHead.parentNode.insertBefore(bar, railHead.nextSibling);
+
+      function applyProviderFilter(autoSelectFirst) {
+        var items = railList.querySelectorAll(".certs-rail-item");
+        var visibleCount = 0;
+        var firstVisible = null;
+
+        items.forEach(function (item) {
+          var orgEl = item.querySelector(".certs-rail-org");
+          var prov = normalizeProvider(orgEl ? orgEl.textContent : "");
+          var match = (activeProvider === "ALL") || (prov === activeProvider);
+          item.classList.toggle("is-provider-hidden", !match);
+          if (match) {
+            visibleCount++;
+            if (!firstVisible) firstVisible = item;
+          }
+        });
+
+        var oldEmpty = railList.querySelector(".certs-provider-empty");
+        if (oldEmpty) oldEmpty.remove();
+
+        if (!visibleCount && !railList.querySelector(".certs-rail-empty")) {
+          var empty = document.createElement("div");
+          empty.className = "certs-rail-empty certs-provider-empty";
+          empty.textContent = "No certificate under " + activeProvider + ".";
+          railList.appendChild(empty);
+        }
+
+        if (railTitle) {
+          var isFiltered = activeProvider !== "ALL" || (searchInput && searchInput.value.trim() !== "");
+          railTitle.textContent = isFiltered
+            ? "VAULT (" + visibleCount + " / " + totalCount + ")"
+            : "VAULT (" + totalCount + ")";
+        }
+
+        if (autoSelectFirst && firstVisible) {
+          firstVisible.click();
+          railList.scrollTop = 0;
+        }
+      }
+
+      if (searchInput) {
+        searchInput.addEventListener("input", function () {
+          setTimeout(function () { applyProviderFilter(false); }, 0);
+        });
+      }
+    }
+
+    function waitForVault() {
+      if (document.querySelector("#certRailList .certs-rail-item")) {
+        initProviderFilter();
+      } else {
+        setTimeout(waitForVault, 120);
+      }
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", waitForVault);
+    } else {
+      waitForVault();
+    }
+  })();
+</script>
+<!-- Certs Vault Provider Filter End -->
 </body>
 
 </html>
