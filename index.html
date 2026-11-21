@@ -6,6 +6,14 @@
 <script id="default-light-theme-script">
 (function () {
   var MANUAL_KEY = 'ridzu_manual_theme';
+
+  function getSystemTheme() {
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      return 'dark';
+    }
+    return 'light';
+  }
+
   function applyTheme(theme) {
     document.documentElement.setAttribute('color-scheme', theme);
     try {
@@ -16,32 +24,55 @@
 
   var savedManual = null;
   try { savedManual = localStorage.getItem(MANUAL_KEY); } catch (e) {}
-  var initialTheme = (savedManual === 'dark' || savedManual === 'light') ? savedManual : 'light';
+
+  var initialTheme = (savedManual === 'dark' || savedManual === 'light') ? savedManual : getSystemTheme();
   applyTheme(initialTheme);
 
-  // Pastikan app.js tidak menimpa balik kepada dark semasa load jika user belum pilih manual
+  // Pastikan app.js tidak menimpa tema sistem jika pengguna belum pilih secara manual
   function enforceInitial() {
     var m = null;
     try { m = localStorage.getItem(MANUAL_KEY); } catch (e) {}
-    if (!m && document.documentElement.getAttribute('color-scheme') !== 'light') {
-      applyTheme('light');
+    if (!m) {
+      var sysTheme = getSystemTheme();
+      if (document.documentElement.getAttribute('color-scheme') !== sysTheme) {
+        applyTheme(sysTheme);
+      }
     }
   }
+
+  // Segerak secara masa nyata apabila pengguna tukar mod terang/gelap pada sistem peranti
+  if (window.matchMedia) {
+    var mql = window.matchMedia('(prefers-color-scheme: dark)');
+    var onSystemChange = function (e) {
+      var m = null;
+      try { m = localStorage.getItem(MANUAL_KEY); } catch (err) {}
+      if (!m) {
+        applyTheme(e.matches ? 'dark' : 'light');
+      }
+    };
+    if (mql.addEventListener) {
+      mql.addEventListener('change', onSystemChange);
+    } else if (mql.addListener) {
+      mql.addListener(onSystemChange);
+    }
+  }
+
   document.addEventListener('DOMContentLoaded', function () {
     enforceInitial();
     setTimeout(enforceInitial, 50);
     setTimeout(enforceInitial, 250);
 
-    // Rekod pilihan manual apabila user sendiri klik butang tukar tema
+    // Rekod pilihan manual apabila pengguna sendiri klik butang tukar tema
     document.addEventListener('click', function (e) {
       var switcher = e.target && e.target.closest ? e.target.closest('#color-switcher, .color-switcher, [id*="color-switcher"]') : null;
       if (!switcher) return;
       setTimeout(function () {
-        var current = document.documentElement.getAttribute('color-scheme') || 'light';
+        var current = document.documentElement.getAttribute('color-scheme') || getSystemTheme();
         try { localStorage.setItem(MANUAL_KEY, current); } catch (err) {}
       }, 30);
     });
   });
+
   window.addEventListener('load', enforceInitial);
 })();
 </script>
@@ -214,6 +245,14 @@
 <script id="default-light-theme-script">
 (function () {
   var MANUAL_KEY = 'ridzu_manual_theme';
+
+  function getSystemTheme() {
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      return 'dark';
+    }
+    return 'light';
+  }
+
   function applyTheme(theme) {
     document.documentElement.setAttribute('color-scheme', theme);
     try {
@@ -224,32 +263,55 @@
 
   var savedManual = null;
   try { savedManual = localStorage.getItem(MANUAL_KEY); } catch (e) {}
-  var initialTheme = (savedManual === 'dark' || savedManual === 'light') ? savedManual : 'light';
+
+  var initialTheme = (savedManual === 'dark' || savedManual === 'light') ? savedManual : getSystemTheme();
   applyTheme(initialTheme);
 
-  // Pastikan app.js tidak menimpa balik kepada dark semasa load jika user belum pilih manual
+  // Pastikan app.js tidak menimpa tema sistem jika pengguna belum pilih secara manual
   function enforceInitial() {
     var m = null;
     try { m = localStorage.getItem(MANUAL_KEY); } catch (e) {}
-    if (!m && document.documentElement.getAttribute('color-scheme') !== 'light') {
-      applyTheme('light');
+    if (!m) {
+      var sysTheme = getSystemTheme();
+      if (document.documentElement.getAttribute('color-scheme') !== sysTheme) {
+        applyTheme(sysTheme);
+      }
     }
   }
+
+  // Segerak secara masa nyata apabila pengguna tukar mod terang/gelap pada sistem peranti
+  if (window.matchMedia) {
+    var mql = window.matchMedia('(prefers-color-scheme: dark)');
+    var onSystemChange = function (e) {
+      var m = null;
+      try { m = localStorage.getItem(MANUAL_KEY); } catch (err) {}
+      if (!m) {
+        applyTheme(e.matches ? 'dark' : 'light');
+      }
+    };
+    if (mql.addEventListener) {
+      mql.addEventListener('change', onSystemChange);
+    } else if (mql.addListener) {
+      mql.addListener(onSystemChange);
+    }
+  }
+
   document.addEventListener('DOMContentLoaded', function () {
     enforceInitial();
     setTimeout(enforceInitial, 50);
     setTimeout(enforceInitial, 250);
 
-    // Rekod pilihan manual apabila user sendiri klik butang tukar tema
+    // Rekod pilihan manual apabila pengguna sendiri klik butang tukar tema
     document.addEventListener('click', function (e) {
       var switcher = e.target && e.target.closest ? e.target.closest('#color-switcher, .color-switcher, [id*="color-switcher"]') : null;
       if (!switcher) return;
       setTimeout(function () {
-        var current = document.documentElement.getAttribute('color-scheme') || 'light';
+        var current = document.documentElement.getAttribute('color-scheme') || getSystemTheme();
         try { localStorage.setItem(MANUAL_KEY, current); } catch (err) {}
       }, 30);
     });
   });
+
   window.addEventListener('load', enforceInitial);
 })();
 </script>
