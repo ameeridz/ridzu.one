@@ -58,7 +58,7 @@
 
     <!-- Viewport Meta-->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
     <!-- Template Favicon & Icons Start -->
     <link rel="icon" href="img/ameeridz logo.png" sizes="any">
@@ -77,9 +77,9 @@
     <!-- Template Styles End -->
 
     <!-- Custom Browser Color Start -->
-    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#dcdce7">
-    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#111111">
     <meta name="msapplication-navbutton-color" content="#111111">
+        <meta name="theme-color" id="dynamic-theme-color" content="#dcdce7">
+    <meta name="apple-mobile-web-app-title" content="ridzu.one">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <!-- Custom Browser Color End -->
@@ -6323,6 +6323,62 @@
   }
 </style>
 <!-- UIUX Polish & Accessibility End -->
+
+<!-- iOS PWA Status Bar & Theme Sync Start -->
+<style id="ios-pwa-statusbar-style">
+  #ios-status-blur {
+    display: none;
+  }
+
+  @media (display-mode: standalone) {
+    body {
+      padding-top: env(safe-area-inset-top, 0px);
+    }
+
+    #ios-status-blur {
+      display: block;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: env(safe-area-inset-top, 0px);
+      z-index: 10050;
+      pointer-events: none;
+      background: rgba(230, 235, 244, 0.72);
+      backdrop-filter: blur(18px) saturate(160%);
+      -webkit-backdrop-filter: blur(18px) saturate(160%);
+      transition: background-color 0.25s ease;
+    }
+
+    [color-scheme="dark"] #ios-status-blur {
+      background: rgba(17, 17, 17, 0.72);
+    }
+  }
+</style>
+<div id="ios-status-blur" aria-hidden="true"></div>
+<script id="ios-pwa-statusbar-script">
+  (function () {
+    function syncThemeColor() {
+      var meta = document.getElementById("dynamic-theme-color");
+      if (!meta) return;
+      var scheme = document.documentElement.getAttribute("color-scheme") || "light";
+      meta.setAttribute("content", scheme === "dark" ? "#111111" : "#dcdce7");
+    }
+
+    syncThemeColor();
+
+    var obs = new MutationObserver(function (mutations) {
+      for (var i = 0; i < mutations.length; i++) {
+        if (mutations[i].attributeName === "color-scheme") {
+          syncThemeColor();
+          break;
+        }
+      }
+    });
+    obs.observe(document.documentElement, { attributes: true, attributeFilter: ["color-scheme"] });
+  })();
+</script>
+<!-- iOS PWA Status Bar & Theme Sync End -->
 </body>
 
 </html>
