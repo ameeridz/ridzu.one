@@ -3462,113 +3462,348 @@
   .qr-backdrop {
     position: fixed; inset: 0; z-index: 10070; display: none;
     align-items: center; justify-content: center; padding: 2rem;
-    background: rgba(8, 8, 10, 0.76);
-    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    background: rgba(8, 8, 10, 0.78);
+    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
   }
   .qr-backdrop.is-open { display: flex; }
-  .qr-card {
-    position: relative; width: 100%; max-width: 360px;
-    border-radius: 2.4rem; padding: 2.6rem 2.4rem 2.2rem;
-    border: 1px solid var(--stroke-elements, rgba(255,255,255,0.16));
-    background: var(--base, #111111); color: var(--t-bright, #f4f4f5);
-    text-align: center;
-    box-shadow: 0 28px 80px rgba(0,0,0,0.6);
+
+  .qr-modal-shell {
+    position: relative; width: 100%; max-width: 370px;
+    display: flex; flex-direction: column; align-items: center; gap: 1.2rem;
+  }
+
+  .qr-topbar {
+    width: 100%; display: flex; align-items: center; justify-content: space-between;
+    padding: 0 0.4rem;
+  }
+  .qr-hint {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-size: 1.2rem; font-weight: 600; color: rgba(255,255,255,0.75);
   }
   .qr-close {
-    position: absolute; top: 1.4rem; right: 1.4rem;
-    width: 3.4rem; height: 3.4rem; border-radius: 50%;
+    width: 3.6rem; height: 3.6rem; border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.2);
+    background: rgba(20,20,24,0.75); color: #f4f4f5; font-size: 1.6rem;
+    display: inline-flex; align-items: center; justify-content: center;
+    cursor: pointer; transition: border-color 0.2s ease, transform 0.2s ease;
+  }
+  .qr-close:hover { border-color: var(--accent, #e4b8bf); transform: scale(1.06); }
+
+  .qr-stage {
+    width: 100%; height: 465px; perspective: 1300px;
+  }
+
+  .qr-tilt-wrap {
+    width: 100%; height: 100%;
+    transform-style: preserve-3d; will-change: transform;
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .qr-tilt-wrap.is-tilting { transition: transform 0.08s linear; }
+
+  .qr-flip-inner {
+    position: relative; width: 100%; height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.72s cubic-bezier(0.22, 1, 0.36, 1);
+    cursor: pointer;
+  }
+  .qr-flip-inner.is-flipped { transform: rotateY(180deg); }
+
+  .qr-face {
+    position: absolute; inset: 0;
+    backface-visibility: hidden; -webkit-backface-visibility: hidden;
+    border-radius: 2.4rem; padding: 2.4rem 2.2rem 2.1rem;
     border: 1px solid var(--stroke-elements, rgba(255,255,255,0.16));
-    background: var(--base-tint, rgba(255,255,255,0.05));
-    color: var(--t-bright, #f4f4f5); font-size: 1.6rem;
-    display: inline-flex; align-items: center; justify-content: center;
-    cursor: pointer; transition: border-color 0.2s ease;
+    background: var(--base, #111111); color: var(--t-bright, #f4f4f5);
+    box-shadow: 0 28px 80px rgba(0,0,0,0.58);
+    display: flex; flex-direction: column; justify-content: space-between;
+    text-align: center; overflow: hidden;
   }
-  .qr-close:hover { border-color: var(--accent, #e4b8bf); }
+  .qr-face::before {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(
+      circle 260px at var(--card-gx, 50%) var(--card-gy, 20%),
+      rgba(255, 255, 255, 0.16) 0%,
+      rgba(255, 255, 255, 0.04) 42%,
+      rgba(255, 255, 255, 0) 75%
+    );
+    opacity: var(--card-go, 0.45);
+    transition: opacity 0.3s ease;
+    z-index: 1;
+  }
+  .qr-face > * { position: relative; z-index: 2; }
+
+  .qr-face-front {
+    background: radial-gradient(circle at 85% 12%, rgba(228,184,191,0.14) 0%, transparent 52%), var(--base, #111111);
+  }
+  .qr-face-back {
+    transform: rotateY(180deg);
+    background: radial-gradient(circle at 15% 12%, rgba(228,184,191,0.14) 0%, transparent 52%), var(--base, #111111);
+  }
+
   .qr-badge {
-    display: inline-flex; align-items: center; gap: 0.45rem;
-    padding: 0.3rem 1rem; border-radius: 999px; font-size: 1.1rem; font-weight: 600;
+    display: inline-flex; align-items: center; gap: 0.45rem; align-self: center;
+    padding: 0.35rem 1.05rem; border-radius: 999px; font-size: 1.1rem; font-weight: 600;
     border: 1px solid rgba(228,184,191,0.45); color: var(--accent, #e4b8bf);
-    margin-bottom: 0.8rem;
   }
-  .qr-name { margin: 0; font-size: 2.1rem; font-weight: 700; color: var(--t-bright, #ffffff); }
-  .qr-role { margin: 0.3rem 0 1.8rem; font-size: 1.3rem; color: var(--t-medium, #a1a1aa); }
+
+  .qr-avatar-wrap {
+    width: 92px; height: 92px; margin: 1.2rem auto 1rem; border-radius: 50%;
+    padding: 3px;
+    background: linear-gradient(135deg, var(--accent, #e4b8bf), rgba(255,255,255,0.22));
+    box-shadow: 0 12px 26px rgba(0,0,0,0.35);
+  }
+  .qr-avatar-wrap img {
+    width: 100%; height: 100%; border-radius: 50%; object-fit: cover; display: block;
+    background: var(--base-tint, #1b1b1f);
+  }
+
+  .qr-name { margin: 0; font-size: 2.15rem; font-weight: 700; color: var(--t-bright, #ffffff); line-height: 1.2; }
+  .qr-role { margin: 0.35rem 0 0; font-size: 1.3rem; color: var(--t-medium, #a1a1aa); }
+
+  .qr-pills {
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 0.55rem;
+    margin: 1.2rem 0 0.8rem;
+  }
+  .qr-pill {
+    padding: 0.32rem 0.9rem; border-radius: 999px; font-size: 1.1rem; font-weight: 600;
+    border: 1px solid var(--stroke-elements, rgba(255,255,255,0.14));
+    background: var(--base-tint, rgba(255,255,255,0.05)); color: var(--t-bright, #f4f4f5);
+  }
+
+  .qr-meta-list {
+    display: flex; flex-direction: column; gap: 0.45rem;
+    margin: 0.6rem 0 1.4rem; padding: 1rem 1.2rem; border-radius: 1.4rem;
+    border: 1px solid var(--stroke-elements, rgba(255,255,255,0.1));
+    background: var(--base-tint, rgba(255,255,255,0.04));
+    font-size: 1.2rem; color: var(--t-medium, #a1a1aa);
+  }
+  .qr-meta-row {
+    display: inline-flex; align-items: center; justify-content: center; gap: 0.55rem;
+    color: var(--t-bright, #f4f4f5); font-weight: 500;
+  }
+  .qr-meta-row i { color: var(--accent, #e4b8bf); font-size: 1.4rem; }
+
   .qr-frame {
-    display: inline-flex; align-items: center; justify-content: center;
-    padding: 1.4rem; border-radius: 1.8rem; background: #ffffff;
+    display: inline-flex; align-items: center; justify-content: center; align-self: center;
+    padding: 1.3rem; border-radius: 1.8rem; background: #ffffff;
     box-shadow: 0 12px 30px rgba(0,0,0,0.28);
-    margin-bottom: 1.6rem;
+    margin: 1rem 0 0.8rem;
   }
-  .qr-frame img { width: 200px; height: 200px; display: block; border-radius: 0.6rem; }
-  .qr-url { margin: 0 0 1.6rem; font-size: 1.4rem; font-weight: 700; color: var(--accent, #e4b8bf); letter-spacing: 0.3px; }
-  .qr-actions { display: flex; gap: 0.8rem; justify-content: center; }
+  .qr-frame img { width: 186px; height: 186px; display: block; border-radius: 0.6rem; }
+
+  .qr-url { margin: 0 0 1.2rem; font-size: 1.4rem; font-weight: 700; color: var(--accent, #e4b8bf); letter-spacing: 0.3px; }
+
+  .qr-actions { display: flex; gap: 0.75rem; justify-content: center; }
   .qr-btn {
-    flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 0.55rem;
-    padding: 0.95rem 1.4rem; border-radius: 999px; font-size: 1.3rem; font-weight: 700;
+    flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+    padding: 0.92rem 1.2rem; border-radius: 999px; font-size: 1.25rem; font-weight: 700;
     border: 1px solid var(--stroke-elements, rgba(255,255,255,0.16));
     background: var(--base-tint, rgba(255,255,255,0.06)); color: var(--t-bright, #f4f4f5);
     cursor: pointer; transition: transform 0.2s ease, border-color 0.2s ease;
   }
   .qr-btn:hover { transform: translateY(-1px); border-color: var(--accent, #e4b8bf); }
   .qr-btn.is-primary { background: var(--accent, #e4b8bf); color: #111111; border-color: var(--accent, #e4b8bf); }
-</style>
 
-<div class="qr-backdrop" id="qrBackdrop" role="dialog" aria-modal="true" aria-label="Digital Business Card QR">
-  <div class="qr-card">
-    <button type="button" class="qr-close" id="qrCloseBtn" aria-label="Close QR modal">
-      <i class="ph-bold ph-x"></i>
-    </button>
-    <span class="qr-badge"><i class="ph-bold ph-sparkle"></i>Scan to Connect</span>
-    <h3 class="qr-name">Ameer Ridzuan</h3>
-    <p class="qr-role">System Engineer &amp; UI/UX Designer</p>
-    <div class="qr-frame">
-      <img src="https://api.qrserver.com/v1/create-qr-code/?size=280x280&amp;margin=8&amp;data=https%3A%2F%2Fridzu.one%2F" alt="QR Code to ridzu.one" width="200" height="200" loading="lazy">
-    </div>
-    <p class="qr-url">https://ridzu.one</p>
-    <div class="qr-actions">
-      <button type="button" class="qr-btn is-primary" id="qrCopyLinkBtn">
-        <i class="ph-bold ph-link"></i><span>Copy Link</span>
+  @media (max-width: 480px) {
+    .qr-stage { height: 450px; }
+    .qr-face { padding: 2rem 1.8rem 1.8rem; }
+    .qr-frame img { width: 170px; height: 170px; }
+  }
+</style>
+<div class="qr-backdrop" id="qrBackdrop" role="dialog" aria-modal="true" aria-label="Digital Business Card 3D">
+  <div class="qr-modal-shell">
+    <div class="qr-topbar">
+      <span class="qr-hint"><i class="ph-bold ph-arrows-clockwise"></i>Tap card to flip</span>
+      <button type="button" class="qr-close" id="qrCloseBtn" aria-label="Close QR modal">
+        <i class="ph-bold ph-x"></i>
       </button>
+    </div>
+
+    <div class="qr-stage">
+      <div class="qr-tilt-wrap" id="qrTiltWrap">
+        <div class="qr-flip-inner" id="qrFlipInner">
+          <!-- Front Face -->
+          <div class="qr-face qr-face-front">
+            <span class="qr-badge"><i class="ph-bold ph-identification-card"></i>Digital Business Card</span>
+
+            <div>
+              <div class="qr-avatar-wrap">
+                <img src="img/muka.png" alt="Ameer Ridzuan" loading="lazy">
+              </div>
+              <h3 class="qr-name">Ameer Ridzuan</h3>
+              <p class="qr-role">System Engineer &amp; UI/UX Designer</p>
+
+              <div class="qr-pills">
+                <span class="qr-pill">Web Developer</span>
+                <span class="qr-pill">by.ridzu.one</span>
+              </div>
+
+              <div class="qr-meta-list">
+                <span class="qr-meta-row"><i class="ph-bold ph-globe"></i>ridzu.one</span>
+                <span class="qr-meta-row"><i class="ph-bold ph-envelope-simple"></i>ameerridzuan01@gmail.com</span>
+              </div>
+            </div>
+
+            <div class="qr-actions">
+              <button type="button" class="qr-btn" id="qrCopyEmailBtn">
+                <i class="ph-bold ph-copy"></i><span>Copy Email</span>
+              </button>
+              <button type="button" class="qr-btn is-primary" id="qrFlipToBackBtn">
+                <i class="ph-bold ph-qr-code"></i><span>Show QR</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Back Face -->
+          <div class="qr-face qr-face-back">
+            <span class="qr-badge"><i class="ph-bold ph-sparkle"></i>Scan to Connect</span>
+
+            <div>
+              <h3 class="qr-name">Ameer Ridzuan</h3>
+              <p class="qr-role">Portfolio &amp; Live Demos</p>
+              <div class="qr-frame">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=280x280&amp;margin=8&amp;data=https%3A%2F%2Fridzu.one%2F" alt="QR Code to ridzu.one" width="186" height="186" loading="lazy">
+              </div>
+              <p class="qr-url">https://ridzu.one</p>
+            </div>
+
+            <div class="qr-actions">
+              <button type="button" class="qr-btn" id="qrFlipToFrontBtn">
+                <i class="ph-bold ph-arrow-u-up-left"></i><span>Card Front</span>
+              </button>
+              <button type="button" class="qr-btn is-primary" id="qrCopyLinkBtn">
+                <i class="ph-bold ph-link"></i><span>Copy Link</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
-
 <script id="qr-modal-script">
 (function () {
   var qrBackdrop = document.getElementById('qrBackdrop');
   var qrBtn = document.getElementById('quickQrBtn');
   var qrCloseBtn = document.getElementById('qrCloseBtn');
   var qrCopyLinkBtn = document.getElementById('qrCopyLinkBtn');
+  var qrCopyEmailBtn = document.getElementById('qrCopyEmailBtn');
+  var qrFlipInner = document.getElementById('qrFlipInner');
+  var qrTiltWrap = document.getElementById('qrTiltWrap');
+  var qrFlipToBackBtn = document.getElementById('qrFlipToBackBtn');
+  var qrFlipToFrontBtn = document.getElementById('qrFlipToFrontBtn');
   if (!qrBackdrop || !qrBtn) return;
 
+  function showToast(msg) {
+    var toast = document.getElementById('ridzuToast');
+    var toastText = document.getElementById('ridzuToastText');
+    if (toast && toastText) {
+      toastText.textContent = msg;
+      toast.classList.add('is-visible');
+      setTimeout(function () { toast.classList.remove('is-visible'); }, 2400);
+    }
+  }
+
+  function copyText(text, label) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text);
+    }
+    showToast(label + ': ' + text);
+  }
+
+  function resetCard() {
+    if (qrFlipInner) qrFlipInner.classList.remove('is-flipped');
+    if (qrTiltWrap) {
+      qrTiltWrap.classList.remove('is-tilting');
+      qrTiltWrap.style.transform = '';
+    }
+  }
+
   function openQr() {
+    resetCard();
     qrBackdrop.classList.add('is-open');
     document.body.style.overflow = 'hidden';
   }
+
   function closeQr() {
     qrBackdrop.classList.remove('is-open');
     document.body.style.overflow = '';
+    setTimeout(resetCard, 200);
   }
 
   qrBtn.addEventListener('click', openQr);
-  qrCloseBtn.addEventListener('click', closeQr);
+  if (qrCloseBtn) qrCloseBtn.addEventListener('click', closeQr);
   qrBackdrop.addEventListener('click', function (e) { if (e.target === qrBackdrop) closeQr(); });
+
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape' && qrBackdrop.classList.contains('is-open')) closeQr();
   });
 
+  if (qrFlipToBackBtn && qrFlipInner) {
+    qrFlipToBackBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      qrFlipInner.classList.add('is-flipped');
+    });
+  }
+
+  if (qrFlipToFrontBtn && qrFlipInner) {
+    qrFlipToFrontBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      qrFlipInner.classList.remove('is-flipped');
+    });
+  }
+
+  if (qrFlipInner) {
+    qrFlipInner.addEventListener('click', function (e) {
+      if (e.target.closest('button, a')) return;
+      qrFlipInner.classList.toggle('is-flipped');
+    });
+  }
+
   if (qrCopyLinkBtn) {
-    qrCopyLinkBtn.addEventListener('click', function () {
-      var url = 'https://ridzu.one/';
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(url);
-      }
-      var toast = document.getElementById('ridzuToast');
-      var toastText = document.getElementById('ridzuToastText');
-      if (toast && toastText) {
-        toastText.textContent = 'Link copied: ' + url;
-        toast.classList.add('is-visible');
-        setTimeout(function () { toast.classList.remove('is-visible'); }, 2400);
-      }
+    qrCopyLinkBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      copyText('https://ridzu.one/', 'Link copied');
+    });
+  }
+
+  if (qrCopyEmailBtn) {
+    qrCopyEmailBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      copyText('ameerridzuan01@gmail.com', 'Email copied');
+    });
+  }
+
+  var canHover = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  var reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (canHover && !reducedMotion && qrTiltWrap) {
+    var rafId = null;
+    qrTiltWrap.addEventListener('mouseenter', function () {
+      qrTiltWrap.classList.add('is-tilting');
+    });
+    qrTiltWrap.addEventListener('mousemove', function (e) {
+      var rect = qrTiltWrap.getBoundingClientRect();
+      if (!rect.width || !rect.height) return;
+      var relX = (e.clientX - rect.left) / rect.width;
+      var relY = (e.clientY - rect.top) / rect.height;
+      var rotY = (relX - 0.5) * 16;
+      var rotX = (0.5 - relY) * 16;
+      var gx = (relX * 100).toFixed(1) + '%';
+      var gy = (relY * 100).toFixed(1) + '%';
+
+      if (rafId) cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(function () {
+        qrTiltWrap.style.transform = 'rotateX(' + rotX.toFixed(2) + 'deg) rotateY(' + rotY.toFixed(2) + 'deg)';
+        qrTiltWrap.style.setProperty('--card-gx', gx);
+        qrTiltWrap.style.setProperty('--card-gy', gy);
+        qrTiltWrap.style.setProperty('--card-go', '0.9');
+      });
+    });
+    qrTiltWrap.addEventListener('mouseleave', function () {
+      if (rafId) cancelAnimationFrame(rafId);
+      qrTiltWrap.classList.remove('is-tilting');
+      qrTiltWrap.style.transform = '';
+      qrTiltWrap.style.setProperty('--card-go', '0.45');
     });
   }
 })();
