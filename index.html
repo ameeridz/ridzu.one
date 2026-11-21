@@ -85,7 +85,7 @@
           "name": "Ameer Ridzuan",
           "url": "https://ridzu.one/",
           "image": "https://ridzu.one/img/og-image.png",
-          "email": "mailto:mailto:ameerridzuan01@gmail.com ameerridzuan01@gmail.com",
+          "email": "mailto:ameerridzuan01@gmail.com",
           "jobTitle": "System Engineer, Web Developer & UI/UX Designer",
           "worksFor": {
             "@type": "Organization",
@@ -172,7 +172,7 @@
         <nav id="menu" class="menu">
           <ul class="menu__list d-flex justify-content-start">
             <li class="menu__item">
-              <a class="menu__link btn" href="#top">
+              <a class="menu__link btn" href="#home">
                 <span class="menu__caption">Home</span>
                 <i class="ph-bold ph-house-simple"></i>
               </a>
@@ -930,7 +930,7 @@
     <div class="exp-top">
       <div>
         <h4 class="exp-role">Primary School</h4>
-        <p class="exp-company">at <a href="https://g.co/kgs/TkhNgKg" class="text-link-bold" target="_blank" rel="noopener noreferrer">SK Wawasan Parit Buntar, Perak</p>
+        <p class="exp-company">at <a href="https://g.co/kgs/TkhNgKg" class="text-link-bold" target="_blank" rel="noopener noreferrer">SK Wawasan Parit Buntar, Perak</a></p>
       </div>
       <span class="exp-date"><i class="ph-bold ph-graduation-cap"></i>2007 - 2013</span>
     </div>
@@ -2954,9 +2954,13 @@
 </style>
 
 <div class="quick-dock" aria-label="Quick actions">
-  <button type="button" class="quick-dock-btn" id="quickCopyEmailBtn" title="Copy Email (mailto:ameerridzuan01@gmail.com ameerridzuan01@gmail.com)">
+  <button type="button" class="quick-dock-btn" id="quickCopyEmailBtn" title="Copy Email (ameerridzuan01@gmail.com)">
     <i class="ph-bold ph-copy"></i>
     <span class="quick-dock-label">Copy Email</span>
+  </button>
+  <button type="button" class="quick-dock-btn" id="quickQrBtn" title="Show Digital Business Card QR">
+    <i class="ph-bold ph-qr-code"></i>
+    <span class="quick-dock-label">QR Card</span>
   </button>
   <button type="button" class="quick-dock-btn" id="quickCmdkBtn" title="Open Command Palette (Ctrl+K)">
     <i class="ph-bold ph-command"></i>
@@ -2982,7 +2986,7 @@
 
 <script id="cmdk-script">
 (function () {
-  var USER_EMAIL = 'mailto:ameerridzuan01@gmail.com ameerridzuan01@gmail.com';
+  var USER_EMAIL = 'ameerridzuan01@gmail.com';
   var backdrop = document.getElementById('cmdkBackdrop');
   var input = document.getElementById('cmdkInput');
   var listEl = document.getElementById('cmdkList');
@@ -3446,12 +3450,130 @@
     e.preventDefault();
     window.scrollTo({ top: 0, behavior: 'smooth' });
     if (window.history && window.history.replaceState) {
-      window.history.replaceState(null, '', '#top');
+      window.history.replaceState(null, '', '#home');
     }
   });
 })();
 </script>
 <!-- Smooth Home Scroll End -->
+
+<!-- QR Business Card Modal Start -->
+<style id="qr-modal-style">
+  .qr-backdrop {
+    position: fixed; inset: 0; z-index: 10070; display: none;
+    align-items: center; justify-content: center; padding: 2rem;
+    background: rgba(8, 8, 10, 0.76);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  }
+  .qr-backdrop.is-open { display: flex; }
+  .qr-card {
+    position: relative; width: 100%; max-width: 360px;
+    border-radius: 2.4rem; padding: 2.6rem 2.4rem 2.2rem;
+    border: 1px solid var(--stroke-elements, rgba(255,255,255,0.16));
+    background: var(--base, #111111); color: var(--t-bright, #f4f4f5);
+    text-align: center;
+    box-shadow: 0 28px 80px rgba(0,0,0,0.6);
+  }
+  .qr-close {
+    position: absolute; top: 1.4rem; right: 1.4rem;
+    width: 3.4rem; height: 3.4rem; border-radius: 50%;
+    border: 1px solid var(--stroke-elements, rgba(255,255,255,0.16));
+    background: var(--base-tint, rgba(255,255,255,0.05));
+    color: var(--t-bright, #f4f4f5); font-size: 1.6rem;
+    display: inline-flex; align-items: center; justify-content: center;
+    cursor: pointer; transition: border-color 0.2s ease;
+  }
+  .qr-close:hover { border-color: var(--accent, #e4b8bf); }
+  .qr-badge {
+    display: inline-flex; align-items: center; gap: 0.45rem;
+    padding: 0.3rem 1rem; border-radius: 999px; font-size: 1.1rem; font-weight: 600;
+    border: 1px solid rgba(228,184,191,0.45); color: var(--accent, #e4b8bf);
+    margin-bottom: 0.8rem;
+  }
+  .qr-name { margin: 0; font-size: 2.1rem; font-weight: 700; color: var(--t-bright, #ffffff); }
+  .qr-role { margin: 0.3rem 0 1.8rem; font-size: 1.3rem; color: var(--t-medium, #a1a1aa); }
+  .qr-frame {
+    display: inline-flex; align-items: center; justify-content: center;
+    padding: 1.4rem; border-radius: 1.8rem; background: #ffffff;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.28);
+    margin-bottom: 1.6rem;
+  }
+  .qr-frame img { width: 200px; height: 200px; display: block; border-radius: 0.6rem; }
+  .qr-url { margin: 0 0 1.6rem; font-size: 1.4rem; font-weight: 700; color: var(--accent, #e4b8bf); letter-spacing: 0.3px; }
+  .qr-actions { display: flex; gap: 0.8rem; justify-content: center; }
+  .qr-btn {
+    flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 0.55rem;
+    padding: 0.95rem 1.4rem; border-radius: 999px; font-size: 1.3rem; font-weight: 700;
+    border: 1px solid var(--stroke-elements, rgba(255,255,255,0.16));
+    background: var(--base-tint, rgba(255,255,255,0.06)); color: var(--t-bright, #f4f4f5);
+    cursor: pointer; transition: transform 0.2s ease, border-color 0.2s ease;
+  }
+  .qr-btn:hover { transform: translateY(-1px); border-color: var(--accent, #e4b8bf); }
+  .qr-btn.is-primary { background: var(--accent, #e4b8bf); color: #111111; border-color: var(--accent, #e4b8bf); }
+</style>
+
+<div class="qr-backdrop" id="qrBackdrop" role="dialog" aria-modal="true" aria-label="Digital Business Card QR">
+  <div class="qr-card">
+    <button type="button" class="qr-close" id="qrCloseBtn" aria-label="Close QR modal">
+      <i class="ph-bold ph-x"></i>
+    </button>
+    <span class="qr-badge"><i class="ph-bold ph-sparkle"></i>Scan to Connect</span>
+    <h3 class="qr-name">Ameer Ridzuan</h3>
+    <p class="qr-role">System Engineer &amp; UI/UX Designer</p>
+    <div class="qr-frame">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=280x280&amp;margin=8&amp;data=https%3A%2F%2Fridzu.one%2F" alt="QR Code to ridzu.one" width="200" height="200" loading="lazy">
+    </div>
+    <p class="qr-url">https://ridzu.one</p>
+    <div class="qr-actions">
+      <button type="button" class="qr-btn is-primary" id="qrCopyLinkBtn">
+        <i class="ph-bold ph-link"></i><span>Copy Link</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script id="qr-modal-script">
+(function () {
+  var qrBackdrop = document.getElementById('qrBackdrop');
+  var qrBtn = document.getElementById('quickQrBtn');
+  var qrCloseBtn = document.getElementById('qrCloseBtn');
+  var qrCopyLinkBtn = document.getElementById('qrCopyLinkBtn');
+  if (!qrBackdrop || !qrBtn) return;
+
+  function openQr() {
+    qrBackdrop.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeQr() {
+    qrBackdrop.classList.remove('is-open');
+    document.body.style.overflow = '';
+  }
+
+  qrBtn.addEventListener('click', openQr);
+  qrCloseBtn.addEventListener('click', closeQr);
+  qrBackdrop.addEventListener('click', function (e) { if (e.target === qrBackdrop) closeQr(); });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && qrBackdrop.classList.contains('is-open')) closeQr();
+  });
+
+  if (qrCopyLinkBtn) {
+    qrCopyLinkBtn.addEventListener('click', function () {
+      var url = 'https://ridzu.one/';
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url);
+      }
+      var toast = document.getElementById('ridzuToast');
+      var toastText = document.getElementById('ridzuToastText');
+      if (toast && toastText) {
+        toastText.textContent = 'Link copied: ' + url;
+        toast.classList.add('is-visible');
+        setTimeout(function () { toast.classList.remove('is-visible'); }, 2400);
+      }
+    });
+  }
+})();
+</script>
+<!-- QR Business Card Modal End -->
 </body>
 
 </html>
