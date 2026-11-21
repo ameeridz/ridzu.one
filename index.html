@@ -4068,6 +4068,486 @@
 })();
 </script>
 <!-- Cursor Spotlight End -->
+<!-- Tech Arsenal 3D Sphere Start -->
+<style id="tech-sphere-style">
+  .tech-arsenal-wrap {
+    margin-bottom: 1.8rem;
+    padding: 2rem 2rem 1.8rem;
+    border-radius: var(--_radius-xl, 2.2rem);
+    border: 1px solid var(--stroke-elements, rgba(255,255,255,0.14));
+    background: var(--base-tint, rgba(255,255,255,0.03));
+  }
+
+  .tech-arsenal-top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .tech-arsenal-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+  }
+
+  .tech-pill {
+    padding: 0.48rem 1.15rem;
+    border-radius: 999px;
+    border: 1px solid var(--stroke-elements, rgba(255,255,255,0.16));
+    background: transparent;
+    color: var(--t-medium, #a1a1aa);
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.22s ease;
+  }
+  .tech-pill:hover,
+  .tech-pill.is-active {
+    background: var(--t-bright, #ffffff);
+    color: var(--base, #111111);
+    border-color: var(--t-bright, #ffffff);
+  }
+
+  .tech-mode-toggle {
+    display: inline-flex;
+    padding: 0.28rem;
+    border-radius: 999px;
+    border: 1px solid var(--stroke-elements, rgba(255,255,255,0.16));
+    background: var(--base, #111111);
+    gap: 0.25rem;
+  }
+
+  .tech-mode-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.42rem 1rem;
+    border-radius: 999px;
+    border: none;
+    background: transparent;
+    color: var(--t-medium, #a1a1aa);
+    font-size: 1.18rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.22s ease;
+  }
+  .tech-mode-btn.is-active {
+    background: var(--accent, #e4b8bf);
+    color: #111111;
+  }
+
+  .tech-sphere-stage {
+    position: relative;
+    width: 100%;
+    height: 430px;
+    border-radius: 1.8rem;
+    border: 1px solid var(--stroke-elements, rgba(255,255,255,0.1));
+    background: radial-gradient(circle at 50% 50%, rgba(228,184,191,0.1) 0%, transparent 66%), var(--base, #111111);
+    overflow: hidden;
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+    cursor: grab;
+  }
+  .tech-sphere-stage.is-dragging {
+    cursor: grabbing;
+  }
+
+  .tech-sphere-ring {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 290px;
+    height: 290px;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    border: 1px dashed var(--stroke-elements, rgba(255,255,255,0.1));
+    pointer-events: none;
+    opacity: 0.55;
+  }
+
+  .tech-sphere-cloud {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .tech-sphere-item {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 58px;
+    height: 58px;
+    margin-left: -29px;
+    margin-top: -29px;
+    border-radius: 1.4rem;
+    border: 1px solid var(--stroke-elements, rgba(255,255,255,0.16));
+    background: var(--base-tint, rgba(24,24,28,0.86));
+    box-shadow: 0 10px 24px rgba(0,0,0,0.28);
+    pointer-events: auto;
+    will-change: transform, opacity;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+  }
+  .tech-sphere-item:hover,
+  .tech-sphere-item.is-selected {
+    border-color: var(--accent, #e4b8bf);
+    box-shadow: 0 0 0 3px rgba(228,184,191,0.22), 0 12px 26px rgba(0,0,0,0.38);
+  }
+  .tech-sphere-item img {
+    width: 34px;
+    height: 34px;
+    object-fit: contain;
+    pointer-events: none;
+    display: block;
+  }
+
+  .tech-sphere-hud {
+    position: absolute;
+    left: 50%;
+    bottom: 1.2rem;
+    transform: translateX(-50%);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.45rem 1.25rem;
+    border-radius: 999px;
+    border: 1px solid var(--stroke-elements, rgba(255,255,255,0.16));
+    background: rgba(15, 15, 18, 0.78);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: #f4f4f5;
+    font-size: 1.2rem;
+    font-weight: 600;
+    white-space: nowrap;
+    max-width: calc(100% - 2.4rem);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    z-index: 40;
+    pointer-events: none;
+  }
+  .tech-sphere-hud i {
+    color: var(--accent, #e4b8bf);
+    font-size: 1.4rem;
+  }
+  .tech-hud-cat {
+    padding: 0.14rem 0.65rem;
+    border-radius: 999px;
+    background: rgba(228,184,191,0.18);
+    color: var(--accent, #e4b8bf);
+    font-size: 1.05rem;
+  }
+
+  .tools-cards.is-sphere-hidden {
+    display: none !important;
+  }
+  .tools-cards__item.is-tech-filtered {
+    display: none !important;
+  }
+
+  @media (max-width: 575px) {
+    .tech-arsenal-wrap {
+      padding: 1.4rem 1.2rem;
+    }
+    .tech-sphere-stage {
+      height: 340px;
+    }
+    .tech-sphere-ring {
+      width: 220px;
+      height: 220px;
+    }
+    .tech-sphere-item {
+      width: 48px;
+      height: 48px;
+      margin-left: -24px;
+      margin-top: -24px;
+      border-radius: 1.15rem;
+    }
+    .tech-sphere-item img {
+      width: 28px;
+      height: 28px;
+    }
+  }
+</style>
+<script id="tech-sphere-script">
+(function () {
+  function initTechArsenalSphere() {
+    var toolsGrid = document.querySelector('.tools-cards');
+    if (!toolsGrid || document.getElementById('techArsenalWrap')) return;
+
+    var gridItems = Array.prototype.slice.call(toolsGrid.querySelectorAll('.tools-cards__item'));
+    if (!gridItems.length) return;
+
+    function detectCategory(name) {
+      var n = (name || '').toLowerCase();
+      if (/figma|photoshop|illustrator|premiere|canva/.test(n)) return 'design';
+      if (/netlify|cloudflare|remote desktop|vmware|virtual box|virtualbox/.test(n)) return 'cloud';
+      if (/html|css|php\b|javascript|xampp|wamp|gitkraken|github|gitea/.test(n)) return 'web';
+      return 'enterprise';
+    }
+
+    var categoryLabels = {
+      all: 'All',
+      enterprise: 'Enterprise & DB',
+      web: 'Web & Dev',
+      cloud: 'Cloud & Infra',
+      design: 'Design & Media'
+    };
+
+    var allTools = [];
+    gridItems.forEach(function (el) {
+      var img = el.querySelector('img');
+      var cap = el.querySelector('.tools-cards__caption');
+      var name = cap ? cap.textContent.trim() : 'Tool';
+      var src = img ? img.getAttribute('src') : '';
+      var cat = detectCategory(name);
+      el.setAttribute('data-tech-cat', cat);
+      allTools.push({ name: name, src: src, cat: cat, gridEl: el });
+    });
+
+    var counts = { all: allTools.length, enterprise: 0, web: 0, cloud: 0, design: 0 };
+    allTools.forEach(function (t) { counts[t.cat] = (counts[t.cat] || 0) + 1; });
+
+    var wrap = document.createElement('div');
+    wrap.className = 'tech-arsenal-wrap';
+    wrap.id = 'techArsenalWrap';
+    wrap.innerHTML =
+      '<div class="tech-arsenal-top">' +
+        '<div class="tech-arsenal-filters" role="tablist" aria-label="Filter Tech Stack">' +
+          '<button type="button" class="tech-pill is-active" data-tech-filter="all">All (' + counts.all + ')</button>' +
+          '<button type="button" class="tech-pill" data-tech-filter="enterprise">Enterprise &amp; DB (' + counts.enterprise + ')</button>' +
+          '<button type="button" class="tech-pill" data-tech-filter="web">Web &amp; Dev (' + counts.web + ')</button>' +
+          '<button type="button" class="tech-pill" data-tech-filter="cloud">Cloud &amp; Infra (' + counts.cloud + ')</button>' +
+          '<button type="button" class="tech-pill" data-tech-filter="design">Design &amp; Media (' + counts.design + ')</button>' +
+        '</div>' +
+        '<div class="tech-mode-toggle" role="group" aria-label="Tech Arsenal View Mode">' +
+          '<button type="button" class="tech-mode-btn is-active" data-tech-mode="sphere"><i class="ph-bold ph-globe"></i><span>3D Sphere</span></button>' +
+          '<button type="button" class="tech-mode-btn" data-tech-mode="grid"><i class="ph-bold ph-squares-four"></i><span>Grid</span></button>' +
+        '</div>' +
+      '</div>' +
+      '<div class="tech-sphere-stage" id="techSphereStage">' +
+        '<div class="tech-sphere-ring" aria-hidden="true"></div>' +
+        '<div class="tech-sphere-cloud" id="techSphereCloud"></div>' +
+        '<div class="tech-sphere-hud" id="techSphereHud"><i class="ph-bold ph-hand-grabbing"></i><span>Drag or flick to spin 3D Tech Arsenal</span></div>' +
+      '</div>';
+
+    toolsGrid.parentNode.insertBefore(wrap, toolsGrid);
+    toolsGrid.classList.add('is-sphere-hidden');
+
+    var stage = document.getElementById('techSphereStage');
+    var cloud = document.getElementById('techSphereCloud');
+    var hud = document.getElementById('techSphereHud');
+
+    var activeFilter = 'all';
+    var activeMode = 'sphere';
+    var nodes = [];
+
+    var baseSpeedY = 0.0042;
+    var baseSpeedX = 0.0014;
+    var velY = baseSpeedY;
+    var velX = baseSpeedX;
+    var isDragging = false;
+    var lastX = 0;
+    var lastY = 0;
+    var activePointerId = null;
+
+    function getRadius() {
+      var w = stage.clientWidth || 340;
+      var h = stage.clientHeight || 340;
+      return Math.min(w, h) * 0.37;
+    }
+
+    function setHudDefault() {
+      hud.innerHTML = '<i class="ph-bold ph-hand-grabbing"></i><span>Drag or flick to spin 3D Tech Arsenal</span>';
+    }
+
+    function setHudTool(tool) {
+      hud.innerHTML = '<i class="ph-bold ph-sparkle"></i><span>' + tool.name + '</span><span class="tech-hud-cat">' + (categoryLabels[tool.cat] || tool.cat) + '</span>';
+    }
+
+    function buildSphere(filterKey) {
+      cloud.innerHTML = '';
+      nodes = [];
+
+      var list = allTools.filter(function (t) {
+        return filterKey === 'all' || t.cat === filterKey;
+      });
+
+      var count = list.length;
+      var goldenAngle = Math.PI * (3 - Math.sqrt(5));
+
+      list.forEach(function (tool, i) {
+        var y = count === 1 ? 0 : 1 - (i / (count - 1)) * 2;
+        var r = Math.sqrt(Math.max(0, 1 - y * y));
+        var theta = goldenAngle * i;
+        var x = Math.cos(theta) * r;
+        var z = Math.sin(theta) * r;
+
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'tech-sphere-item';
+        btn.setAttribute('aria-label', tool.name);
+        btn.setAttribute('title', tool.name);
+
+        var img = document.createElement('img');
+        img.src = tool.src;
+        img.alt = tool.name;
+        img.loading = 'lazy';
+        img.decoding = 'async';
+        btn.appendChild(img);
+
+        btn.addEventListener('mouseenter', function () {
+          setHudTool(tool);
+        });
+        btn.addEventListener('click', function (e) {
+          e.stopPropagation();
+          cloud.querySelectorAll('.tech-sphere-item.is-selected').forEach(function (el) {
+            el.classList.remove('is-selected');
+          });
+          btn.classList.add('is-selected');
+          setHudTool(tool);
+        });
+
+        cloud.appendChild(btn);
+        nodes.push({ x: x, y: y, z: z, el: btn });
+      });
+
+      setHudDefault();
+    }
+
+    function applyFilterToGrid(filterKey) {
+      allTools.forEach(function (t) {
+        var hide = filterKey !== 'all' && t.cat !== filterKey;
+        t.gridEl.classList.toggle('is-tech-filtered', hide);
+      });
+    }
+
+    function rotatePoints(ax, ay) {
+      var cosX = Math.cos(ax);
+      var sinX = Math.sin(ax);
+      var cosY = Math.cos(ay);
+      var sinY = Math.sin(ay);
+
+      for (var i = 0; i < nodes.length; i++) {
+        var p = nodes[i];
+        var x1 = p.x * cosY - p.z * sinY;
+        var z1 = p.z * cosY + p.x * sinY;
+        var y2 = p.y * cosX - z1 * sinX;
+        var z2 = z1 * cosX + p.y * sinX;
+        p.x = x1;
+        p.y = y2;
+        p.z = z2;
+      }
+    }
+
+    function renderSphere() {
+      var radius = getRadius();
+      for (var i = 0; i < nodes.length; i++) {
+        var p = nodes[i];
+        var depth = (p.z + 1) * 0.5;
+        var scale = 0.62 + depth * 0.56;
+        var opacity = 0.22 + depth * 0.78;
+        var tx = p.x * radius;
+        var ty = p.y * radius;
+        var zIdx = Math.round(depth * 30) + 1;
+
+        p.el.style.transform = 'translate3d(' + tx.toFixed(1) + 'px,' + ty.toFixed(1) + 'px,0) scale(' + scale.toFixed(3) + ')';
+        p.el.style.opacity = opacity.toFixed(3);
+        p.el.style.zIndex = String(zIdx);
+      }
+    }
+
+    function tick() {
+      if (activeMode === 'sphere' && nodes.length) {
+        if (!isDragging) {
+          velY = velY * 0.965 + baseSpeedY * 0.035;
+          velX = velX * 0.965 + baseSpeedX * 0.035;
+        }
+        rotatePoints(velX, velY);
+        renderSphere();
+      }
+      requestAnimationFrame(tick);
+    }
+
+    stage.addEventListener('pointerdown', function (e) {
+      isDragging = true;
+      activePointerId = e.pointerId;
+      lastX = e.clientX;
+      lastY = e.clientY;
+      stage.classList.add('is-dragging');
+      if (stage.setPointerCapture) {
+        try { stage.setPointerCapture(e.pointerId); } catch (err) {}
+      }
+    });
+
+    stage.addEventListener('pointermove', function (e) {
+      if (!isDragging || e.pointerId !== activePointerId) return;
+      var dx = e.clientX - lastX;
+      var dy = e.clientY - lastY;
+      lastX = e.clientX;
+      lastY = e.clientY;
+
+      velY = Math.max(-0.24, Math.min(0.24, dx * 0.0085));
+      velX = Math.max(-0.24, Math.min(0.24, -dy * 0.0085));
+    });
+
+    function endDrag(e) {
+      if (!isDragging || e.pointerId !== activePointerId) return;
+      isDragging = false;
+      activePointerId = null;
+      stage.classList.remove('is-dragging');
+    }
+
+    stage.addEventListener('pointerup', endDrag);
+    stage.addEventListener('pointercancel', endDrag);
+
+    wrap.querySelectorAll('.tech-pill').forEach(function (pill) {
+      pill.addEventListener('click', function () {
+        wrap.querySelectorAll('.tech-pill').forEach(function (p) { p.classList.remove('is-active'); });
+        pill.classList.add('is-active');
+        activeFilter = pill.getAttribute('data-tech-filter') || 'all';
+        buildSphere(activeFilter);
+        applyFilterToGrid(activeFilter);
+        velY = 0.035;
+        if (window.ScrollTrigger) { ScrollTrigger.refresh(); }
+      });
+    });
+
+    wrap.querySelectorAll('.tech-mode-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        wrap.querySelectorAll('.tech-mode-btn').forEach(function (b) { b.classList.remove('is-active'); });
+        btn.classList.add('is-active');
+        activeMode = btn.getAttribute('data-tech-mode') || 'sphere';
+        if (activeMode === 'sphere') {
+          stage.style.display = '';
+          toolsGrid.classList.add('is-sphere-hidden');
+        } else {
+          stage.style.display = 'none';
+          toolsGrid.classList.remove('is-sphere-hidden');
+        }
+        if (window.ScrollTrigger) { ScrollTrigger.refresh(); }
+      });
+    });
+
+    buildSphere('all');
+    applyFilterToGrid('all');
+    tick();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initTechArsenalSphere);
+  } else {
+    initTechArsenalSphere();
+  }
+})();
+</script>
+<!-- Tech Arsenal 3D Sphere End -->
 </body>
 
 </html>
