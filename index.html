@@ -5646,7 +5646,8 @@
     shell.classList.add('is-active');
 
     var cleanUrl = (pdfUrl || 'resume/Resume_Ameer_Ridzuan.pdf').split('#')[0];
-    if (shell.getAttribute('data-rendered-url') === cleanUrl) return;
+    if (shell.getAttribute('data-rendered-url') === cleanUrl || shell.getAttribute('data-rendering-url') === cleanUrl) return;
+    shell.setAttribute('data-rendering-url', cleanUrl);
 
     var pagesWrapEl = shell.querySelector('.resume-pdfjs-pages');
     pagesWrapEl.innerHTML = '<div class="resume-pdfjs-status">Loading resume pages...</div>';
@@ -5683,9 +5684,11 @@
         }
         return chain.then(function () {
           shell.setAttribute('data-rendered-url', cleanUrl);
+          shell.removeAttribute('data-rendering-url');
         });
       })
       .catch(function () {
+        shell.removeAttribute('data-rendering-url');
         shell.classList.remove('is-active');
         iframe.style.display = '';
       });
@@ -5696,7 +5699,6 @@
     if (!trigger) return;
     var href = trigger.getAttribute('href') || 'resume/Resume_Ameer_Ridzuan.pdf';
     setTimeout(function () { renderPdfIntoModal(href); }, 80);
-    setTimeout(function () { renderPdfIntoModal(href); }, 320);
   });
 })();
 </script>
