@@ -6792,7 +6792,9 @@
 <script id="section-offset-nav-sync-script">
 (function () {
   function initActiveNavSync() {
-    var navLinks = Array.prototype.slice.call(document.querySelectorAll('#menu .menu__link, .header__navigation .menu__link'));
+    var navLinks = Array.prototype.slice.call(
+      document.querySelectorAll('#menu .menu__link, .header__navigation .menu__link')
+    );
     if (!navLinks.length) return;
 
     var pairs = [];
@@ -6805,6 +6807,12 @@
     });
     if (!pairs.length) return;
 
+    var clickLockUntil = 0;
+
+    function getDocTop(el) {
+      return el.getBoundingClientRect().top + window.scrollY;
+    }
+
     function setActive(activeLink) {
       pairs.forEach(function (p) {
         if (p.link === activeLink) {
@@ -6815,15 +6823,32 @@
       });
     }
 
-    function updateOnScroll() {
-      // Susun mengikut kedudukan menegak sebenar di halaman
-      var ordered = pairs.slice().sort(function (a, b) {
-        return a.sec.offsetTop - b.sec.offsetTop;
+    function updateOnScroll(force) {
+      if (!force && Date.now() < clickLockUntil) return;
+
+      var ordered = pairs.map(function (p) {
+        return { link: p.link, sec: p.sec, top: getDocTop(p.sec) };
+      }).sort(function (a, b) {
+        return a.top - b.top;
       });
-      var scrollPos = window.scrollY + 220;
+
+      var isMobile = window.innerWidth < 992;
+      var offset = isMobile ? 120 : 220;
+      var scrollPos = window.scrollY + offset;
+
+      // Jika sudah sampai paling bawah halaman, aktifkan seksyen terakhir (#contact)
+      var nearBottom =
+        window.innerHeight + window.scrollY >=
+        document.documentElement.scrollHeight - 24;
+
+      if (nearBottom) {
+        setActive(ordered[ordered.length - 1].link);
+        return;
+      }
+
       var current = ordered[0];
       for (var i = 0; i < ordered.length; i++) {
-        if (ordered[i].sec.offsetTop <= scrollPos) {
+        if (ordered[i].top <= scrollPos) {
           current = ordered[i];
         }
       }
@@ -6835,22 +6860,29 @@
       if (rafId) return;
       rafId = requestAnimationFrame(function () {
         rafId = null;
-        updateOnScroll();
+        updateOnScroll(false);
       });
     }
 
     window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll, { passive: true });
+    window.addEventListener('resize', function () {
+      updateOnScroll(true);
+    }, { passive: true });
 
     pairs.forEach(function (p) {
       p.link.addEventListener('click', function () {
+        clickLockUntil = Date.now() + 650;
         setActive(p.link);
-        setTimeout(updateOnScroll, 450);
+        setTimeout(function () {
+          updateOnScroll(true);
+        }, 700);
       });
     });
 
-    updateOnScroll();
-    setTimeout(updateOnScroll, 300);
+    updateOnScroll(true);
+    setTimeout(function () {
+      updateOnScroll(true);
+    }, 350);
   }
 
   if (document.readyState === 'loading') {
