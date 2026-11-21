@@ -5045,6 +5045,20 @@
     opacity: 1 !important;
     visibility: visible !important;
   }
+
+  /* Logo Vercel kekal jelas dalam Dark Mode */
+  [color-scheme="dark"] #sidebarTechCard .sidebar-sphere-item img[alt="Vercel"] {
+    filter: invert(1) brightness(1.15) !important;
+  }
+
+  /* Logo Supabase memanjang supaya jelas dibaca */
+  #sidebarTechCard .sidebar-sphere-item img[alt="Supabase"] {
+    width: 44px !important;
+    height: auto !important;
+  }
+  [color-scheme="dark"] #sidebarTechCard .sidebar-sphere-item img[alt="Supabase"] {
+    filter: drop-shadow(0 0 2px rgba(255,255,255,0.65)) !important;
+  }
 </style>
 <script id="sidebar-mini-sphere-script">
 (function () {
@@ -5074,7 +5088,7 @@
     function detectCategory(name) {
       var n = (name || '').toLowerCase();
       if (/figma|photoshop|illustrator|premiere|canva/.test(n)) return 'design';
-      if (/netlify|cloudflare|remote desktop|vmware|virtual box|virtualbox/.test(n)) return 'cloud';
+      if (/netlify|vercel|cloudflare|remote desktop|vmware|virtual box|virtualbox/.test(n)) return 'cloud';
       if (/html|css|php\b|javascript|xampp|wamp|gitkraken|github|gitea/.test(n)) return 'web';
       return 'enterprise';
     }
@@ -5092,6 +5106,20 @@
         });
       }
     });
+        if (!allTools.some(function (t) { return /vercel/i.test(t.name); })) {
+      allTools.push({
+        name: 'Vercel',
+        src: 'img/icons/vercel logo.png',
+        cat: 'cloud'
+      });
+    }
+        if (!allTools.some(function (t) { return /supabase/i.test(t.name); })) {
+      allTools.push({
+        name: 'Supabase',
+        src: 'img/icons/supabase-logo-green-black-transparent.png',
+        cat: 'enterprise'
+      });
+    }
     if (!allTools.length) return;
 
     var toolsBlock = toolsGrid.closest('.content__block');
