@@ -5159,6 +5159,7 @@
     var velY = idleSpeedY * dirY;
     var velX = idleSpeedX * dirX;
     var dragging = false;
+    var hovering = false;
     var lastX = 0;
     var lastY = 0;
     var pointerId = null;
@@ -5243,15 +5244,25 @@
 
     function tick() {
       if (!dragging) {
-        var targetY = idleSpeedY * dirY;
-        var targetX = idleSpeedX * dirX;
-        velY = velY * 0.965 + targetY * 0.035;
-        velX = velX * 0.965 + targetX * 0.035;
+        var slowFactor = hovering ? 0.22 : 1;
+        var targetY = idleSpeedY * dirY * slowFactor;
+        var targetX = idleSpeedX * dirX * slowFactor;
+        var ease = hovering ? 0.08 : 0.035;
+        velY = velY * (1 - ease) + targetY * ease;
+        velX = velX * (1 - ease) + targetX * ease;
       }
       rotate(velX, velY);
       render();
       requestAnimationFrame(tick);
     }
+
+    stage.addEventListener('pointerenter', function (e) {
+      if (e.pointerType === 'mouse') hovering = true;
+    });
+
+    stage.addEventListener('pointerleave', function () {
+      hovering = false;
+    });
 
     stage.addEventListener('pointerdown', function (e) {
       dragging = true;
