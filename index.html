@@ -7684,6 +7684,158 @@
   }
 </style>
 <!-- Sidebar Globe Size & Touch Polish End -->
+
+<!-- Smart Section Scroll Guide Start -->
+<style id="smart-section-scroll-style">
+  #about .h2__subtitle.is-about-scroll-cta,
+  #about .section__subtitle.is-about-scroll-cta {
+    cursor: pointer !important;
+    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease !important;
+    user-select: none;
+    pointer-events: auto !important;
+  }
+
+  #about .h2__subtitle.is-about-scroll-cta:hover,
+  #about .section__subtitle.is-about-scroll-cta:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent, #8f56cc) !important;
+    box-shadow: 0 8px 20px rgba(143, 86, 204, 0.18);
+  }
+
+  @media (min-width: 992px) {
+    #mobileSmartNextBtn {
+      display: none !important;
+    }
+  }
+
+  @media (max-width: 991px) {
+    #mobileSmartNextBtn {
+      display: inline-flex !important;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      background: transparent;
+      color: inherit;
+      cursor: pointer;
+      transition: transform 0.25s ease, color 0.25s ease;
+    }
+
+    #mobileSmartNextBtn i {
+      transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    #mobileSmartNextBtn.is-at-bottom i {
+      transform: rotate(180deg);
+    }
+  }
+</style>
+<script id="smart-section-scroll-script">
+  (function () {
+    function initSmartScrollGuide() {
+      // 1. Jadikan pill "✦ About Me" boleh klik untuk scroll terus ke seksyen #about
+      var aboutSection = document.getElementById("about");
+      var aboutPill = aboutSection
+        ? aboutSection.querySelector(".h2__subtitle, .section__subtitle")
+        : null;
+
+      if (aboutPill && !aboutPill.dataset.smartBound) {
+        aboutPill.dataset.smartBound = "1";
+        aboutPill.classList.add("is-about-scroll-cta");
+        aboutPill.setAttribute("role", "button");
+        aboutPill.setAttribute("tabindex", "0");
+        aboutPill.setAttribute("title", "Scroll to About Me");
+
+        var goAbout = function (e) {
+          if (e) e.preventDefault();
+          var targetY = aboutSection.getBoundingClientRect().top + window.scrollY - 24;
+          window.scrollTo({ top: Math.max(0, targetY), behavior: "smooth" });
+        };
+
+        aboutPill.addEventListener("click", goAbout);
+        aboutPill.addEventListener("keydown", function (e) {
+          if (e.key === "Enter" || e.key === " ") {
+            goAbout(e);
+          }
+        });
+      }
+
+      // 2. Mobile: Tambah butang "Next Section" dalam floating pill bersama Copy Email & QR
+      var qrBtn = document.getElementById("quickQrBtn");
+      var dock = qrBtn ? qrBtn.parentElement : null;
+      if (!dock || document.getElementById("mobileSmartNextBtn")) return;
+
+      var nextBtn = document.createElement("button");
+      nextBtn.type = "button";
+      nextBtn.id = "mobileSmartNextBtn";
+      nextBtn.className = qrBtn.className || "quick-dock-btn";
+      nextBtn.setAttribute("aria-label", "Scroll to next section");
+      nextBtn.setAttribute("title", "Next section");
+      nextBtn.innerHTML = '<i class="ph-bold ph-arrow-down"></i>';
+      dock.appendChild(nextBtn);
+
+      function getOrderedTargets() {
+        var ids = ["home", "about", "resume", "portfolio", "certifications", "certs", "contact"];
+        var list = [];
+        var seen = {};
+        ids.forEach(function (id) {
+          var el = document.getElementById(id);
+          if (el && !seen[el.id]) {
+            seen[el.id] = true;
+            list.push(el);
+          }
+        });
+        return list;
+      }
+
+      function getNextTarget() {
+        var targets = getOrderedTargets();
+        var scrollPos = window.scrollY + 90;
+        for (var i = 0; i < targets.length; i++) {
+          var top = targets[i].getBoundingClientRect().top + window.scrollY;
+          if (top > scrollPos) {
+            return targets[i];
+          }
+        }
+        return null;
+      }
+
+      function updateBtnState() {
+        if (window.innerWidth >= 992) return;
+        var nextTarget = getNextTarget();
+        if (!nextTarget) {
+          nextBtn.classList.add("is-at-bottom");
+          nextBtn.setAttribute("aria-label", "Back to top");
+          nextBtn.setAttribute("title", "Back to top");
+        } else {
+          nextBtn.classList.remove("is-at-bottom");
+          nextBtn.setAttribute("aria-label", "Scroll to " + nextTarget.id);
+          nextBtn.setAttribute("title", "Next: " + nextTarget.id);
+        }
+      }
+
+      nextBtn.addEventListener("click", function () {
+        var nextTarget = getNextTarget();
+        if (nextTarget) {
+          var y = nextTarget.getBoundingClientRect().top + window.scrollY - 18;
+          window.scrollTo({ top: Math.max(0, y), behavior: "smooth" });
+        } else {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+      });
+
+      window.addEventListener("scroll", updateBtnState, { passive: true });
+      window.addEventListener("resize", updateBtnState);
+      updateBtnState();
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initSmartScrollGuide);
+    } else {
+      initSmartScrollGuide();
+    }
+  })();
+</script>
+<!-- Smart Section Scroll Guide End -->
 </body>
 
 </html>
