@@ -897,7 +897,7 @@
     <div class="exp-top">
       <div>
         <h4 class="exp-role">Bachelor Degree</h4>
-        <p class="exp-company">at <a>Universiti Teknologi MARA Puncak Perdana</p>
+        <p class="exp-company">at <a>Universiti Teknologi MARA Puncak Perdana</a></p>
       </div>
       <span class="exp-date"><i class="ph-bold ph-graduation-cap"></i>2022 - 2025</span>
     </div>
@@ -908,7 +908,7 @@
     <div class="exp-top">
       <div>
         <h4 class="exp-role">Diploma</h4>
-        <p class="exp-company">at <a>Universiti Teknologi MARA Merbok, Kedah</p>
+        <p class="exp-company">at <a>Universiti Teknologi MARA Merbok, Kedah</a></p>
       </div>
       <span class="exp-date"><i class="ph-bold ph-graduation-cap"></i>2019 - 2022</span>
     </div>
@@ -919,7 +919,7 @@
     <div class="exp-top">
       <div>
         <h4 class="exp-role">Secondary School</h4>
-        <p class="exp-company">at <a href="https://g.co/kgs/xTx675E" class="text-link-bold" target="_blank" rel="noopener noreferrer">SMK Pekan Baru, Parit Buntar, Perak</p>
+        <p class="exp-company">at <a href="https://g.co/kgs/xTx675E" class="text-link-bold" target="_blank" rel="noopener noreferrer">SMK Pekan Baru, Parit Buntar, Perak</a></p>
       </div>
       <span class="exp-date"><i class="ph-bold ph-graduation-cap"></i>2014 - 2018</span>
     </div>
@@ -3490,20 +3490,23 @@
   .qr-close:hover { border-color: var(--accent, #e4b8bf); transform: scale(1.06); }
 
   .qr-stage {
-    width: 100%; height: 465px; perspective: 1300px;
+    width: 100%; height: 465px; perspective: 1300px; -webkit-perspective: 1300px;
   }
 
   .qr-tilt-wrap {
     width: 100%; height: 100%;
-    transform-style: preserve-3d; will-change: transform;
+    transform-style: preserve-3d; -webkit-transform-style: preserve-3d;
     transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .qr-tilt-wrap { will-change: transform; }
   }
   .qr-tilt-wrap.is-tilting { transition: transform 0.08s linear; }
 
   .qr-flip-inner {
     position: relative; width: 100%; height: 100%;
-    transform-style: preserve-3d;
-    transition: transform 0.72s cubic-bezier(0.22, 1, 0.36, 1);
+    transform-style: preserve-3d; -webkit-transform-style: preserve-3d;
+    transition: transform 0.68s cubic-bezier(0.22, 1, 0.36, 1);
     cursor: pointer;
   }
   .qr-flip-inner.is-flipped { transform: rotateY(180deg); }
@@ -3517,6 +3520,7 @@
     box-shadow: 0 28px 80px rgba(0,0,0,0.58);
     display: flex; flex-direction: column; justify-content: space-between;
     text-align: center; overflow: hidden;
+    transition: opacity 0.14s ease 0.14s, visibility 0.14s ease 0.14s;
   }
   .qr-face::before {
     content: ""; position: absolute; inset: 0; pointer-events: none;
@@ -3533,11 +3537,21 @@
   .qr-face > * { position: relative; z-index: 2; }
 
   .qr-face-front {
+    transform: rotateY(0deg) translateZ(1px);
+    opacity: 1; visibility: visible; pointer-events: auto;
     background: radial-gradient(circle at 85% 12%, rgba(228,184,191,0.14) 0%, transparent 52%), var(--base, #111111);
   }
   .qr-face-back {
-    transform: rotateY(180deg);
+    transform: rotateY(180deg) translateZ(1px);
+    opacity: 0; visibility: hidden; pointer-events: none;
     background: radial-gradient(circle at 15% 12%, rgba(228,184,191,0.14) 0%, transparent 52%), var(--base, #111111);
+  }
+
+  .qr-flip-inner.is-flipped .qr-face-front {
+    opacity: 0; visibility: hidden; pointer-events: none;
+  }
+  .qr-flip-inner.is-flipped .qr-face-back {
+    opacity: 1; visibility: visible; pointer-events: auto;
   }
 
   .qr-badge {
@@ -3935,6 +3949,125 @@
 })();
 </script>
 <!-- 3D Tilt & Glass Glare End -->
+<!-- Cursor Spotlight Start -->
+<style id="cursor-spotlight-style">
+  @media (hover: hover) and (pointer: fine) {
+    .cards__card,
+    .exp-card {
+      position: relative;
+      isolation: isolate;
+    }
+
+    .cards__card > :not(.spotlight-layer),
+    .exp-card > :not(.exp-node):not(.spotlight-layer) {
+      position: relative;
+      z-index: 1;
+    }
+
+    .spotlight-layer {
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+      opacity: var(--spot-opacity, 0);
+      transition: opacity 0.32s ease;
+    }
+
+    .spotlight-layer::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(
+        420px circle at var(--spot-x, 50%) var(--spot-y, 50%),
+        rgba(228, 184, 191, 0.14) 0%,
+        rgba(228, 184, 191, 0.04) 45%,
+        transparent 75%
+      );
+      background: radial-gradient(
+        420px circle at var(--spot-x, 50%) var(--spot-y, 50%),
+        color-mix(in srgb, var(--accent, #e4b8bf) 16%, transparent) 0%,
+        color-mix(in srgb, var(--accent, #e4b8bf) 5%, transparent) 45%,
+        transparent 75%
+      );
+    }
+
+    .spotlight-layer::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      padding: 1.5px;
+      border-radius: inherit;
+      background: radial-gradient(
+        260px circle at var(--spot-x, 50%) var(--spot-y, 50%),
+        rgba(228, 184, 191, 0.72) 0%,
+        transparent 72%
+      );
+      background: radial-gradient(
+        260px circle at var(--spot-x, 50%) var(--spot-y, 50%),
+        color-mix(in srgb, var(--accent, #e4b8bf) 75%, transparent) 0%,
+        transparent 72%
+      );
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask-composite: exclude;
+    }
+  }
+</style>
+<script id="cursor-spotlight-script">
+(function () {
+  var canHover = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  var reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!canHover || reducedMotion) return;
+
+  function attachSpotlight(card) {
+    if (!card || card.dataset.spotlightReady === '1') return;
+    card.dataset.spotlightReady = '1';
+
+    var layer = card.querySelector(':scope > .spotlight-layer');
+    if (!layer) {
+      layer = document.createElement('span');
+      layer.className = 'spotlight-layer';
+      layer.setAttribute('aria-hidden', 'true');
+      card.insertBefore(layer, card.firstChild);
+    }
+
+    var rafId = null;
+
+    card.addEventListener('mousemove', function (e) {
+      var rect = card.getBoundingClientRect();
+      if (!rect.width || !rect.height) return;
+      var x = (e.clientX - rect.left).toFixed(1) + 'px';
+      var y = (e.clientY - rect.top).toFixed(1) + 'px';
+
+      if (rafId) cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(function () {
+        layer.style.setProperty('--spot-x', x);
+        layer.style.setProperty('--spot-y', y);
+        layer.style.setProperty('--spot-opacity', '1');
+      });
+    });
+
+    card.addEventListener('mouseleave', function () {
+      if (rafId) cancelAnimationFrame(rafId);
+      layer.style.setProperty('--spot-opacity', '0');
+    });
+  }
+
+  function initSpotlights() {
+    document.querySelectorAll('.cards__card, .exp-card').forEach(attachSpotlight);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initSpotlights);
+  } else {
+    initSpotlights();
+  }
+})();
+</script>
+<!-- Cursor Spotlight End -->
 </body>
 
 </html>
