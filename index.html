@@ -3574,6 +3574,132 @@
 })();
 </script>
 <!-- QR Business Card Modal End -->
+<!-- 3D Tilt & Glass Glare Start -->
+<style id="tilt-3d-glare-style">
+  @media (hover: hover) and (pointer: fine) {
+    .my-gallery .gallery__item .gallery__link,
+    #byridzu-demo-grid .byridzu-card {
+      position: relative;
+      transform-style: preserve-3d;
+      will-change: transform;
+      transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.45s ease, border-color 0.25s ease;
+    }
+
+    .my-gallery .gallery__item .gallery__link.is-tilting,
+    #byridzu-demo-grid .byridzu-card.is-tilting {
+      transition: transform 0.08s linear, box-shadow 0.25s ease, border-color 0.25s ease;
+    }
+
+    #byridzu-demo-grid .byridzu-card.is-tilting {
+      box-shadow: 0 22px 42px rgba(0, 0, 0, 0.32);
+    }
+
+    .tilt-glare-layer {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      border-radius: inherit;
+      opacity: var(--glare-opacity, 0);
+      background: radial-gradient(
+        circle 260px at var(--glare-x, 50%) var(--glare-y, 50%),
+        rgba(255, 255, 255, 0.24) 0%,
+        rgba(255, 255, 255, 0.08) 38%,
+        rgba(255, 255, 255, 0) 72%
+      );
+      transition: opacity 0.35s ease;
+      z-index: 5;
+    }
+
+    #byridzu-demo-grid .byridzu-card .byridzu-phone {
+      will-change: transform;
+    }
+
+    #byridzu-demo-grid .byridzu-card.is-tilting .byridzu-phone {
+      transform: translate3d(var(--phone-tx, 0px), var(--phone-ty, -2px), 0) rotate(0deg) scale(1.07);
+      transition: transform 0.1s linear, box-shadow 0.3s ease;
+    }
+  }
+</style>
+<script id="tilt-3d-glare-script">
+(function () {
+  var canHover = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  var reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!canHover || reducedMotion) return;
+
+  function attachTilt(el, maxTilt, isDemoCard) {
+    if (!el || el.dataset.tiltReady === '1') return;
+    el.dataset.tiltReady = '1';
+
+    var glare = el.querySelector('.tilt-glare-layer');
+    if (!glare) {
+      glare = document.createElement('span');
+      glare.className = 'tilt-glare-layer';
+      glare.setAttribute('aria-hidden', 'true');
+      el.appendChild(glare);
+    }
+
+    var rafId = null;
+
+    el.addEventListener('mouseenter', function () {
+      el.classList.add('is-tilting');
+    });
+
+    el.addEventListener('mousemove', function (e) {
+      var rect = el.getBoundingClientRect();
+      if (!rect.width || !rect.height) return;
+
+      var relX = (e.clientX - rect.left) / rect.width;
+      var relY = (e.clientY - rect.top) / rect.height;
+      var rotY = (relX - 0.5) * (maxTilt * 2);
+      var rotX = (0.5 - relY) * (maxTilt * 2);
+      var glareX = (relX * 100).toFixed(1) + '%';
+      var glareY = (relY * 100).toFixed(1) + '%';
+
+      if (rafId) cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(function () {
+        el.style.transform = 'perspective(950px) rotateX(' + rotX.toFixed(2) + 'deg) rotateY(' + rotY.toFixed(2) + 'deg) scale3d(1.015, 1.015, 1.015)';
+        el.style.setProperty('--glare-x', glareX);
+        el.style.setProperty('--glare-y', glareY);
+        el.style.setProperty('--glare-opacity', '1');
+
+        if (isDemoCard) {
+          var tx = ((relX - 0.5) * 14).toFixed(1) + 'px';
+          var ty = (((relY - 0.5) * 10) - 3).toFixed(1) + 'px';
+          el.style.setProperty('--phone-tx', tx);
+          el.style.setProperty('--phone-ty', ty);
+        }
+      });
+    });
+
+    el.addEventListener('mouseleave', function () {
+      if (rafId) cancelAnimationFrame(rafId);
+      el.classList.remove('is-tilting');
+      el.style.transform = '';
+      el.style.setProperty('--glare-opacity', '0');
+      if (isDemoCard) {
+        el.style.removeProperty('--phone-tx');
+        el.style.removeProperty('--phone-ty');
+      }
+    });
+  }
+
+  function initAllTilts() {
+    document.querySelectorAll('.my-gallery .gallery__item .gallery__link').forEach(function (card) {
+      attachTilt(card, 6.5, false);
+    });
+    document.querySelectorAll('#byridzu-demo-grid .byridzu-card').forEach(function (card) {
+      attachTilt(card, 8.5, true);
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initAllTilts);
+  } else {
+    initAllTilts();
+  }
+})();
+</script>
+<!-- 3D Tilt & Glass Glare End -->
 </body>
 
 </html>
