@@ -926,21 +926,29 @@
     </div>
   </div>
 
-  <!-- Bento 2: Now Building & Quick Jumps -->
-  <div class="bento-card bento-journey">
-    <div class="bento-label">
-      <i class="ph-bold ph-compass"></i>
-      <span>Now Building</span>
-    </div>
-    <div>
-      <h3 class="bento-journey-role">Enterprise Apps &amp; by.ridzu.one</h3>
-      <p class="bento-journey-sub">Shipping multi-role RBAC portals, SQL optimisations and mobile-first web apps from Shah Alam.</p>
-      <div class="bento-chips">
-        <a href="#experience" class="bento-chip"><i class="ph-bold ph-briefcase"></i>Timeline</a>
-        <a href="#techArsenalWrap" class="bento-chip"><i class="ph-bold ph-globe"></i>3D Tech</a>
-        <a href="#cert" class="bento-chip"><i class="ph-bold ph-certificate"></i>Certs</a>
-        <button type="button" class="bento-chip" id="bentoOpenQrBtn"><i class="ph-bold ph-qr-code"></i>QR Card</button>
+  <!-- Bento 2: UI/UX Playground (Accent Lab + Sticker Physics) -->
+  <div class="bento-card bento-journey bento-playground" id="bentoPlaygroundCard" data-widget-ready="1">
+    <div class="bento-pg-head">
+      <div class="bento-label" style="margin-bottom:0;">
+        <i class="ph-bold ph-palette"></i>
+        <span>UI/UX Lab</span>
       </div>
+      <div class="bento-accent-bar" role="group" aria-label="Accent color switcher">
+        <button type="button" class="bento-swatch is-active" data-accent-id="rose" style="--sw:#e4b8bf;" title="Rose (Default)" aria-label="Rose accent"></button>
+        <button type="button" class="bento-swatch" data-accent-id="violet" style="--sw:#a855f7;" title="Violet" aria-label="Violet accent"></button>
+        <button type="button" class="bento-swatch" data-accent-id="emerald" style="--sw:#34d399;" title="Emerald" aria-label="Emerald accent"></button>
+        <button type="button" class="bento-swatch" data-accent-id="cyan" style="--sw:#38bdf8;" title="Cyan" aria-label="Cyan accent"></button>
+        <button type="button" class="bento-swatch" data-accent-id="amber" style="--sw:#fbbf24;" title="Amber" aria-label="Amber accent"></button>
+      </div>
+    </div>
+    <div class="bento-physics-stage" id="bentoPhysicsStage" aria-label="Interactive sticker physics board">
+      <button type="button" class="bento-shake-btn" id="bentoShakeBtn" title="Shake stickers" aria-label="Shake stickers">
+        <i class="ph-bold ph-shuffle"></i>
+        <span>Shake</span>
+      </button>
+    </div>
+    <div class="bento-pg-foot">
+      <span class="bento-pg-hint"><i class="ph-bold ph-hand-grabbing"></i> Drag &amp; toss stickers or pick a theme accent</span>
     </div>
   </div>
 
@@ -6118,8 +6126,16 @@
       link.setAttribute('href', '#sidebarTechCard');
       link.addEventListener('click', function (e) {
         e.preventDefault();
-        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        velY = 0.08 * dirY;
+        velY = 0.12 * dirY;
+        if (window.innerWidth < 992) {
+          card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } else {
+          card.style.transition = 'box-shadow 0.35s ease, transform 0.35s ease';
+          card.style.boxShadow = '0 0 0 2px rgba(143, 86, 204, 0.55), 0 12px 28px rgba(143, 86, 204, 0.22)';
+          setTimeout(function () {
+            card.style.boxShadow = '';
+          }, 900);
+        }
       });
     });
 
@@ -8267,6 +8283,854 @@
   })();
 </script>
 <!-- Flagship iOS Smart Stack End -->
+
+<!-- Bento Widgets Upgrade Start -->
+<style id="bento-widgets-upgrade-style">
+  /* 1. Labuhkan kotak gambar Flagship Venture supaya screenshot projek nampak penuh */
+  #heroBentoGrid .bento-work-media {
+    height: 210px !important;
+    min-height: 210px !important;
+    margin: 0.9rem 0 1.05rem !important;
+  }
+
+  #heroBentoGrid .ios-stack-slide img,
+  #heroBentoGrid .bento-work-media > img {
+    object-fit: cover !important;
+    object-position: top center !important;
+  }
+
+  /* 2. Seimbangkan susunan menegak kad Highlights */
+  #heroBentoGrid .bento-stats {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  #heroBentoGrid .bento-stat-grid {
+    flex: 1;
+    display: grid;
+    align-content: center;
+    gap: 0.95rem;
+  }
+
+  /* 3. Kad Shah Alam: Live Analog Clock + Live Weather */
+  #heroBentoGrid .bento-clock {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .bento-clock-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.6rem;
+    width: 100%;
+  }
+
+  .bento-weather-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.28rem 0.7rem;
+    border-radius: 999px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--t-bright, #ffffff);
+    background: rgba(143, 86, 204, 0.14);
+    border: 1px solid rgba(143, 86, 204, 0.24);
+    white-space: nowrap;
+  }
+
+  [color-scheme="light"] .bento-weather-pill {
+    color: #22232c;
+    background: rgba(143, 86, 204, 0.1);
+  }
+
+  .bento-analog-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.6rem 0;
+    flex: 1;
+  }
+
+  .bento-analog-svg {
+    width: 106px;
+    height: 106px;
+    display: block;
+    filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.12));
+  }
+
+  .bento-clock-dial {
+    fill: rgba(255, 255, 255, 0.05);
+    stroke: var(--stroke-elements, rgba(255, 255, 255, 0.18));
+    stroke-width: 2;
+  }
+
+  [color-scheme="light"] .bento-clock-dial {
+    fill: rgba(255, 255, 255, 0.85);
+    stroke: rgba(143, 86, 204, 0.24);
+  }
+
+  .bento-clock-tick {
+    stroke: var(--t-medium, #9ca3af);
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    opacity: 0.65;
+  }
+
+  .bento-clock-hand-hour {
+    stroke: var(--t-bright, #ffffff);
+    stroke-width: 3.2;
+    stroke-linecap: round;
+  }
+
+  .bento-clock-hand-min {
+    stroke: var(--t-bright, #ffffff);
+    stroke-width: 2.2;
+    stroke-linecap: round;
+  }
+
+  [color-scheme="light"] .bento-clock-hand-hour,
+  [color-scheme="light"] .bento-clock-hand-min {
+    stroke: #22232c;
+  }
+
+  .bento-clock-hand-sec {
+    stroke: #ef4444;
+    stroke-width: 1.4;
+    stroke-linecap: round;
+  }
+
+  /* 4. Kad Now Building: Live Shipping Status List */
+  #heroBentoGrid .bento-journey {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .bento-ship-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    margin: 0.85rem 0 1.05rem;
+  }
+
+  .bento-ship-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    padding: 0.62rem 0.85rem;
+    border-radius: 1.15rem;
+    background: rgba(128, 128, 148, 0.08);
+    border: 1px solid var(--stroke-elements, rgba(255, 255, 255, 0.1));
+  }
+
+  [color-scheme="light"] .bento-ship-item {
+    background: rgba(255, 255, 255, 0.65);
+    border-color: rgba(143, 86, 204, 0.15);
+  }
+
+  .bento-ship-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    font-size: 1.18rem;
+    font-weight: 600;
+    color: var(--t-bright, #ffffff);
+  }
+
+  [color-scheme="light"] .bento-ship-top {
+    color: #22232c;
+  }
+
+  .bento-ship-name {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    min-width: 0;
+  }
+
+  .bento-ship-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .bento-ship-dot.is-live { background: #22c55e; box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.22); }
+  .bento-ship-dot.is-dev { background: #8f56cc; box-shadow: 0 0 0 3px rgba(143, 86, 204, 0.22); }
+  .bento-ship-dot.is-ship { background: #f59e0b; box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.22); }
+
+  .bento-ship-badge {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--t-medium, #9ca3af);
+    white-space: nowrap;
+  }
+
+  .bento-ship-bar {
+    width: 100%;
+    height: 4px;
+    border-radius: 999px;
+    background: rgba(128, 128, 148, 0.18);
+    overflow: hidden;
+  }
+
+  .bento-ship-fill {
+    height: 100%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #8f56cc, #c084fc);
+  }
+
+  @media (max-width: 767px) {
+    #heroBentoGrid .bento-work-media {
+      height: 195px !important;
+      min-height: 195px !important;
+    }
+
+    .bento-analog-svg {
+      width: 88px;
+      height: 88px;
+    }
+  }
+</style>
+<script id="bento-widgets-upgrade-script">
+  (function () {
+    function initBentoWidgetsUpgrade() {
+      // A. Naik taraf kad Shah Alam: Analog Clock SVG + Live Weather Shah Alam
+      var clockCard = document.querySelector("#heroBentoGrid .bento-clock");
+      if (clockCard && !clockCard.dataset.widgetReady) {
+        clockCard.dataset.widgetReady = "1";
+
+        var label = clockCard.querySelector(".bento-label");
+        if (label) {
+          var head = document.createElement("div");
+          head.className = "bento-clock-head";
+          label.parentNode.insertBefore(head, label);
+          head.appendChild(label);
+          label.style.marginBottom = "0";
+
+          var weatherPill = document.createElement("span");
+          weatherPill.className = "bento-weather-pill";
+          weatherPill.id = "bentoLiveWeather";
+          weatherPill.innerHTML = '<i class="ph-bold ph-cloud-sun"></i><span>--&deg;C</span>';
+          head.appendChild(weatherPill);
+        }
+
+        var analogWrap = document.createElement("div");
+        analogWrap.className = "bento-analog-wrap";
+        analogWrap.innerHTML =
+          '<svg class="bento-analog-svg" viewBox="0 0 100 100" aria-hidden="true">' +
+            '<circle class="bento-clock-dial" cx="50" cy="50" r="46"></circle>' +
+            '<line class="bento-clock-tick" x1="50" y1="9" x2="50" y2="15"></line>' +
+            '<line class="bento-clock-tick" x1="91" y1="50" x2="85" y2="50"></line>' +
+            '<line class="bento-clock-tick" x1="50" y1="91" x2="50" y2="85"></line>' +
+            '<line class="bento-clock-tick" x1="9" y1="50" x2="15" y2="50"></line>' +
+            '<line id="analogHourHand" class="bento-clock-hand-hour" x1="50" y1="50" x2="50" y2="27"></line>' +
+            '<line id="analogMinHand" class="bento-clock-hand-min" x1="50" y1="50" x2="50" y2="18"></line>' +
+            '<line id="analogSecHand" class="bento-clock-hand-sec" x1="50" y1="56" x2="50" y2="15"></line>' +
+            '<circle cx="50" cy="50" r="3" fill="#ef4444"></circle>' +
+          '</svg>';
+
+        var timeBlock = clockCard.querySelector("#bentoLiveTime");
+        if (timeBlock && timeBlock.parentElement) {
+          clockCard.insertBefore(analogWrap, timeBlock.parentElement);
+        } else {
+          clockCard.appendChild(analogWrap);
+        }
+
+        function updateAnalogHands() {
+          var hHand = document.getElementById("analogHourHand");
+          var mHand = document.getElementById("analogMinHand");
+          var sHand = document.getElementById("analogSecHand");
+          if (!hHand || !mHand || !sHand) return;
+
+          var now = new Date();
+          var parts = new Intl.DateTimeFormat("en-GB", {
+            timeZone: "Asia/Kuala_Lumpur",
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit",
+            hour12: false
+          }).format(now).split(":");
+
+          var hr = parseInt(parts[0], 10) || 0;
+          var mn = parseInt(parts[1], 10) || 0;
+          var sc = parseInt(parts[2], 10) || 0;
+
+          var secDeg = sc * 6;
+          var minDeg = mn * 6 + sc * 0.1;
+          var hrDeg = (hr % 12) * 30 + mn * 0.5;
+
+          hHand.setAttribute("transform", "rotate(" + hrDeg.toFixed(1) + " 50 50)");
+          mHand.setAttribute("transform", "rotate(" + minDeg.toFixed(1) + " 50 50)");
+          sHand.setAttribute("transform", "rotate(" + secDeg.toFixed(1) + " 50 50)");
+        }
+
+        updateAnalogHands();
+        setInterval(updateAnalogHands, 1000);
+
+        // Fetch Live Weather Shah Alam (Open-Meteo, percuma tanpa API key)
+        var weatherEl = document.getElementById("bentoLiveWeather");
+        if (weatherEl && window.fetch) {
+          fetch("https://api.open-meteo.com/v1/forecast?latitude=3.0738&longitude=101.5183&current=temperature_2m,weather_code,is_day&timezone=Asia%2FKuala_Lumpur")
+            .then(function (r) { return r.json(); })
+            .then(function (data) {
+              if (!data || !data.current) return;
+              var temp = Math.round(data.current.temperature_2m);
+              var code = data.current.weather_code;
+              var isDay = data.current.is_day === 1;
+              var icon = isDay ? "ph-sun" : "ph-moon-stars";
+              if (code >= 1 && code <= 3) icon = isDay ? "ph-cloud-sun" : "ph-cloud-moon";
+              else if (code >= 45 && code <= 48) icon = "ph-cloud-fog";
+              else if (code >= 51 && code <= 82) icon = "ph-cloud-rain";
+              else if (code >= 95) icon = "ph-cloud-lightning";
+              weatherEl.innerHTML = '<i class="ph-bold ' + icon + '"></i><span>' + temp + '&deg;C</span>';
+            })
+            .catch(function () {
+              weatherEl.innerHTML = '<i class="ph-bold ph-map-pin"></i><span>MYT</span>';
+            });
+        }
+      }
+
+      // B. Naik taraf kad Now Building: Live Shipping Status List
+      var journeyCard = document.querySelector("#heroBentoGrid .bento-journey");
+      if (journeyCard && !journeyCard.dataset.widgetReady) {
+        journeyCard.dataset.widgetReady = "1";
+        var subEl = journeyCard.querySelector(".bento-journey-sub");
+        var chipsEl = journeyCard.querySelector(".bento-chips");
+
+        var shipList = document.createElement("div");
+        shipList.className = "bento-ship-list";
+        shipList.innerHTML =
+          '<div class="bento-ship-item">' +
+            '<div class="bento-ship-top">' +
+              '<span class="bento-ship-name"><span class="bento-ship-dot is-live"></span><span>by.ridzu.one</span></span>' +
+              '<span class="bento-ship-badge">Live &middot; 15+ Demos</span>' +
+            '</div>' +
+            '<div class="bento-ship-bar"><div class="bento-ship-fill" style="width:94%;"></div></div>' +
+          '</div>' +
+          '<div class="bento-ship-item">' +
+            '<div class="bento-ship-top">' +
+              '<span class="bento-ship-name"><span class="bento-ship-dot is-dev"></span><span>Enterprise RBAC Portal</span></span>' +
+              '<span class="bento-ship-badge">In Dev</span>' +
+            '</div>' +
+            '<div class="bento-ship-bar"><div class="bento-ship-fill" style="width:76%;"></div></div>' +
+          '</div>' +
+          '<div class="bento-ship-item">' +
+            '<div class="bento-ship-top">' +
+              '<span class="bento-ship-name"><span class="bento-ship-dot is-ship"></span><span>ridzu.one v2</span></span>' +
+              '<span class="bento-ship-badge">Shipping</span>' +
+            '</div>' +
+            '<div class="bento-ship-bar"><div class="bento-ship-fill" style="width:88%;"></div></div>' +
+          '</div>';
+
+        if (chipsEl && chipsEl.parentNode) {
+          chipsEl.parentNode.insertBefore(shipList, chipsEl);
+        } else if (subEl && subEl.parentNode) {
+          subEl.parentNode.appendChild(shipList);
+        }
+      }
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initBentoWidgetsUpgrade);
+    } else {
+      initBentoWidgetsUpgrade();
+    }
+  })();
+</script>
+<!-- Bento Widgets Upgrade End -->
+
+<!-- Bento Playground & Layout Upgrade Start -->
+<style id="bento-playground-style">
+  /* 1. Susunan semula 12-kolum Desktop:
+     Row 1: Intro (6) + Shah Alam Clock (3) + Highlights (3)
+     Row 2: Flagship Venture (7) + UI/UX Lab Playground (5) */
+  @media (min-width: 1200px) {
+    #heroBentoGrid .bento-intro   { grid-column: span 6 !important; order: 1 !important; }
+    #heroBentoGrid .bento-clock   { grid-column: span 3 !important; order: 2 !important; }
+    #heroBentoGrid .bento-stats   { grid-column: span 3 !important; order: 3 !important; }
+    #heroBentoGrid .bento-work    { grid-column: span 7 !important; order: 4 !important; }
+    #heroBentoGrid .bento-journey { grid-column: span 5 !important; order: 5 !important; }
+  }
+
+  @media (min-width: 992px) and (max-width: 1199px) {
+    #heroBentoGrid .bento-intro   { grid-column: span 12 !important; order: 1 !important; }
+    #heroBentoGrid .bento-clock   { grid-column: span 6 !important; order: 2 !important; }
+    #heroBentoGrid .bento-stats   { grid-column: span 6 !important; order: 3 !important; }
+    #heroBentoGrid .bento-work    { grid-column: span 7 !important; order: 4 !important; }
+    #heroBentoGrid .bento-journey { grid-column: span 5 !important; order: 5 !important; }
+  }
+
+  /* Labuhkan lagi gambar Flagship Venture supaya penuh & seimbang dengan UI/UX Lab */
+  #heroBentoGrid .bento-work-media {
+    height: 235px !important;
+    min-height: 235px !important;
+  }
+
+  /* Kad Highlights lebih kemas dalam 3 kolum atas */
+  @media (min-width: 1200px) {
+    #heroBentoGrid .bento-stats .bento-stat-grid {
+      grid-template-columns: 1fr !important;
+      gap: 0.65rem !important;
+    }
+
+    #heroBentoGrid .bento-stats .bento-stat-box.is-wide {
+      grid-column: span 1 !important;
+    }
+
+    #heroBentoGrid .bento-stats .bento-stat-box {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      padding: 0.7rem 0.95rem !important;
+    }
+
+    #heroBentoGrid .bento-stats .bento-stat-num {
+      font-size: 1.55rem !important;
+    }
+
+    #heroBentoGrid .bento-stats .bento-stat-cap {
+      margin-top: 0 !important;
+      text-align: right;
+    }
+  }
+
+  /* 2. Gaya UI/UX Playground Card */
+  .bento-playground {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .bento-pg-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+  }
+
+  .bento-accent-bar {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.36rem 0.6rem;
+    border-radius: 999px;
+    background: rgba(128, 128, 148, 0.12);
+    border: 1px solid var(--stroke-elements, rgba(255, 255, 255, 0.14));
+  }
+
+  .bento-swatch {
+    width: 1.45rem;
+    height: 1.45rem;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    background: var(--sw, #e4b8bf);
+    padding: 0;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  }
+
+  .bento-swatch:hover {
+    transform: scale(1.18);
+  }
+
+  .bento-swatch.is-active {
+    border-color: var(--t-bright, #ffffff);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--sw, #e4b8bf) 45%, transparent);
+    transform: scale(1.12);
+  }
+
+  [color-scheme="light"] .bento-swatch.is-active {
+    border-color: #22232c;
+  }
+
+  /* 3. Sticker Physics Board */
+  .bento-physics-stage {
+    position: relative;
+    flex: 1;
+    width: 100%;
+    min-height: 225px;
+    border-radius: 1.5rem;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 20% 20%, color-mix(in srgb, var(--accent, #e4b8bf) 16%, transparent), transparent 60%),
+      rgba(128, 128, 148, 0.08);
+    border: 1px dashed var(--stroke-elements, rgba(255, 255, 255, 0.18));
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  [color-scheme="light"] .bento-physics-stage {
+    background:
+      radial-gradient(circle at 20% 20%, color-mix(in srgb, var(--accent, #8f56cc) 14%, transparent), transparent 60%),
+      rgba(255, 255, 255, 0.6);
+    border-color: rgba(143, 86, 204, 0.25);
+  }
+
+  .bento-shake-btn {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    z-index: 12;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.34rem 0.78rem;
+    border-radius: 999px;
+    border: 1px solid var(--stroke-elements, rgba(255, 255, 255, 0.16));
+    background: var(--base, rgba(17, 17, 22, 0.75));
+    color: var(--t-bright, #ffffff);
+    font-size: 1.05rem;
+    font-weight: 600;
+    cursor: pointer;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: transform 0.2s ease, border-color 0.2s ease;
+  }
+
+  .bento-shake-btn:hover {
+    border-color: var(--accent, #e4b8bf);
+    transform: translateY(-1px);
+  }
+
+  .bento-sticker {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.42rem;
+    padding: 0.56rem 1.05rem;
+    border-radius: 999px;
+    font-size: 1.15rem;
+    font-weight: 700;
+    white-space: nowrap;
+    cursor: grab;
+    color: var(--t-bright, #ffffff);
+    background: var(--base, #16161d);
+    border: 1px solid color-mix(in srgb, var(--accent, #e4b8bf) 42%, var(--stroke-elements, rgba(255,255,255,0.18)));
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+    will-change: transform;
+    z-index: 5;
+  }
+
+  [color-scheme="light"] .bento-sticker {
+    background: #ffffff;
+    color: #22232c;
+    box-shadow: 0 6px 16px rgba(34, 35, 44, 0.1);
+  }
+
+  .bento-sticker i {
+    color: var(--accent, #e4b8bf);
+    font-size: 1.3rem;
+  }
+
+  .bento-sticker.is-grabbed {
+    cursor: grabbing;
+    z-index: 10;
+    border-color: var(--accent, #e4b8bf);
+    box-shadow: 0 14px 28px color-mix(in srgb, var(--accent, #e4b8bf) 30%, rgba(0,0,0,0.28));
+  }
+
+  .bento-pg-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .bento-pg-hint {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 1.12rem;
+    color: var(--t-medium, #9ca3af);
+  }
+
+  .bento-pg-hint i {
+    color: var(--accent, #e4b8bf);
+  }
+
+  @media (max-width: 767px) {
+    #heroBentoGrid .bento-work-media {
+      height: 205px !important;
+      min-height: 205px !important;
+    }
+
+    .bento-physics-stage {
+      min-height: 195px;
+    }
+
+    .bento-sticker {
+      padding: 0.46rem 0.88rem;
+      font-size: 1.05rem;
+    }
+  }
+</style>
+<script id="bento-playground-script">
+  (function () {
+    var ACCENT_KEY = "ridzu_accent_preset";
+    var PRESETS = {
+      rose:    { dark: "#e4b8bf", light: "#8f56cc" },
+      violet:  { dark: "#c084fc", light: "#7c3aed" },
+      emerald: { dark: "#34d399", light: "#059669" },
+      cyan:    { dark: "#38bdf8", light: "#0284c7" },
+      amber:   { dark: "#fbbf24", light: "#d97706" }
+    };
+
+    function applyAccentPreset(id) {
+      var preset = PRESETS[id] || PRESETS.rose;
+      var scheme = document.documentElement.getAttribute("color-scheme") || "dark";
+      var color = scheme === "light" ? preset.light : preset.dark;
+      document.documentElement.style.setProperty("--accent", color);
+      document.documentElement.style.setProperty("--secondary", color);
+
+      document.querySelectorAll(".bento-swatch").forEach(function (btn) {
+        btn.classList.toggle("is-active", btn.getAttribute("data-accent-id") === id);
+      });
+
+      try { localStorage.setItem(ACCENT_KEY, id); } catch (e) {}
+    }
+
+    function initPlayground() {
+      // 1. Live Accent Color Lab
+      var saved = "rose";
+      try { saved = localStorage.getItem(ACCENT_KEY) || "rose"; } catch (e) {}
+      if (!PRESETS[saved]) saved = "rose";
+      applyAccentPreset(saved);
+
+      document.querySelectorAll(".bento-swatch").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          var id = btn.getAttribute("data-accent-id") || "rose";
+          applyAccentPreset(id);
+          if (window.__ridzuShakeStickers) window.__ridzuShakeStickers(0.65);
+        });
+      });
+
+      // Segerak semula warna aksen jika mod terang/gelap bertukar
+      var mo = new MutationObserver(function () {
+        var currentId = "rose";
+        try { currentId = localStorage.getItem(ACCENT_KEY) || "rose"; } catch (e) {}
+        applyAccentPreset(currentId);
+      });
+      mo.observe(document.documentElement, { attributes: true, attributeFilter: ["color-scheme"] });
+
+      // 2. Interactive Sticker Physics Board
+      var stage = document.getElementById("bentoPhysicsStage");
+      var shakeBtn = document.getElementById("bentoShakeBtn");
+      if (!stage || stage.dataset.physicsReady === "1") return;
+      stage.dataset.physicsReady = "1";
+
+      var stickerDefs = [
+        { label: "System Eng", icon: "ph-cpu" },
+        { label: "UI/UX", icon: "ph-sparkle" },
+        { label: "Vibe Coder", icon: "ph-code" },
+        { label: "Shah Alam", icon: "ph-map-pin" },
+        { label: "by.ridzu.one", icon: "ph-heart" },
+        { label: "MBOT", icon: "ph-seal-check" }
+      ];
+
+      var bodies = [];
+      var dragged = null;
+      var dragOffX = 0;
+      var dragOffY = 0;
+      var lastPX = 0;
+      var lastPY = 0;
+      var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      function createStickers() {
+        var sw = stage.clientWidth || 300;
+        var sh = stage.clientHeight || 220;
+
+        stickerDefs.forEach(function (def, i) {
+          var el = document.createElement("div");
+          el.className = "bento-sticker";
+          el.innerHTML = '<i class="ph-bold ' + def.icon + '"></i><span>' + def.label + '</span>';
+          stage.appendChild(el);
+
+          var rect = el.getBoundingClientRect();
+          var w = rect.width || 110;
+          var h = rect.height || 36;
+          var col = i % 2;
+          var row = Math.floor(i / 2);
+
+          var body = {
+            el: el,
+            w: w,
+            h: h,
+            x: Math.max(10, Math.min(sw - w - 10, (col * (sw * 0.45)) + 16 + (Math.random() * 16))),
+            y: Math.max(10, 18 + row * (h + 12)),
+            vx: (Math.random() - 0.5) * 2.2,
+            vy: Math.random() * 1.2,
+            rot: (Math.random() - 0.5) * 14,
+            vrot: (Math.random() - 0.5) * 0.8
+          };
+
+          el.addEventListener("pointerdown", function (e) {
+            e.preventDefault();
+            var sr = stage.getBoundingClientRect();
+            dragged = body;
+            dragOffX = (e.clientX - sr.left) - body.x;
+            dragOffY = (e.clientY - sr.top) - body.y;
+            lastPX = e.clientX;
+            lastPY = e.clientY;
+            body.vx = 0;
+            body.vy = 0;
+            el.classList.add("is-grabbed");
+            if (el.setPointerCapture) {
+              try { el.setPointerCapture(e.pointerId); } catch (err) {}
+            }
+          });
+
+          el.addEventListener("pointermove", function (e) {
+            if (dragged !== body) return;
+            var sr = stage.getBoundingClientRect();
+            var nx = (e.clientX - sr.left) - dragOffX;
+            var ny = (e.clientY - sr.top) - dragOffY;
+            body.vx = (e.clientX - lastPX) * 0.72;
+            body.vy = (e.clientY - lastPY) * 0.72;
+            body.x = Math.max(4, Math.min(sr.width - body.w - 4, nx));
+            body.y = Math.max(4, Math.min(sr.height - body.h - 4, ny));
+            body.vrot = Math.max(-4, Math.min(4, body.vx * 0.35));
+            lastPX = e.clientX;
+            lastPY = e.clientY;
+          });
+
+          function releaseDrag() {
+            if (dragged !== body) return;
+            el.classList.remove("is-grabbed");
+            dragged = null;
+          }
+
+          el.addEventListener("pointerup", releaseDrag);
+          el.addEventListener("pointercancel", releaseDrag);
+
+          bodies.push(body);
+        });
+      }
+
+      function shakeAll(power) {
+        var mult = power || 1;
+        bodies.forEach(function (b) {
+          b.vx = (Math.random() - 0.5) * 11 * mult;
+          b.vy = -(5.5 + Math.random() * 5.5) * mult;
+          b.vrot = (Math.random() - 0.5) * 6 * mult;
+        });
+      }
+
+      window.__ridzuShakeStickers = shakeAll;
+
+      if (shakeBtn) {
+        shakeBtn.addEventListener("click", function () {
+          shakeAll(1);
+        });
+      }
+
+      createStickers();
+
+      function step() {
+        if (!document.hidden) {
+          var sw = stage.clientWidth || 300;
+          var sh = stage.clientHeight || 220;
+          var gravity = reduceMotion ? 0 : 0.34;
+          var bounce = 0.56;
+          var friction = 0.985;
+
+          for (var i = 0; i < bodies.length; i++) {
+            var b = bodies[i];
+            if (b !== dragged) {
+              b.vy += gravity;
+              b.vx *= friction;
+              b.vy *= friction;
+              b.x += b.vx;
+              b.y += b.vy;
+              b.rot += b.vrot;
+              b.vrot *= 0.94;
+
+              if (b.x < 6) {
+                b.x = 6;
+                b.vx = Math.abs(b.vx) * bounce;
+              } else if (b.x + b.w > sw - 6) {
+                b.x = sw - b.w - 6;
+                b.vx = -Math.abs(b.vx) * bounce;
+              }
+
+              if (b.y < 6) {
+                b.y = 6;
+                b.vy = Math.abs(b.vy) * bounce;
+              } else if (b.y + b.h > sh - 6) {
+                b.y = sh - b.h - 6;
+                b.vy = -Math.abs(b.vy) * bounce;
+                b.vx *= 0.9;
+                if (Math.abs(b.vy) < 0.6) b.vy = 0;
+              }
+            }
+          }
+
+          // Perlanggaran lembut antara lencana
+          for (var a = 0; a < bodies.length; a++) {
+            for (var c = a + 1; c < bodies.length; c++) {
+              var b1 = bodies[a];
+              var b2 = bodies[c];
+              var overlapX = Math.min(b1.x + b1.w, b2.x + b2.w) - Math.max(b1.x, b2.x);
+              var overlapY = Math.min(b1.y + b1.h, b2.y + b2.h) - Math.max(b1.y, b2.y);
+
+              if (overlapX > 0 && overlapY > 0) {
+                if (overlapX < overlapY) {
+                  var pushX = overlapX * 0.5;
+                  if (b1.x < b2.x) {
+                    if (b1 !== dragged) b1.x -= pushX;
+                    if (b2 !== dragged) b2.x += pushX;
+                  } else {
+                    if (b1 !== dragged) b1.x += pushX;
+                    if (b2 !== dragged) b2.x -= pushX;
+                  }
+                  var tmpVx = b1.vx;
+                  b1.vx = b2.vx * 0.7;
+                  b2.vx = tmpVx * 0.7;
+                } else {
+                  var pushY = overlapY * 0.5;
+                  if (b1.y < b2.y) {
+                    if (b1 !== dragged) b1.y -= pushY;
+                    if (b2 !== dragged) b2.y += pushY;
+                  } else {
+                    if (b1 !== dragged) b1.y += pushY;
+                    if (b2 !== dragged) b2.y -= pushY;
+                  }
+                  var tmpVy = b1.vy;
+                  b1.vy = b2.vy * 0.55;
+                  b2.vy = tmpVy * 0.55;
+                }
+              }
+            }
+          }
+
+          for (var k = 0; k < bodies.length; k++) {
+            var item = bodies[k];
+            item.el.style.transform =
+              "translate3d(" + item.x.toFixed(1) + "px, " + item.y.toFixed(1) + "px, 0) rotate(" + item.rot.toFixed(1) + "deg)";
+          }
+        }
+        requestAnimationFrame(step);
+      }
+
+      requestAnimationFrame(step);
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initPlayground);
+    } else {
+      initPlayground();
+    }
+  })();
+</script>
+<!-- Bento Playground & Layout Upgrade End -->
 </body>
 
 </html>
