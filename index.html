@@ -9131,6 +9131,802 @@
   })();
 </script>
 <!-- Bento Playground & Layout Upgrade End -->
+
+<!-- Interactive Certs Vault Start -->
+<style id="certs-vault-style">
+  #cert .testimonials-slider.is-vault-hidden {
+    display: none !important;
+  }
+
+  .certs-vault {
+    display: grid;
+    grid-template-columns: minmax(0, 1.38fr) minmax(0, 1fr);
+    gap: 1.6rem;
+    align-items: stretch;
+    width: 100%;
+  }
+
+  .certs-vault-stage,
+  .certs-vault-rail {
+    border-radius: 2.2rem;
+    border: 1px solid var(--stroke-elements, rgba(255, 255, 255, 0.14));
+    background: var(--base-tint, rgba(255, 255, 255, 0.03));
+    overflow: hidden;
+  }
+
+  .certs-vault-stage {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 2rem 2.2rem;
+    gap: 1.4rem;
+  }
+
+  .certs-stage-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.2rem;
+  }
+
+  .certs-stage-issuer {
+    display: flex;
+    align-items: center;
+    gap: 1.1rem;
+    min-width: 0;
+  }
+
+  .certs-stage-logo {
+    width: 4.8rem;
+    height: 4.8rem;
+    border-radius: 1.25rem;
+    padding: 0.55rem;
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid var(--stroke-elements, rgba(255, 255, 255, 0.14));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .certs-stage-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+
+  .certs-stage-meta {
+    min-width: 0;
+  }
+
+  .certs-stage-title {
+    margin: 0;
+    font-size: 1.85rem;
+    font-weight: 700;
+    line-height: 1.25;
+    color: var(--t-bright, #ffffff);
+  }
+
+  .certs-stage-org {
+    margin: 0.25rem 0 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--accent, #e4b8bf);
+  }
+
+  .certs-stage-count {
+    flex-shrink: 0;
+    padding: 0.38rem 0.9rem;
+    border-radius: 999px;
+    font-size: 1.12rem;
+    font-weight: 700;
+    color: var(--t-medium, #a1a1aa);
+    background: rgba(128, 128, 148, 0.12);
+    border: 1px solid var(--stroke-elements, rgba(255, 255, 255, 0.14));
+    font-variant-numeric: tabular-nums;
+  }
+
+  .certs-stage-media {
+    position: relative;
+    width: 100%;
+    height: 320px;
+    border-radius: 1.6rem;
+    border: 1px solid var(--stroke-elements, rgba(255, 255, 255, 0.14));
+    background: rgba(128, 128, 148, 0.08);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    cursor: zoom-in;
+    transition: border-color 0.25s ease;
+  }
+
+  .certs-stage-media:hover {
+    border-color: var(--accent, #e4b8bf);
+  }
+
+  .certs-stage-media img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 0.9rem;
+    display: block;
+    transition: opacity 0.22s ease, transform 0.28s ease;
+  }
+
+  .certs-stage-media.is-fading img {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+
+  .certs-zoom-pill {
+    position: absolute;
+    right: 1rem;
+    bottom: 1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.35rem 0.8rem;
+    border-radius: 999px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #ffffff;
+    background: rgba(17, 17, 22, 0.72);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    pointer-events: none;
+  }
+
+  .certs-stage-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .certs-stage-nav {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+  }
+
+  .certs-nav-btn {
+    width: 3.8rem;
+    height: 3.8rem;
+    border-radius: 50%;
+    border: 1px solid var(--stroke-elements, rgba(255, 255, 255, 0.16));
+    background: var(--base, #111111);
+    color: var(--t-bright, #ffffff);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: border-color 0.2s ease, transform 0.2s ease, color 0.2s ease;
+  }
+
+  .certs-nav-btn:hover {
+    border-color: var(--accent, #e4b8bf);
+    color: var(--accent, #e4b8bf);
+    transform: translateY(-1px);
+  }
+
+  .certs-verify-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.85rem 1.65rem;
+    border-radius: 999px;
+    background: var(--accent, #e4b8bf);
+    color: #111111;
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+
+  .certs-verify-btn:hover {
+    transform: translateY(-1px);
+    opacity: 0.92;
+    color: #111111;
+  }
+
+  .certs-verify-btn.is-hidden {
+    display: none !important;
+  }
+
+  /* Right Scrollable Vault List */
+  .certs-vault-rail {
+    display: flex;
+    flex-direction: column;
+    max-height: 500px;
+  }
+
+  .certs-rail-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.8rem;
+    padding: 1.5rem 1.6rem 1.1rem;
+    border-bottom: 1px solid var(--stroke-elements, rgba(255, 255, 255, 0.12));
+  }
+
+  .certs-rail-title {
+    margin: 0;
+    font-size: 1.22rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--t-medium, #a1a1aa);
+    white-space: nowrap;
+  }
+
+  .certs-rail-search {
+    width: 100%;
+    max-width: 19rem;
+    padding: 0.48rem 0.95rem;
+    border-radius: 999px;
+    border: 1px solid var(--stroke-elements, rgba(255, 255, 255, 0.16));
+    background: var(--base, rgba(17, 17, 22, 0.65));
+    color: var(--t-bright, #ffffff);
+    font-size: 1.15rem;
+    outline: none;
+    transition: border-color 0.2s ease;
+  }
+
+  [color-scheme="light"] .certs-rail-search {
+    background: rgba(255, 255, 255, 0.85);
+    color: #22232c;
+  }
+
+  .certs-rail-search:focus {
+    border-color: var(--accent, #e4b8bf);
+  }
+
+  .certs-rail-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    scrollbar-width: thin;
+  }
+
+  .certs-rail-item {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.9rem 1.05rem;
+    border-radius: 1.4rem;
+    border: 1px solid transparent;
+    background: rgba(128, 128, 148, 0.07);
+    text-align: left;
+    cursor: pointer;
+    transition: border-color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
+  }
+
+  [color-scheme="light"] .certs-rail-item {
+    background: rgba(255, 255, 255, 0.65);
+  }
+
+  .certs-rail-item:hover {
+    border-color: color-mix(in srgb, var(--accent, #e4b8bf) 50%, transparent);
+    transform: translateX(2px);
+  }
+
+  .certs-rail-item.is-active {
+    border-color: var(--accent, #e4b8bf);
+    background: color-mix(in srgb, var(--accent, #e4b8bf) 14%, transparent);
+  }
+
+  .certs-rail-logo {
+    width: 3.6rem;
+    height: 3.6rem;
+    border-radius: 0.95rem;
+    padding: 0.4rem;
+    background: rgba(255, 255, 255, 0.95);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .certs-rail-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+
+  .certs-rail-info {
+    min-width: 0;
+    flex: 1;
+  }
+
+  .certs-rail-name {
+    display: block;
+    font-size: 1.28rem;
+    font-weight: 700;
+    color: var(--t-bright, #ffffff);
+    line-height: 1.28;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  [color-scheme="light"] .certs-rail-name {
+    color: #22232c;
+  }
+
+  .certs-rail-org {
+    display: block;
+    font-size: 1.1rem;
+    color: var(--t-medium, #9ca3af);
+    margin-top: 0.15rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .certs-rail-empty {
+    padding: 2rem 1rem;
+    text-align: center;
+    font-size: 1.2rem;
+    color: var(--t-medium, #9ca3af);
+  }
+
+  /* Lightbox Zoom Modal */
+  .certs-lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    background: rgba(10, 10, 14, 0.86);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .certs-lightbox.is-open {
+    display: flex;
+  }
+
+  .certs-lightbox-inner {
+    position: relative;
+    max-width: 960px;
+    width: 100%;
+    max-height: 88vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .certs-lightbox-inner img {
+    max-width: 100%;
+    max-height: 78vh;
+    object-fit: contain;
+    border-radius: 1.4rem;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+  }
+
+  .certs-lightbox-close {
+    position: absolute;
+    top: -1.2rem;
+    right: -0.6rem;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    background: rgba(17, 17, 22, 0.85);
+    color: #ffffff;
+    font-size: 1.8rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  @media (max-width: 991px) {
+    .certs-vault {
+      grid-template-columns: 1fr;
+      gap: 1.2rem;
+    }
+
+    .certs-vault-stage {
+      padding: 1.5rem;
+    }
+
+    .certs-stage-title {
+      font-size: 1.55rem;
+    }
+
+    .certs-stage-media {
+      height: 230px;
+    }
+
+    .certs-vault-rail {
+      max-height: 290px;
+    }
+  }
+</style>
+<script id="certs-vault-script">
+  (function () {
+    function initCertsVault() {
+      var certSection = document.getElementById("cert");
+      if (!certSection || document.getElementById("certsVault")) return;
+
+      var slider = certSection.querySelector(".testimonials-slider");
+      if (!slider) return;
+
+      var slideEls = slider.querySelectorAll(".swiper-slide:not(.swiper-slide-duplicate)");
+      if (!slideEls.length) return;
+
+      var certs = [];
+      var seenKeys = {};
+
+      slideEls.forEach(function (slide) {
+        var nameEl = slide.querySelector(".tauthor__name");
+        var orgEl = slide.querySelector(".tauthor__position");
+        var logoEl = slide.querySelector(".tauthor__avatar img");
+
+        var title = nameEl ? nameEl.textContent.trim() : "Certificate";
+        var org = orgEl ? orgEl.textContent.trim() : "";
+        var logo = logoEl ? (logoEl.getAttribute("src") || "") : "";
+
+        // Cari gambar sijil utama (elakkan gambar avatar logo)
+        var certImg = "";
+        var allImgs = slide.querySelectorAll("img");
+        for (var i = 0; i < allImgs.length; i++) {
+          if (!allImgs[i].closest(".tauthor__avatar")) {
+            certImg = allImgs[i].getAttribute("src") || "";
+            if (certImg) break;
+          }
+        }
+
+        // Cari pautan Verify / Credential
+        var verifyUrl = "";
+        var verifyLabel = "Verify Credential";
+        var links = slide.querySelectorAll("a[href]");
+        for (var j = 0; j < links.length; j++) {
+          var a = links[j];
+          if (a.closest(".tauthor__avatar") || a.closest(".tauthor__position")) continue;
+          var href = a.getAttribute("href") || "";
+          if (href && href !== "#") {
+            verifyUrl = href;
+            var txt = a.textContent.trim();
+            if (txt) verifyLabel = txt;
+            break;
+          }
+        }
+        if (!verifyUrl) {
+          var orgLink = slide.querySelector(".tauthor__position a[href]");
+          if (orgLink && orgLink.getAttribute("href")) {
+            verifyUrl = orgLink.getAttribute("href");
+          }
+        }
+
+        var key = (title + "|" + certImg).toLowerCase();
+        if (seenKeys[key]) return;
+        seenKeys[key] = true;
+
+        certs.push({
+          title: title,
+          org: org,
+          logo: logo,
+          img: certImg || logo,
+          verifyUrl: verifyUrl,
+          verifyLabel: verifyLabel
+        });
+      });
+
+      if (!certs.length) return;
+
+      var vault = document.createElement("div");
+      vault.className = "certs-vault";
+      vault.id = "certsVault";
+      vault.innerHTML =
+        '<div class="certs-vault-stage">' +
+          '<div class="certs-stage-head">' +
+            '<div class="certs-stage-issuer">' +
+              '<div class="certs-stage-logo"><img id="certStageLogo" src="" alt="Issuer logo"></div>' +
+              '<div class="certs-stage-meta">' +
+                '<h3 class="certs-stage-title" id="certStageTitle"></h3>' +
+                '<p class="certs-stage-org" id="certStageOrg"></p>' +
+              '</div>' +
+            '</div>' +
+            '<span class="certs-stage-count" id="certStageCount">1 / ' + certs.length + '</span>' +
+          '</div>' +
+          '<div class="certs-stage-media" id="certStageMedia" title="Click to zoom certificate">' +
+            '<img id="certStageImg" src="" alt="Certificate preview" loading="lazy" decoding="async">' +
+            '<span class="certs-zoom-pill"><i class="ph-bold ph-magnifying-glass-plus"></i><span>Zoom</span></span>' +
+          '</div>' +
+          '<div class="certs-stage-foot">' +
+            '<div class="certs-stage-nav">' +
+              '<button type="button" class="certs-nav-btn" id="certPrevBtn" aria-label="Previous certificate"><i class="ph-bold ph-arrow-left"></i></button>' +
+              '<button type="button" class="certs-nav-btn" id="certNextBtn" aria-label="Next certificate"><i class="ph-bold ph-arrow-right"></i></button>' +
+            '</div>' +
+            '<a href="#" target="_blank" rel="noopener noreferrer" class="certs-verify-btn" id="certVerifyBtn">' +
+              '<span id="certVerifyText">Verify Credential</span>' +
+              '<i class="ph-bold ph-arrow-up-right"></i>' +
+            '</a>' +
+          '</div>' +
+        '</div>' +
+        '<div class="certs-vault-rail">' +
+          '<div class="certs-rail-head">' +
+            '<h4 class="certs-rail-title">Vault (' + certs.length + ')</h4>' +
+            '<input type="search" class="certs-rail-search" id="certSearchInput" placeholder="Filter certs..." aria-label="Filter certificates">' +
+          '</div>' +
+          '<div class="certs-rail-list" id="certRailList" role="listbox" aria-label="Certificates list"></div>' +
+        '</div>';
+
+      slider.parentNode.insertBefore(vault, slider);
+      slider.classList.add("is-vault-hidden");
+
+      // Lightbox modal untuk zoom sijil penuh
+      var lightbox = document.createElement("div");
+      lightbox.className = "certs-lightbox";
+      lightbox.id = "certsLightbox";
+      lightbox.innerHTML =
+        '<div class="certs-lightbox-inner">' +
+          '<button type="button" class="certs-lightbox-close" id="certsLightboxClose" aria-label="Close zoom"><i class="ph-bold ph-x"></i></button>' +
+          '<img id="certsLightboxImg" src="" alt="Full certificate view">' +
+        '</div>';
+      document.body.appendChild(lightbox);
+
+      var stageLogo = document.getElementById("certStageLogo");
+      var stageTitle = document.getElementById("certStageTitle");
+      var stageOrg = document.getElementById("certStageOrg");
+      var stageCount = document.getElementById("certStageCount");
+      var stageMedia = document.getElementById("certStageMedia");
+      var stageImg = document.getElementById("certStageImg");
+      var verifyBtn = document.getElementById("certVerifyBtn");
+      var verifyText = document.getElementById("certVerifyText");
+      var prevBtn = document.getElementById("certPrevBtn");
+      var nextBtn = document.getElementById("certNextBtn");
+      var railList = document.getElementById("certRailList");
+      var searchInput = document.getElementById("certSearchInput");
+      var lbImg = document.getElementById("certsLightboxImg");
+      var lbClose = document.getElementById("certsLightboxClose");
+
+      var activeIdx = 0;
+
+      function renderRail(query) {
+        var q = (query || "").trim().toLowerCase();
+        railList.innerHTML = "";
+        var matchCount = 0;
+
+        certs.forEach(function (c, i) {
+          if (q && (c.title + " " + c.org).toLowerCase().indexOf(q) === -1) return;
+          matchCount++;
+          var btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "certs-rail-item" + (i === activeIdx ? " is-active" : "");
+          btn.dataset.certIdx = String(i);
+          btn.innerHTML =
+            '<span class="certs-rail-logo"><img src="' + c.logo + '" alt="" loading="lazy" decoding="async"></span>' +
+            '<span class="certs-rail-info">' +
+              '<span class="certs-rail-name">' + c.title + '</span>' +
+              '<span class="certs-rail-org">' + c.org + '</span>' +
+            '</span>';
+          btn.addEventListener("click", function () {
+            selectCert(i, false);
+          });
+          railList.appendChild(btn);
+        });
+
+        if (!matchCount) {
+          var empty = document.createElement("div");
+          empty.className = "certs-rail-empty";
+          empty.textContent = "No matching certificate found.";
+          railList.appendChild(empty);
+        }
+      }
+
+      function selectCert(i, scrollIntoRail) {
+        activeIdx = (i + certs.length) % certs.length;
+        var c = certs[activeIdx];
+
+        stageMedia.classList.add("is-fading");
+        setTimeout(function () {
+          stageLogo.src = c.logo;
+          stageTitle.textContent = c.title;
+          stageOrg.textContent = c.org;
+          stageCount.textContent = (activeIdx + 1) + " / " + certs.length;
+          stageImg.src = c.img;
+          stageImg.alt = c.title;
+          stageMedia.classList.remove("is-fading");
+        }, 120);
+
+        if (c.verifyUrl) {
+          verifyBtn.href = c.verifyUrl;
+          verifyText.textContent = c.verifyLabel || "Verify Credential";
+          verifyBtn.classList.remove("is-hidden");
+        } else {
+          verifyBtn.classList.add("is-hidden");
+        }
+
+        railList.querySelectorAll(".certs-rail-item").forEach(function (item) {
+          var isMatch = Number(item.dataset.certIdx) === activeIdx;
+          item.classList.toggle("is-active", isMatch);
+          if (isMatch && scrollIntoRail && item.scrollIntoView) {
+            item.scrollIntoView({ behavior: "smooth", block: "nearest" });
+          }
+        });
+      }
+
+      prevBtn.addEventListener("click", function () { selectCert(activeIdx - 1, true); });
+      nextBtn.addEventListener("click", function () { selectCert(activeIdx + 1, true); });
+
+      searchInput.addEventListener("input", function () {
+        renderRail(searchInput.value);
+      });
+
+      stageMedia.addEventListener("click", function () {
+        var c = certs[activeIdx];
+        if (!c || !c.img) return;
+        lbImg.src = c.img;
+        lbImg.alt = c.title;
+        lightbox.classList.add("is-open");
+      });
+
+      function closeLightbox() {
+        lightbox.classList.remove("is-open");
+      }
+
+      lbClose.addEventListener("click", closeLightbox);
+      lightbox.addEventListener("click", function (e) {
+        if (e.target === lightbox) closeLightbox();
+      });
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") closeLightbox();
+      });
+
+      renderRail("");
+      selectCert(0, false);
+
+      if (window.ScrollTrigger) {
+        setTimeout(function () { ScrollTrigger.refresh(); }, 220);
+      }
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", function () { setTimeout(initCertsVault, 80); });
+    } else {
+      setTimeout(initCertsVault, 80);
+    }
+  })();
+</script>
+<!-- Interactive Certs Vault End -->
+
+<!-- Certs Vault Scroll & Flick Fix Start -->
+<style id="certs-vault-scroll-fix-style">
+  #certRailList.certs-rail-list {
+    overscroll-behavior: contain !important;
+    -webkit-overflow-scrolling: touch !important;
+    cursor: grab;
+  }
+
+  #certRailList.certs-rail-list.is-dragging {
+    cursor: grabbing !important;
+    user-select: none !important;
+  }
+
+  #certRailList.certs-rail-list.is-dragging .certs-rail-item {
+    pointer-events: none;
+  }
+</style>
+<script id="certs-vault-scroll-fix-script">
+  (function () {
+    function bindRailScrollAndFlick() {
+      var rail = document.getElementById("certRailList");
+      var railBox = rail ? rail.closest(".certs-vault-rail") : null;
+      if (!rail || rail.dataset.scrollFlickReady === "1") return;
+      rail.dataset.scrollFlickReady = "1";
+
+      // 1. Halang Lenis smooth-scroll daripada merampas roda tetikus di dalam senarai sijil
+      rail.setAttribute("data-lenis-prevent", "");
+      if (railBox) railBox.setAttribute("data-lenis-prevent", "");
+
+      rail.addEventListener("wheel", function (e) {
+        if (Math.abs(e.deltaY) < 1) return;
+        e.stopPropagation();
+      }, { passive: true });
+
+      // 2. Desktop Click-Drag & Momentum Flick
+      var isDown = false;
+      var moved = false;
+      var startY = 0;
+      var startScroll = 0;
+      var lastY = 0;
+      var velocity = 0;
+      var rafId = null;
+
+      function stopMomentum() {
+        if (rafId) {
+          cancelAnimationFrame(rafId);
+          rafId = null;
+        }
+      }
+
+      rail.addEventListener("pointerdown", function (e) {
+        if (e.pointerType !== "mouse" || e.button !== 0) return;
+        stopMomentum();
+        isDown = true;
+        moved = false;
+        startY = e.clientY;
+        lastY = e.clientY;
+        startScroll = rail.scrollTop;
+        velocity = 0;
+      });
+
+      window.addEventListener("pointermove", function (e) {
+        if (!isDown) return;
+        var dy = e.clientY - startY;
+        if (Math.abs(dy) > 5) {
+          moved = true;
+          rail.classList.add("is-dragging");
+        }
+        if (moved) {
+          velocity = lastY - e.clientY;
+          rail.scrollTop = startScroll - dy;
+        }
+        lastY = e.clientY;
+      });
+
+      function endDrag() {
+        if (!isDown) return;
+        isDown = false;
+        setTimeout(function () {
+          rail.classList.remove("is-dragging");
+        }, 40);
+
+        if (moved && Math.abs(velocity) > 1.5) {
+          var v = velocity * 1.15;
+          function glide() {
+            rail.scrollTop += v;
+            v *= 0.92;
+            if (Math.abs(v) > 0.4) {
+              rafId = requestAnimationFrame(glide);
+            } else {
+              rafId = null;
+            }
+          }
+          rafId = requestAnimationFrame(glide);
+        }
+      }
+
+      window.addEventListener("pointerup", endDrag);
+      window.addEventListener("pointercancel", endDrag);
+    }
+
+    function waitForRail() {
+      if (document.getElementById("certRailList")) {
+        bindRailScrollAndFlick();
+      } else {
+        setTimeout(waitForRail, 120);
+      }
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", waitForRail);
+    } else {
+      waitForRail();
+    }
+  })();
+</script>
+<!-- Certs Vault Scroll & Flick Fix End -->
 </body>
 
 </html>
