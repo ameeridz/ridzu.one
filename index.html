@@ -4925,17 +4925,17 @@
     #portfolio.inner {
       padding-top: 4rem !important;
     }
-    .sidebar-sphere-stage {
+    #sidebarTechCard .sidebar-sphere-stage {
       height: 235px !important;
     }
   }
 
-  /* 5. Kad 3D Tech Arsenal + Filter Pills di bawah View My Resume (kalis override template) */
+  /* 5. Kad 3D Tech Arsenal + Filter Pills Minimalis Gaya Iqbal */
   #sidebarTechCard.sidebar-tech-card {
     display: block !important;
     width: 100% !important;
     margin-top: 0.4rem !important;
-    padding: 1rem 0.9rem 0.9rem !important;
+    padding: 1rem 0.85rem 0.85rem !important;
     border-radius: 1.6rem !important;
     border: 1px solid var(--stroke-elements, rgba(128,128,128,0.22)) !important;
     background: var(--base, rgba(255,255,255,0.03)) !important;
@@ -4946,8 +4946,8 @@
     display: flex !important;
     flex-wrap: wrap !important;
     justify-content: center !important;
-    gap: 0.38rem !important;
-    margin-bottom: 0.7rem !important;
+    gap: 0.28rem !important;
+    margin-bottom: 0.55rem !important;
     position: relative !important;
     z-index: 5 !important;
   }
@@ -4958,9 +4958,9 @@
     justify-content: center !important;
     width: auto !important;
     height: auto !important;
-    padding: 0.34rem 0.78rem !important;
+    padding: 0.32rem 0.72rem !important;
     border-radius: 999px !important;
-    border: 1px solid var(--stroke-elements, rgba(128,128,128,0.3)) !important;
+    border: 1px solid transparent !important;
     background: transparent !important;
     color: var(--t-medium, #6b7280) !important;
     font-family: inherit !important;
@@ -4973,11 +4973,14 @@
     transition: all 0.2s ease !important;
   }
 
-  #sidebarTechCard .sidebar-tech-pill:hover,
+  #sidebarTechCard .sidebar-tech-pill:hover {
+    color: var(--t-bright, #111111) !important;
+  }
+
   #sidebarTechCard .sidebar-tech-pill.is-active {
-    background: var(--t-bright, #111111) !important;
-    color: var(--base, #ffffff) !important;
-    border-color: var(--t-bright, #111111) !important;
+    background: color-mix(in srgb, var(--t-bright, #111111) 10%, transparent) !important;
+    color: var(--t-bright, #111111) !important;
+    border-color: var(--stroke-elements, rgba(128,128,128,0.25)) !important;
   }
 
   #sidebarTechCard .sidebar-sphere-stage {
@@ -4985,7 +4988,7 @@
     width: 100% !important;
     height: 250px !important;
     border-radius: 1.2rem !important;
-    background: radial-gradient(circle at 50% 50%, rgba(228,184,191,0.12) 0%, transparent 68%) !important;
+    background: transparent !important;
     overflow: hidden !important;
     touch-action: none !important;
     user-select: none !important;
@@ -5032,9 +5035,21 @@
     transition: transform 0.2s ease, filter 0.2s ease !important;
   }
 
+  /* Larasan khas logo Vercel & Supabase dalam Dark Mode */
+  [color-scheme="dark"] #sidebarTechCard .sidebar-sphere-item img[alt="Vercel"] {
+    filter: invert(1) brightness(1.15) !important;
+  }
+  #sidebarTechCard .sidebar-sphere-item img[alt="Supabase"] {
+    width: 44px !important;
+    height: auto !important;
+  }
+  [color-scheme="dark"] #sidebarTechCard .sidebar-sphere-item img[alt="Supabase"] {
+    filter: drop-shadow(0 0 2px rgba(255,255,255,0.65)) !important;
+  }
+
   #sidebarTechCard .sidebar-sphere-hud {
     display: block !important;
-    margin-top: 0.55rem !important;
+    margin-top: 0.45rem !important;
     text-align: center !important;
     font-size: 1.08rem !important;
     font-weight: 600 !important;
@@ -5044,20 +5059,6 @@
     text-overflow: ellipsis !important;
     opacity: 1 !important;
     visibility: visible !important;
-  }
-
-  /* Logo Vercel kekal jelas dalam Dark Mode */
-  [color-scheme="dark"] #sidebarTechCard .sidebar-sphere-item img[alt="Vercel"] {
-    filter: invert(1) brightness(1.15) !important;
-  }
-
-  /* Logo Supabase memanjang supaya jelas dibaca */
-  #sidebarTechCard .sidebar-sphere-item img[alt="Supabase"] {
-    width: 44px !important;
-    height: auto !important;
-  }
-  [color-scheme="dark"] #sidebarTechCard .sidebar-sphere-item img[alt="Supabase"] {
-    filter: drop-shadow(0 0 2px rgba(255,255,255,0.65)) !important;
   }
 </style>
 <script id="sidebar-mini-sphere-script">
@@ -5080,16 +5081,17 @@
       }
     }
 
-    // B. Baca semua 34 tool & sembunyikan seksyen My favourite tools di bawah
+    // B. Baca semua tool & sembunyikan seksyen My favourite tools di bawah
     var avatarContainer = document.querySelector('#avatar .avatar__container');
     var toolsGrid = document.querySelector('.tools-cards');
     if (!avatarContainer || !toolsGrid || document.getElementById('sidebarTechCard')) return;
 
     function detectCategory(name) {
       var n = (name || '').toLowerCase();
-      if (/figma|photoshop|illustrator|premiere|canva/.test(n)) return 'design';
-      if (/netlify|vercel|cloudflare|remote desktop|vmware|virtual box|virtualbox/.test(n)) return 'cloud';
-      if (/html|css|php\b|javascript|xampp|wamp|gitkraken|github|gitea/.test(n)) return 'web';
+      if (/figma|photoshop|illustrator|premiere|canva|adobe/.test(n)) return 'design';
+      if (/vercel|netlify|cloudflare|remote desktop|vmware|virtual box|virtualbox|github|gitkraken|gitea|git\b|docker/.test(n)) return 'devops';
+      if (/supabase|mysql|sqlite|sql|heidi|power bi|dbeaver|postgres|oracle|mongo|database/.test(n)) return 'data';
+      if (/html|css|php\b|javascript|js\b|react|laravel|bootstrap|laragon|xampp|wamp|vs code|vscode|visual studio|rad studio|delphi|next\.?js|tailwind/.test(n)) return 'dev';
       return 'enterprise';
     }
 
@@ -5106,20 +5108,22 @@
         });
       }
     });
-        if (!allTools.some(function (t) { return /vercel/i.test(t.name); })) {
-      allTools.push({
-        name: 'Vercel',
-        src: 'img/icons/vercel logo.png',
-        cat: 'cloud'
-      });
-    }
-        if (!allTools.some(function (t) { return /supabase/i.test(t.name); })) {
-      allTools.push({
-        name: 'Supabase',
-        src: 'img/icons/supabase-logo-green-black-transparent.png',
-        cat: 'enterprise'
-      });
-    }
+
+    // Tambah logo-logo baru secara idempotent
+    var extraTools = [
+      { name: 'Vercel',    src: 'img/icons/vercel logo.png',                        cat: 'devops' },
+      { name: 'Supabase',  src: 'img/icons/supabase-logo-green-black-transparent.png', cat: 'data' },
+      { name: 'React',     src: 'img/icons/react logo.png',                         cat: 'dev' },
+      { name: 'Laravel',   src: 'img/icons/laravel icon.png',                       cat: 'dev' },
+      { name: 'Bootstrap', src: 'img/icons/bootstrap logo.png',                     cat: 'dev' },
+      { name: 'Laragon',   src: 'img/icons/laragon.png',                            cat: 'dev' }
+    ];
+    extraTools.forEach(function (item) {
+      if (!allTools.some(function (t) { return t.name.toLowerCase() === item.name.toLowerCase(); })) {
+        allTools.push(item);
+      }
+    });
+
     if (!allTools.length) return;
 
     var toolsBlock = toolsGrid.closest('.content__block');
@@ -5131,16 +5135,17 @@
       }
     }
 
-    // C. Bina Kad 3D Tech Arsenal + Filter Pills dalam Sidebar
+    // C. Bina Kad 3D Tech Arsenal + Filter Pills Gaya Iqbal dalam Sidebar
     var card = document.createElement('div');
     card.className = 'sidebar-tech-card';
     card.id = 'sidebarTechCard';
     card.innerHTML =
       '<div class="sidebar-tech-filters" role="tablist" aria-label="Filter Tech Arsenal">' +
         '<button type="button" class="sidebar-tech-pill is-active" data-sb-filter="all">All</button>' +
+        '<button type="button" class="sidebar-tech-pill" data-sb-filter="dev">Dev</button>' +
+        '<button type="button" class="sidebar-tech-pill" data-sb-filter="data">Data</button>' +
         '<button type="button" class="sidebar-tech-pill" data-sb-filter="enterprise">Enterprise</button>' +
-        '<button type="button" class="sidebar-tech-pill" data-sb-filter="web">Web</button>' +
-        '<button type="button" class="sidebar-tech-pill" data-sb-filter="cloud">Cloud</button>' +
+        '<button type="button" class="sidebar-tech-pill" data-sb-filter="devops">DevOps</button>' +
         '<button type="button" class="sidebar-tech-pill" data-sb-filter="design">Design</button>' +
       '</div>' +
       '<div class="sidebar-sphere-stage" id="sidebarSphereStage"></div>' +
