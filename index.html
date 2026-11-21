@@ -240,14 +240,11 @@
         <div class="avatar__block">
           <div class="avatar__logo d-flex align-items-center">
             <div class="logo__image">
-              <img src="img/ameeridz logo.png" alt="Ameer Ridzuan Logo" width="85" height="85">
+              <img src="img/passport_slanted.png" alt="Ameer Ridzuan" width="300" height="300">
             </div>
             <div class="logo__caption">
               <p>Ameer<br>Ridzuan</p>
             </div>
-          </div>
-          <div class="avatar__image">
-            <img src="img/passport_slanted.png" alt="Avatar">
           </div>
         </div>
         <!-- data caption #1 -->
@@ -329,6 +326,674 @@
             </div>
           </div>
           <!-- Headline End -->
+<!-- Hero Bento Dashboard Start -->
+<style id="hero-bento-style">
+  /* Sembunyikan headline gergasi & rotating button asal */
+  #home.main.intro #headline,
+  #home.main.intro .rotating-btn {
+    display: none !important;
+  }
+
+  /* Ruang padding kiri kanan selari dengan seksyen Portfolio */
+  #home.main.intro {
+    height: auto !important;
+    min-height: 0 !important;
+    display: block !important;
+    padding: 13.5rem 5rem 4.5rem 5rem !important;
+    box-sizing: border-box !important;
+  }
+
+  .hero-bento {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 1.5rem;
+    position: relative;
+    z-index: 3;
+  }
+
+  .bento-card {
+    position: relative;
+    isolation: isolate;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 2rem 2.2rem;
+    border-radius: 2.2rem;
+    border: 1px solid var(--stroke-elements, rgba(255,255,255,0.14));
+    background: var(--base-tint, rgba(255,255,255,0.03));
+    overflow: hidden;
+    transition: transform 0.25s ease, border-color 0.25s ease;
+  }
+
+  .bento-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent, #e4b8bf);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .bento-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: var(--bento-go, 0);
+      background: radial-gradient(
+        360px circle at var(--bento-gx, 50%) var(--bento-gy, 50%),
+        color-mix(in srgb, var(--accent, #e4b8bf) 16%, transparent) 0%,
+        transparent 72%
+      );
+      transition: opacity 0.3s ease;
+      z-index: 0;
+    }
+  }
+
+  .bento-card > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Susunan 12-Kolum Desktop (Gaya Iqbal) */
+  .bento-intro   { grid-column: span 7; }
+  .bento-journey { grid-column: span 5; }
+  .bento-clock   { grid-column: span 3; }
+  .bento-stats   { grid-column: span 4; }
+  .bento-work    { grid-column: span 5; gap: 1.2rem; }
+
+  .bento-status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    align-self: flex-start;
+    padding: 0.4rem 1.1rem;
+    border-radius: 999px;
+    border: 1px solid rgba(74, 222, 128, 0.35);
+    background: rgba(74, 222, 128, 0.1);
+    color: var(--t-bright, #ffffff);
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-bottom: 1.2rem;
+  }
+
+  .bento-intro-title {
+    margin: 0;
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 1.15;
+    color: var(--t-bright, #ffffff);
+  }
+
+  .bento-intro-sub {
+    margin: 0.45rem 0 1.1rem;
+    font-size: 1.45rem;
+    font-weight: 600;
+    color: var(--accent, #e4b8bf);
+  }
+
+  .bento-intro-bio {
+    margin: 0 0 1.6rem;
+    font-size: 1.38rem;
+    line-height: 1.55;
+    color: var(--t-medium, #a1a1aa);
+  }
+
+  .bento-intro-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .bento-btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 999px;
+    background: var(--t-bright, #ffffff);
+    color: var(--base, #111111);
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+  .bento-btn-primary:hover {
+    transform: translateY(-1px);
+    opacity: 0.9;
+    color: var(--base, #111111);
+  }
+
+  .bento-btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.4rem;
+    border-radius: 999px;
+    border: 1px solid var(--stroke-elements, rgba(255,255,255,0.18));
+    background: var(--base, #111111);
+    color: var(--t-bright, #f4f4f5);
+    font-size: 1.25rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: border-color 0.2s ease, transform 0.2s ease, color 0.2s ease;
+  }
+  .bento-btn-outline:hover {
+    border-color: var(--accent, #e4b8bf);
+    color: var(--accent, #e4b8bf);
+    transform: translateY(-1px);
+  }
+
+  .bento-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    font-size: 1.12rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--t-medium, #a1a1aa);
+    margin-bottom: 1rem;
+  }
+  .bento-label i {
+    color: var(--accent, #e4b8bf);
+    font-size: 1.4rem;
+  }
+
+  .bento-live-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #4ade80;
+    box-shadow: 0 0 10px #4ade80;
+    flex-shrink: 0;
+  }
+
+  .bento-time-val {
+    margin: 0;
+    font-size: 2.55rem;
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--t-bright, #ffffff);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.02em;
+  }
+  .bento-time-meta {
+    margin: 0.5rem 0 0;
+    font-size: 1.2rem;
+    color: var(--t-medium, #a1a1aa);
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+  }
+
+  .bento-stat-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.8rem;
+  }
+  .bento-stat-box {
+    padding: 0.8rem 0.95rem;
+    border-radius: 1.2rem;
+    border: 1px solid var(--stroke-elements, rgba(255,255,255,0.1));
+    background: var(--base, #111111);
+  }
+  .bento-stat-box.is-wide {
+    grid-column: span 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .bento-stat-num {
+    display: block;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--t-bright, #ffffff);
+    line-height: 1.15;
+  }
+  .bento-stat-cap {
+    display: block;
+    font-size: 1.08rem;
+    color: var(--t-medium, #a1a1aa);
+    margin-top: 0.2rem;
+  }
+
+  .bento-journey-role {
+    margin: 0;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--t-bright, #ffffff);
+    line-height: 1.3;
+  }
+  .bento-journey-sub {
+    margin: 0.4rem 0 1.3rem;
+    font-size: 1.3rem;
+    color: var(--t-medium, #a1a1aa);
+    line-height: 1.5;
+  }
+  .bento-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+  }
+  .bento-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.48rem 1.05rem;
+    border-radius: 999px;
+    border: 1px solid var(--stroke-elements, rgba(255,255,255,0.16));
+    background: var(--base, #111111);
+    color: var(--t-bright, #f4f4f5);
+    font-size: 1.18rem;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: border-color 0.2s ease, transform 0.2s ease, color 0.2s ease;
+  }
+  .bento-chip:hover {
+    border-color: var(--accent, #e4b8bf);
+    color: var(--accent, #e4b8bf);
+    transform: translateY(-1px);
+  }
+
+  .bento-work-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.8rem;
+  }
+  .bento-work-nav {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .bento-nav-btn {
+    width: 2.9rem;
+    height: 2.9rem;
+    border-radius: 50%;
+    border: 1px solid var(--stroke-elements, rgba(255,255,255,0.16));
+    background: var(--base, #111111);
+    color: var(--t-bright, #f4f4f5);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    cursor: pointer;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+  }
+  .bento-nav-btn:hover {
+    border-color: var(--accent, #e4b8bf);
+    transform: scale(1.06);
+  }
+  .bento-work-count {
+    font-size: 1.12rem;
+    font-weight: 700;
+    color: var(--t-medium, #a1a1aa);
+    padding: 0 0.3rem;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .bento-work-media {
+    width: 100%;
+    height: 122px;
+    border-radius: 1.2rem;
+    overflow: hidden;
+    border: 1px solid var(--stroke-elements, rgba(255,255,255,0.14));
+    background: var(--base, #111111);
+  }
+  .bento-work-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.35s ease;
+  }
+  .bento-work:hover .bento-work-media img {
+    transform: scale(1.04);
+  }
+
+  .bento-work-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.8rem;
+  }
+  .bento-work-title {
+    margin: 0;
+    font-size: 1.55rem;
+    font-weight: 700;
+    color: var(--t-bright, #ffffff);
+    line-height: 1.2;
+  }
+  .bento-work-desc {
+    margin: 0.25rem 0 0;
+    font-size: 1.18rem;
+    color: var(--t-medium, #a1a1aa);
+    line-height: 1.35;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .bento-work-cta {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.55rem 1.15rem;
+    border-radius: 999px;
+    background: var(--accent, #e4b8bf);
+    color: #111111;
+    font-size: 1.18rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+  .bento-work-cta:hover {
+    transform: translateY(-1px);
+    opacity: 0.92;
+    color: #111111;
+  }
+
+  /* Tablet */
+  @media (max-width: 1199px) {
+    #home.main.intro {
+      padding: 12.5rem 3rem 4rem 3rem !important;
+    }
+    .bento-intro   { grid-column: span 12; }
+    .bento-journey { grid-column: span 6; }
+    .bento-clock   { grid-column: span 6; }
+    .bento-stats   { grid-column: span 6; }
+    .bento-work    { grid-column: span 6; }
+  }
+
+  /* Mobile: Ada padding kiri kanan & kekal Bento 2-kolum gaya Widget iOS */
+  @media (max-width: 991px) {
+    #home.main.intro {
+      padding: 1.8rem 1.6rem 3.2rem 1.6rem !important;
+    }
+    .hero-bento {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+    }
+    .bento-card {
+      padding: 1.45rem 1.35rem;
+      border-radius: 1.7rem;
+    }
+    .bento-intro   { grid-column: span 2; order: 1; }
+    .bento-clock   { grid-column: span 1; order: 2; }
+    .bento-stats   { grid-column: span 1; order: 3; }
+    .bento-work    { grid-column: span 2; order: 4; }
+    .bento-journey { grid-column: span 2; order: 5; }
+
+    .bento-intro-title { font-size: 2.3rem; }
+    .bento-intro-sub { font-size: 1.3rem; }
+    .bento-intro-bio { font-size: 1.25rem; margin-bottom: 1.3rem; }
+
+    .bento-label { font-size: 1rem; margin-bottom: 0.7rem; }
+    .bento-time-val { font-size: 2rem; }
+    .bento-time-meta { font-size: 1.1rem; }
+
+    .bento-stat-grid { grid-template-columns: 1fr; gap: 0.55rem; }
+    .bento-stat-box { padding: 0.6rem 0.8rem; }
+    .bento-stat-box.is-wide { grid-column: span 1; flex-direction: column; align-items: flex-start; }
+    .bento-stat-num { font-size: 1.5rem; }
+    .bento-stat-cap { font-size: 1rem; }
+
+    .bento-work-media { height: 145px; }
+  }
+</style>
+
+<div class="hero-bento" id="heroBentoGrid" aria-label="Quick Overview Dashboard">
+  <!-- Bento 1: Intro Card (Gaya Iqbal) -->
+  <div class="bento-card bento-intro">
+    <div>
+      <span class="bento-status-pill">
+        <span class="bento-live-dot" aria-hidden="true"></span>
+        <span>System Engineer (DEE) &middot; Kossan</span>
+      </span>
+      <h1 class="bento-intro-title">Hey, I&rsquo;m Ameer Ridzuan</h1>
+      <p class="bento-intro-sub">System Engineer, Web Developer &amp; UI/UX Designer</p>
+      <p class="bento-intro-bio">I build internal enterprise web portals, automate workflows and craft interactive digital products including my digital wedding card venture <strong>by.ridzu.one</strong>.</p>
+    </div>
+    <div class="bento-intro-actions">
+      <a class="bento-btn-primary" href="#portfolio">
+        <span>My Works</span>
+        <i class="ph-bold ph-squares-four"></i>
+      </a>
+      <a class="bento-btn-outline" href="#experience">
+        <span>Experience</span>
+        <i class="ph-bold ph-briefcase"></i>
+      </a>
+      <a class="bento-btn-outline js-resume-preview" href="resume/Resume_Ameer_Ridzuan.pdf" target="_blank" rel="noopener noreferrer nofollow">
+        <span>View Resume</span>
+        <i class="ph-bold ph-file-text"></i>
+      </a>
+    </div>
+  </div>
+
+  <!-- Bento 2: Now Building & Quick Jumps -->
+  <div class="bento-card bento-journey">
+    <div class="bento-label">
+      <i class="ph-bold ph-compass"></i>
+      <span>Now Building</span>
+    </div>
+    <div>
+      <h3 class="bento-journey-role">Enterprise Apps &amp; by.ridzu.one</h3>
+      <p class="bento-journey-sub">Shipping multi-role RBAC portals, SQL optimisations and mobile-first web apps from Shah Alam.</p>
+      <div class="bento-chips">
+        <a href="#experience" class="bento-chip"><i class="ph-bold ph-briefcase"></i>Timeline</a>
+        <a href="#techArsenalWrap" class="bento-chip"><i class="ph-bold ph-globe"></i>3D Tech</a>
+        <a href="#cert" class="bento-chip"><i class="ph-bold ph-certificate"></i>Certs</a>
+        <button type="button" class="bento-chip" id="bentoOpenQrBtn"><i class="ph-bold ph-qr-code"></i>QR Card</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bento 3: Live Clock MYT -->
+  <div class="bento-card bento-clock">
+    <div class="bento-label">
+      <span class="bento-live-dot" aria-hidden="true"></span>
+      <span>Shah Alam, MY</span>
+    </div>
+    <div>
+      <p class="bento-time-val" id="bentoLiveTime">--:--:--</p>
+      <p class="bento-time-meta" id="bentoLiveDate"><i class="ph-bold ph-sun"></i><span>Loading MYT...</span></p>
+    </div>
+  </div>
+
+  <!-- Bento 4: Career Highlights -->
+  <div class="bento-card bento-stats">
+    <div class="bento-label">
+      <i class="ph-bold ph-chart-line-up"></i>
+      <span>Highlights</span>
+    </div>
+    <div class="bento-stat-grid">
+      <div class="bento-stat-box">
+        <span class="bento-stat-num">95-100%</span>
+        <span class="bento-stat-cap">SLA Compliance</span>
+      </div>
+      <div class="bento-stat-box">
+        <span class="bento-stat-num">15+</span>
+        <span class="bento-stat-cap">Live Demos</span>
+      </div>
+      <div class="bento-stat-box is-wide">
+        <span class="bento-stat-num">15-20%</span>
+        <span class="bento-stat-cap">Recurring Ticket Cut</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bento 5: Selected Work Mini Switcher -->
+  <div class="bento-card bento-work">
+    <div class="bento-work-head">
+      <span class="bento-label" style="margin-bottom:0;"><i class="ph-bold ph-sparkle"></i><span id="bentoWorkTag">Flagship Venture</span></span>
+      <div class="bento-work-nav">
+        <button type="button" class="bento-nav-btn" id="bentoWorkPrev" aria-label="Previous project"><i class="ph-bold ph-caret-left"></i></button>
+        <span class="bento-work-count" id="bentoWorkCount">1 / 4</span>
+        <button type="button" class="bento-nav-btn" id="bentoWorkNext" aria-label="Next project"><i class="ph-bold ph-caret-right"></i></button>
+      </div>
+    </div>
+    <div class="bento-work-media">
+      <img src="img/by-ridzu.png" alt="by.ridzu.one preview" id="bentoWorkImg" loading="eager" decoding="async">
+    </div>
+    <div class="bento-work-foot">
+      <div style="min-width:0;">
+        <h3 class="bento-work-title" id="bentoWorkTitle">by.ridzu.one</h3>
+        <p class="bento-work-desc" id="bentoWorkDesc">Digital wedding invitation platform with 15+ live demos.</p>
+      </div>
+      <a href="https://by.ridzu.one/" target="_blank" rel="noopener noreferrer" class="bento-work-cta" id="bentoWorkLink">
+        <span>Open</span>
+        <i class="ph-bold ph-arrow-up-right"></i>
+      </a>
+    </div>
+  </div>
+</div>
+
+<script id="hero-bento-script">
+(function () {
+  function initHeroBento() {
+    var timeEl = document.getElementById('bentoLiveTime');
+    var dateEl = document.getElementById('bentoLiveDate');
+
+    function updateClock() {
+      if (!timeEl || !dateEl) return;
+      var now = new Date();
+      try {
+        var timeStr = new Intl.DateTimeFormat('en-GB', {
+          timeZone: 'Asia/Kuala_Lumpur',
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+          hour12: false
+        }).format(now);
+        var dateStr = new Intl.DateTimeFormat('en-GB', {
+          timeZone: 'Asia/Kuala_Lumpur',
+          weekday: 'short',
+          day: 'numeric',
+          month: 'short'
+        }).format(now);
+        var hr = parseInt(timeStr.split(':')[0], 10);
+        var isDay = hr >= 7 && hr < 19;
+        timeEl.textContent = timeStr;
+        dateEl.innerHTML = '<i class="ph-bold ' + (isDay ? 'ph-sun' : 'ph-moon-stars') + '"></i><span>' + dateStr + ' (MYT)</span>';
+      } catch (err) {
+        timeEl.textContent = now.toTimeString().slice(0, 8);
+      }
+    }
+    updateClock();
+    setInterval(updateClock, 1000);
+
+    var projects = [
+      {
+        tag: 'Flagship Venture',
+        title: 'by.ridzu.one',
+        desc: 'Digital wedding invitation platform with 15+ live demos.',
+        img: 'img/by-ridzu.png',
+        url: 'https://by.ridzu.one/'
+      },
+      {
+        tag: 'Next.js + Supabase',
+        title: 'Pakatlah',
+        desc: 'Group decision web app with consensus scoring.',
+        img: 'img/pakatlah.png',
+        url: 'https://pakatlah.ridzu.one/'
+      },
+      {
+        tag: 'Mobile-First PWA',
+        title: 'SplitSukan',
+        desc: 'Sports session expense splitter with WhatsApp summaries.',
+        img: 'img/splitsukan.png',
+        url: 'https://splitsukan.ridzu.one/'
+      },
+      {
+        tag: 'Local-First PWA',
+        title: 'Gymeer / GymFlow',
+        desc: 'Gym check-in, live workout timer and consistency tracker.',
+        img: 'img/gymflow.png',
+        url: 'https://gym.ridzu.one/'
+      }
+    ];
+
+    var idx = 0;
+    var tagEl = document.getElementById('bentoWorkTag');
+    var titleEl = document.getElementById('bentoWorkTitle');
+    var descEl = document.getElementById('bentoWorkDesc');
+    var imgEl = document.getElementById('bentoWorkImg');
+    var linkEl = document.getElementById('bentoWorkLink');
+    var countEl = document.getElementById('bentoWorkCount');
+    var prevBtn = document.getElementById('bentoWorkPrev');
+    var nextBtn = document.getElementById('bentoWorkNext');
+
+    function renderWork(i) {
+      var p = projects[i];
+      if (!p) return;
+      if (tagEl) tagEl.textContent = p.tag;
+      if (titleEl) titleEl.textContent = p.title;
+      if (descEl) descEl.textContent = p.desc;
+      if (imgEl) {
+        imgEl.src = p.img;
+        imgEl.alt = p.title + ' preview';
+      }
+      if (linkEl) linkEl.href = p.url;
+      if (countEl) countEl.textContent = (i + 1) + ' / ' + projects.length;
+    }
+
+    if (prevBtn) {
+      prevBtn.addEventListener('click', function () {
+        idx = (idx - 1 + projects.length) % projects.length;
+        renderWork(idx);
+      });
+    }
+    if (nextBtn) {
+      nextBtn.addEventListener('click', function () {
+        idx = (idx + 1) % projects.length;
+        renderWork(idx);
+      });
+    }
+
+    var bentoQrBtn = document.getElementById('bentoOpenQrBtn');
+    if (bentoQrBtn) {
+      bentoQrBtn.addEventListener('click', function () {
+        var dockQr = document.getElementById('quickQrBtn');
+        if (dockQr) dockQr.click();
+      });
+    }
+
+    var canHover = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    if (canHover) {
+      document.querySelectorAll('#heroBentoGrid .bento-card').forEach(function (card) {
+        var raf = null;
+        card.addEventListener('mousemove', function (e) {
+          var r = card.getBoundingClientRect();
+          var x = (e.clientX - r.left).toFixed(1) + 'px';
+          var y = (e.clientY - r.top).toFixed(1) + 'px';
+          if (raf) cancelAnimationFrame(raf);
+          raf = requestAnimationFrame(function () {
+            card.style.setProperty('--bento-gx', x);
+            card.style.setProperty('--bento-gy', y);
+            card.style.setProperty('--bento-go', '1');
+          });
+        });
+        card.addEventListener('mouseleave', function () {
+          if (raf) cancelAnimationFrame(raf);
+          card.style.setProperty('--bento-go', '0');
+        });
+      });
+    }
+
+    if (window.ScrollTrigger) {
+      setTimeout(function () { ScrollTrigger.refresh(); }, 180);
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initHeroBento);
+  } else {
+    initHeroBento();
+  }
+})();
+</script>
+<!-- Hero Bento Dashboard End -->
 
           <!-- Scroll Button Start -->
           <div class="rotating-btn">
@@ -4068,221 +4733,343 @@
 })();
 </script>
 <!-- Cursor Spotlight End -->
-<!-- Tech Arsenal 3D Sphere Start -->
-<style id="tech-sphere-style">
-  .tech-arsenal-wrap {
-    margin-bottom: 1.8rem;
-    padding: 2rem 2rem 1.8rem;
-    border-radius: var(--_radius-xl, 2.2rem);
-    border: 1px solid var(--stroke-elements, rgba(255,255,255,0.14));
-    background: var(--base-tint, rgba(255,255,255,0.03));
+<!-- Hero Spacing & Compact Avatar Start -->
+<style id="hero-spacing-avatar-style">
+  /* 1. Avatar sidebar bulat padat & susunan dalaman kemas di desktop */
+  #avatar .avatar__container {
+    height: auto !important;
+    min-height: 0 !important;
+    justify-content: flex-start !important;
+    gap: 1.8rem !important;
+    padding: 2.4rem 2.2rem !important;
   }
 
-  .tech-arsenal-top {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    margin-bottom: 1.2rem;
+  #avatar .avatar__block {
+    margin: 0 !important;
   }
 
-  .tech-arsenal-filters {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.55rem;
+  #avatar .avatar__image {
+    width: 138px !important;
+    height: 138px !important;
+    margin: 1.6rem auto 0.2rem !important;
+    padding: 4px !important;
+    border-radius: 50% !important;
+    background: linear-gradient(135deg, var(--accent, #e4b8bf), var(--stroke-elements, rgba(255,255,255,0.18))) !important;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.24) !important;
+    overflow: hidden !important;
   }
 
-  .tech-pill {
-    padding: 0.48rem 1.15rem;
-    border-radius: 999px;
-    border: 1px solid var(--stroke-elements, rgba(255,255,255,0.16));
-    background: transparent;
-    color: var(--t-medium, #a1a1aa);
-    font-size: 1.2rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.22s ease;
-  }
-  .tech-pill:hover,
-  .tech-pill.is-active {
-    background: var(--t-bright, #ffffff);
-    color: var(--base, #111111);
-    border-color: var(--t-bright, #ffffff);
+  #avatar .avatar__image img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center top !important;
+    border-radius: 50% !important;
+    display: block !important;
   }
 
-  .tech-mode-toggle {
-    display: inline-flex;
-    padding: 0.28rem;
-    border-radius: 999px;
-    border: 1px solid var(--stroke-elements, rgba(255,255,255,0.16));
-    background: var(--base, #111111);
-    gap: 0.25rem;
+  #avatar .avatar__socials {
+    margin-bottom: 1.4rem !important;
   }
 
-  .tech-mode-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.45rem;
-    padding: 0.42rem 1rem;
-    border-radius: 999px;
-    border: none;
-    background: transparent;
-    color: var(--t-medium, #a1a1aa);
-    font-size: 1.18rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.22s ease;
-  }
-  .tech-mode-btn.is-active {
-    background: var(--accent, #e4b8bf);
-    color: #111111;
-  }
-
-  .tech-sphere-stage {
-    position: relative;
-    width: 100%;
-    height: 430px;
-    border-radius: 1.8rem;
-    border: 1px solid var(--stroke-elements, rgba(255,255,255,0.1));
-    background: radial-gradient(circle at 50% 50%, rgba(228,184,191,0.1) 0%, transparent 66%), var(--base, #111111);
-    overflow: hidden;
-    touch-action: none;
-    user-select: none;
-    -webkit-user-select: none;
-    cursor: grab;
-  }
-  .tech-sphere-stage.is-dragging {
-    cursor: grabbing;
-  }
-
-  .tech-sphere-ring {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 290px;
-    height: 290px;
-    transform: translate(-50%, -50%);
-    border-radius: 50%;
-    border: 1px dashed var(--stroke-elements, rgba(255,255,255,0.1));
-    pointer-events: none;
-    opacity: 0.55;
-  }
-
-  .tech-sphere-cloud {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-  }
-
-  .tech-sphere-item {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 58px;
-    height: 58px;
-    margin-left: -29px;
-    margin-top: -29px;
-    border-radius: 1.4rem;
-    border: 1px solid var(--stroke-elements, rgba(255,255,255,0.16));
-    background: var(--base-tint, rgba(24,24,28,0.86));
-    box-shadow: 0 10px 24px rgba(0,0,0,0.28);
-    pointer-events: auto;
-    will-change: transform, opacity;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
-    cursor: pointer;
-  }
-  .tech-sphere-item:hover,
-  .tech-sphere-item.is-selected {
-    border-color: var(--accent, #e4b8bf);
-    box-shadow: 0 0 0 3px rgba(228,184,191,0.22), 0 12px 26px rgba(0,0,0,0.38);
-  }
-  .tech-sphere-item img {
-    width: 34px;
-    height: 34px;
-    object-fit: contain;
-    pointer-events: none;
-    display: block;
-  }
-
-  .tech-sphere-hud {
-    position: absolute;
-    left: 50%;
-    bottom: 1.2rem;
-    transform: translateX(-50%);
-    display: inline-flex;
-    align-items: center;
-    gap: 0.6rem;
-    padding: 0.45rem 1.25rem;
-    border-radius: 999px;
-    border: 1px solid var(--stroke-elements, rgba(255,255,255,0.16));
-    background: rgba(15, 15, 18, 0.78);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    color: #f4f4f5;
-    font-size: 1.2rem;
-    font-weight: 600;
-    white-space: nowrap;
-    max-width: calc(100% - 2.4rem);
-    overflow: hidden;
-    text-overflow: ellipsis;
-    z-index: 40;
-    pointer-events: none;
-  }
-  .tech-sphere-hud i {
-    color: var(--accent, #e4b8bf);
-    font-size: 1.4rem;
-  }
-  .tech-hud-cat {
-    padding: 0.14rem 0.65rem;
-    border-radius: 999px;
-    background: rgba(228,184,191,0.18);
-    color: var(--accent, #e4b8bf);
-    font-size: 1.05rem;
-  }
-
-  .tools-cards.is-sphere-hidden {
-    display: none !important;
-  }
-  .tools-cards__item.is-tech-filtered {
-    display: none !important;
-  }
-
-  @media (max-width: 575px) {
-    .tech-arsenal-wrap {
-      padding: 1.4rem 1.2rem;
+  /* 2. Gap selesa antara sidebar kiri dengan kandungan kanan & Bento di desktop */
+  @media (min-width: 992px) {
+    #home.main.intro {
+      justify-content: flex-start !important;
+      padding-top: 15.5rem !important;
+      padding-bottom: 5rem !important;
+      padding-left: 2.4rem !important;
     }
-    .tech-sphere-stage {
-      height: 340px;
+
+    #home.main.intro #headline {
+      margin-bottom: 3.2rem !important;
     }
-    .tech-sphere-ring {
-      width: 220px;
-      height: 220px;
+
+    #heroBentoGrid {
+      gap: 1.6rem !important;
     }
-    .tech-sphere-item {
-      width: 48px;
-      height: 48px;
-      margin-left: -24px;
-      margin-top: -24px;
-      border-radius: 1.15rem;
+  }
+
+  /* 3. Larasan tablet dan mobile supaya padat, kemas dan seimbang */
+  @media (max-width: 991px) {
+    #avatar .avatar__container {
+      gap: 1.25rem !important;
+      padding: 1.8rem 1.6rem !important;
     }
-    .tech-sphere-item img {
-      width: 28px;
-      height: 28px;
+
+    #avatar .avatar__image {
+      width: 108px !important;
+      height: 108px !important;
+      margin: 1rem auto 0 !important;
+    }
+
+    #avatar .avatar__socials {
+      margin-bottom: 1.1rem !important;
+    }
+
+    #home.main.intro {
+      min-height: auto !important;
+      padding-top: 2.6rem !important;
+      padding-bottom: 3.2rem !important;
+    }
+
+    #home.main.intro #headline {
+      margin-bottom: 2rem !important;
+    }
+
+    #heroBentoGrid {
+      gap: 1rem !important;
+    }
+
+    /* Seimbangkan kad jam MYT dengan kad Highlights di mobile */
+    #heroBentoGrid .bento-clock {
+      justify-content: space-between !important;
+    }
+
+    #heroBentoGrid .bento-clock > div:last-child {
+      margin-top: auto;
+      margin-bottom: auto;
+      padding: 1rem 0;
     }
   }
 </style>
-<script id="tech-sphere-script">
-(function () {
-  function initTechArsenalSphere() {
-    var toolsGrid = document.querySelector('.tools-cards');
-    if (!toolsGrid || document.getElementById('techArsenalWrap')) return;
+<!-- Hero Spacing & Compact Avatar End -->
+<!-- Sidebar Avatar & Mini 3D Tech Start -->
+<style id="sidebar-mini-sphere-style">
+  /* 1. Besarkan foto profil bulat sebelah nama */
+  #avatar .logo__image {
+    width: 92px !important;
+    height: 92px !important;
+    min-width: 92px !important;
+    padding: 3.5px !important;
+    border-radius: 50% !important;
+    background: linear-gradient(135deg, var(--accent, #e4b8bf), var(--stroke-elements, rgba(255,255,255,0.2))) !important;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.24) !important;
+    overflow: hidden !important;
+    flex-shrink: 0 !important;
+  }
 
-    var gridItems = Array.prototype.slice.call(toolsGrid.querySelectorAll('.tools-cards__item'));
-    if (!gridItems.length) return;
+  #avatar .logo__image img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center top !important;
+    border-radius: 50% !important;
+    display: block !important;
+  }
+
+  #avatar .avatar__logo {
+    gap: 1.4rem !important;
+  }
+
+  /* 2. Susun 6 ikon sosial + QR sebaris dengan kemas */
+  #avatar .socials-square {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    justify-content: space-between !important;
+    gap: 0.45rem !important;
+  }
+
+  #avatar .socials-square__item {
+    margin: 0 !important;
+  }
+
+  #avatar .socials-square__link {
+    width: 4rem !important;
+    height: 4rem !important;
+    min-width: 4rem !important;
+    font-size: 1.65rem !important;
+    padding: 0 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  #avatar .socials-square__link.is-qr-btn {
+    border-color: var(--accent, #e4b8bf) !important;
+    color: var(--accent, #e4b8bf) !important;
+  }
+
+  /* 3. Sembunyikan seksyen My favourite tools di bawah */
+  .is-tools-section-hidden {
+    display: none !important;
+  }
+
+  /* 4. Rapatkan gap kosong bawah Bento (Desktop) & bawah Avatar (Mobile) */
+  @media (min-width: 992px) {
+    #home.main.intro {
+      padding-bottom: 2.5rem !important;
+    }
+    #portfolio.inner {
+      padding-top: 6.5rem !important;
+    }
+  }
+
+  @media (max-width: 991px) {
+    #avatar {
+      padding-bottom: 0 !important;
+      margin-bottom: 0 !important;
+    }
+    #avatar .avatar__container {
+      margin-bottom: 0 !important;
+    }
+    #avatar .logo__image {
+      width: 82px !important;
+      height: 82px !important;
+      min-width: 82px !important;
+    }
+    #home.main.intro {
+      padding-top: 1.4rem !important;
+      padding-bottom: 2.2rem !important;
+    }
+    #portfolio.inner {
+      padding-top: 4rem !important;
+    }
+    .sidebar-sphere-stage {
+      height: 235px !important;
+    }
+  }
+
+  /* 5. Kad 3D Tech Arsenal + Filter Pills di bawah View My Resume (kalis override template) */
+  #sidebarTechCard.sidebar-tech-card {
+    display: block !important;
+    width: 100% !important;
+    margin-top: 0.4rem !important;
+    padding: 1rem 0.9rem 0.9rem !important;
+    border-radius: 1.6rem !important;
+    border: 1px solid var(--stroke-elements, rgba(128,128,128,0.22)) !important;
+    background: var(--base, rgba(255,255,255,0.03)) !important;
+    box-sizing: border-box !important;
+  }
+
+  #sidebarTechCard .sidebar-tech-filters {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 0.38rem !important;
+    margin-bottom: 0.7rem !important;
+    position: relative !important;
+    z-index: 5 !important;
+  }
+
+  #sidebarTechCard .sidebar-tech-pill {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: auto !important;
+    height: auto !important;
+    padding: 0.34rem 0.78rem !important;
+    border-radius: 999px !important;
+    border: 1px solid var(--stroke-elements, rgba(128,128,128,0.3)) !important;
+    background: transparent !important;
+    color: var(--t-medium, #6b7280) !important;
+    font-family: inherit !important;
+    font-size: 1.05rem !important;
+    font-weight: 600 !important;
+    line-height: 1.2 !important;
+    cursor: pointer !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    transition: all 0.2s ease !important;
+  }
+
+  #sidebarTechCard .sidebar-tech-pill:hover,
+  #sidebarTechCard .sidebar-tech-pill.is-active {
+    background: var(--t-bright, #111111) !important;
+    color: var(--base, #ffffff) !important;
+    border-color: var(--t-bright, #111111) !important;
+  }
+
+  #sidebarTechCard .sidebar-sphere-stage {
+    position: relative !important;
+    width: 100% !important;
+    height: 250px !important;
+    border-radius: 1.2rem !important;
+    background: radial-gradient(circle at 50% 50%, rgba(228,184,191,0.12) 0%, transparent 68%) !important;
+    overflow: hidden !important;
+    touch-action: none !important;
+    user-select: none !important;
+    -webkit-user-select: none !important;
+    cursor: grab !important;
+  }
+
+  #sidebarTechCard .sidebar-sphere-stage.is-dragging {
+    cursor: grabbing !important;
+  }
+
+  #sidebarTechCard .sidebar-sphere-item {
+    position: absolute !important;
+    left: 50% !important;
+    top: 50% !important;
+    width: 44px !important;
+    height: 44px !important;
+    margin-left: -22px !important;
+    margin-top: -22px !important;
+    border: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    will-change: transform, opacity !important;
+    pointer-events: auto !important;
+    cursor: pointer !important;
+    padding: 0 !important;
+  }
+
+  #sidebarTechCard .sidebar-sphere-item:hover img,
+  #sidebarTechCard .sidebar-sphere-item.is-selected img {
+    filter: drop-shadow(0 0 8px var(--accent, #e4b8bf)) !important;
+    transform: scale(1.16) !important;
+  }
+
+  #sidebarTechCard .sidebar-sphere-item img {
+    width: 34px !important;
+    height: 34px !important;
+    object-fit: contain !important;
+    pointer-events: none !important;
+    display: block !important;
+    transition: transform 0.2s ease, filter 0.2s ease !important;
+  }
+
+  #sidebarTechCard .sidebar-sphere-hud {
+    display: block !important;
+    margin-top: 0.55rem !important;
+    text-align: center !important;
+    font-size: 1.08rem !important;
+    font-weight: 600 !important;
+    color: var(--t-medium, #6b7280) !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+</style>
+<script id="sidebar-mini-sphere-script">
+(function () {
+  function initSidebarEnhancements() {
+    // A. Tambah butang QR Digital Card sebaris ikon sosial (idempotent)
+    var socialsList = document.querySelector('#avatar .socials-square');
+    if (socialsList && !document.getElementById('sidebarQrSocialBtn')) {
+      var li = document.createElement('li');
+      li.className = 'socials-square__item';
+      li.innerHTML = '<button type="button" id="sidebarQrSocialBtn" class="socials-square__link btn is-qr-btn" aria-label="Open 3D Digital Business Card QR" title="3D Digital Business Card"><i class="ph-bold ph-qr-code"></i></button>';
+      socialsList.appendChild(li);
+
+      var qrSocialBtn = document.getElementById('sidebarQrSocialBtn');
+      if (qrSocialBtn) {
+        qrSocialBtn.addEventListener('click', function () {
+          var dockQr = document.getElementById('quickQrBtn');
+          if (dockQr) dockQr.click();
+        });
+      }
+    }
+
+    // B. Baca semua 34 tool & sembunyikan seksyen My favourite tools di bawah
+    var avatarContainer = document.querySelector('#avatar .avatar__container');
+    var toolsGrid = document.querySelector('.tools-cards');
+    if (!avatarContainer || !toolsGrid || document.getElementById('sidebarTechCard')) return;
 
     function detectCategory(name) {
       var n = (name || '').toLowerCase();
@@ -4292,87 +5079,64 @@
       return 'enterprise';
     }
 
-    var categoryLabels = {
-      all: 'All',
-      enterprise: 'Enterprise & DB',
-      web: 'Web & Dev',
-      cloud: 'Cloud & Infra',
-      design: 'Design & Media'
-    };
-
     var allTools = [];
-    gridItems.forEach(function (el) {
+    toolsGrid.querySelectorAll('.tools-cards__item').forEach(function (el) {
       var img = el.querySelector('img');
       var cap = el.querySelector('.tools-cards__caption');
       var name = cap ? cap.textContent.trim() : 'Tool';
-      var src = img ? img.getAttribute('src') : '';
-      var cat = detectCategory(name);
-      el.setAttribute('data-tech-cat', cat);
-      allTools.push({ name: name, src: src, cat: cat, gridEl: el });
+      if (img) {
+        allTools.push({
+          name: name,
+          src: img.getAttribute('src'),
+          cat: detectCategory(name)
+        });
+      }
     });
+    if (!allTools.length) return;
 
-    var counts = { all: allTools.length, enterprise: 0, web: 0, cloud: 0, design: 0 };
-    allTools.forEach(function (t) { counts[t.cat] = (counts[t.cat] || 0) + 1; });
+    var toolsBlock = toolsGrid.closest('.content__block');
+    if (toolsBlock) {
+      toolsBlock.classList.add('is-tools-section-hidden');
+      var prevBlock = toolsBlock.previousElementSibling;
+      if (prevBlock && /favourite tools|favorite tools/i.test(prevBlock.textContent || '')) {
+        prevBlock.classList.add('is-tools-section-hidden');
+      }
+    }
 
-    var wrap = document.createElement('div');
-    wrap.className = 'tech-arsenal-wrap';
-    wrap.id = 'techArsenalWrap';
-    wrap.innerHTML =
-      '<div class="tech-arsenal-top">' +
-        '<div class="tech-arsenal-filters" role="tablist" aria-label="Filter Tech Stack">' +
-          '<button type="button" class="tech-pill is-active" data-tech-filter="all">All (' + counts.all + ')</button>' +
-          '<button type="button" class="tech-pill" data-tech-filter="enterprise">Enterprise &amp; DB (' + counts.enterprise + ')</button>' +
-          '<button type="button" class="tech-pill" data-tech-filter="web">Web &amp; Dev (' + counts.web + ')</button>' +
-          '<button type="button" class="tech-pill" data-tech-filter="cloud">Cloud &amp; Infra (' + counts.cloud + ')</button>' +
-          '<button type="button" class="tech-pill" data-tech-filter="design">Design &amp; Media (' + counts.design + ')</button>' +
-        '</div>' +
-        '<div class="tech-mode-toggle" role="group" aria-label="Tech Arsenal View Mode">' +
-          '<button type="button" class="tech-mode-btn is-active" data-tech-mode="sphere"><i class="ph-bold ph-globe"></i><span>3D Sphere</span></button>' +
-          '<button type="button" class="tech-mode-btn" data-tech-mode="grid"><i class="ph-bold ph-squares-four"></i><span>Grid</span></button>' +
-        '</div>' +
+    // C. Bina Kad 3D Tech Arsenal + Filter Pills dalam Sidebar
+    var card = document.createElement('div');
+    card.className = 'sidebar-tech-card';
+    card.id = 'sidebarTechCard';
+    card.innerHTML =
+      '<div class="sidebar-tech-filters" role="tablist" aria-label="Filter Tech Arsenal">' +
+        '<button type="button" class="sidebar-tech-pill is-active" data-sb-filter="all">All</button>' +
+        '<button type="button" class="sidebar-tech-pill" data-sb-filter="enterprise">Enterprise</button>' +
+        '<button type="button" class="sidebar-tech-pill" data-sb-filter="web">Web</button>' +
+        '<button type="button" class="sidebar-tech-pill" data-sb-filter="cloud">Cloud</button>' +
+        '<button type="button" class="sidebar-tech-pill" data-sb-filter="design">Design</button>' +
       '</div>' +
-      '<div class="tech-sphere-stage" id="techSphereStage">' +
-        '<div class="tech-sphere-ring" aria-hidden="true"></div>' +
-        '<div class="tech-sphere-cloud" id="techSphereCloud"></div>' +
-        '<div class="tech-sphere-hud" id="techSphereHud"><i class="ph-bold ph-hand-grabbing"></i><span>Drag or flick to spin 3D Tech Arsenal</span></div>' +
-      '</div>';
+      '<div class="sidebar-sphere-stage" id="sidebarSphereStage"></div>' +
+      '<div class="sidebar-sphere-hud" id="sidebarSphereHud">Drag or flick to spin (' + allTools.length + ' tools)</div>';
 
-    toolsGrid.parentNode.insertBefore(wrap, toolsGrid);
-    toolsGrid.classList.add('is-sphere-hidden');
+    avatarContainer.appendChild(card);
 
-    var stage = document.getElementById('techSphereStage');
-    var cloud = document.getElementById('techSphereCloud');
-    var hud = document.getElementById('techSphereHud');
+    var stage = document.getElementById('sidebarSphereStage');
+    var hud = document.getElementById('sidebarSphereHud');
 
-    var activeFilter = 'all';
-    var activeMode = 'sphere';
     var nodes = [];
-
-    var baseSpeedY = 0.0042;
-    var baseSpeedX = 0.0014;
-    var velY = baseSpeedY;
-    var velX = baseSpeedX;
-    var isDragging = false;
+    var idleSpeedY = 0.0055;
+    var idleSpeedX = 0.0018;
+    var dirY = 1;
+    var dirX = 1;
+    var velY = idleSpeedY * dirY;
+    var velX = idleSpeedX * dirX;
+    var dragging = false;
     var lastX = 0;
     var lastY = 0;
-    var activePointerId = null;
-
-    function getRadius() {
-      var w = stage.clientWidth || 340;
-      var h = stage.clientHeight || 340;
-      return Math.min(w, h) * 0.37;
-    }
-
-    function setHudDefault() {
-      hud.innerHTML = '<i class="ph-bold ph-hand-grabbing"></i><span>Drag or flick to spin 3D Tech Arsenal</span>';
-    }
-
-    function setHudTool(tool) {
-      hud.innerHTML = '<i class="ph-bold ph-sparkle"></i><span>' + tool.name + '</span><span class="tech-hud-cat">' + (categoryLabels[tool.cat] || tool.cat) + '</span>';
-    }
+    var pointerId = null;
 
     function buildSphere(filterKey) {
-      cloud.innerHTML = '';
+      stage.innerHTML = '';
       nodes = [];
 
       var list = allTools.filter(function (t) {
@@ -4391,7 +5155,7 @@
 
         var btn = document.createElement('button');
         btn.type = 'button';
-        btn.className = 'tech-sphere-item';
+        btn.className = 'sidebar-sphere-item';
         btn.setAttribute('aria-label', tool.name);
         btn.setAttribute('title', tool.name);
 
@@ -4403,81 +5167,67 @@
         btn.appendChild(img);
 
         btn.addEventListener('mouseenter', function () {
-          setHudTool(tool);
+          hud.textContent = tool.name;
         });
         btn.addEventListener('click', function (e) {
           e.stopPropagation();
-          cloud.querySelectorAll('.tech-sphere-item.is-selected').forEach(function (el) {
+          stage.querySelectorAll('.sidebar-sphere-item.is-selected').forEach(function (el) {
             el.classList.remove('is-selected');
           });
           btn.classList.add('is-selected');
-          setHudTool(tool);
+          hud.textContent = tool.name;
         });
 
-        cloud.appendChild(btn);
+        stage.appendChild(btn);
         nodes.push({ x: x, y: y, z: z, el: btn });
       });
 
-      setHudDefault();
+      hud.textContent = 'Drag or flick to spin (' + count + ' tools)';
     }
 
-    function applyFilterToGrid(filterKey) {
-      allTools.forEach(function (t) {
-        var hide = filterKey !== 'all' && t.cat !== filterKey;
-        t.gridEl.classList.toggle('is-tech-filtered', hide);
-      });
-    }
-
-    function rotatePoints(ax, ay) {
-      var cosX = Math.cos(ax);
-      var sinX = Math.sin(ax);
-      var cosY = Math.cos(ay);
-      var sinY = Math.sin(ay);
-
+    function rotate(ax, ay) {
+      var cosX = Math.cos(ax), sinX = Math.sin(ax);
+      var cosY = Math.cos(ay), sinY = Math.sin(ay);
       for (var i = 0; i < nodes.length; i++) {
         var p = nodes[i];
         var x1 = p.x * cosY - p.z * sinY;
         var z1 = p.z * cosY + p.x * sinY;
         var y2 = p.y * cosX - z1 * sinX;
         var z2 = z1 * cosX + p.y * sinX;
-        p.x = x1;
-        p.y = y2;
-        p.z = z2;
+        p.x = x1; p.y = y2; p.z = z2;
       }
     }
 
-    function renderSphere() {
-      var radius = getRadius();
+    function render() {
+      var rad = Math.min(stage.clientWidth || 180, stage.clientHeight || 180) * 0.45;
       for (var i = 0; i < nodes.length; i++) {
         var p = nodes[i];
         var depth = (p.z + 1) * 0.5;
-        var scale = 0.62 + depth * 0.56;
-        var opacity = 0.22 + depth * 0.78;
-        var tx = p.x * radius;
-        var ty = p.y * radius;
-        var zIdx = Math.round(depth * 30) + 1;
-
+        var scale = 0.52 + depth * 0.64;
+        var opacity = 0.14 + depth * 0.86;
+        var tx = p.x * rad;
+        var ty = p.y * rad;
         p.el.style.transform = 'translate3d(' + tx.toFixed(1) + 'px,' + ty.toFixed(1) + 'px,0) scale(' + scale.toFixed(3) + ')';
         p.el.style.opacity = opacity.toFixed(3);
-        p.el.style.zIndex = String(zIdx);
+        p.el.style.zIndex = String(Math.round(depth * 30) + 1);
       }
     }
 
     function tick() {
-      if (activeMode === 'sphere' && nodes.length) {
-        if (!isDragging) {
-          velY = velY * 0.965 + baseSpeedY * 0.035;
-          velX = velX * 0.965 + baseSpeedX * 0.035;
-        }
-        rotatePoints(velX, velY);
-        renderSphere();
+      if (!dragging) {
+        var targetY = idleSpeedY * dirY;
+        var targetX = idleSpeedX * dirX;
+        velY = velY * 0.965 + targetY * 0.035;
+        velX = velX * 0.965 + targetX * 0.035;
       }
+      rotate(velX, velY);
+      render();
       requestAnimationFrame(tick);
     }
 
     stage.addEventListener('pointerdown', function (e) {
-      isDragging = true;
-      activePointerId = e.pointerId;
+      dragging = true;
+      pointerId = e.pointerId;
       lastX = e.clientX;
       lastY = e.clientY;
       stage.classList.add('is-dragging');
@@ -4487,67 +5237,65 @@
     });
 
     stage.addEventListener('pointermove', function (e) {
-      if (!isDragging || e.pointerId !== activePointerId) return;
+      if (!dragging || e.pointerId !== pointerId) return;
       var dx = e.clientX - lastX;
       var dy = e.clientY - lastY;
       lastX = e.clientX;
       lastY = e.clientY;
 
-      velY = Math.max(-0.24, Math.min(0.24, dx * 0.0085));
-      velX = Math.max(-0.24, Math.min(0.24, -dy * 0.0085));
+      if (Math.abs(dx) > 0.4) dirY = dx > 0 ? 1 : -1;
+      if (Math.abs(dy) > 0.4) dirX = dy < 0 ? 1 : -1;
+
+      velY = Math.max(-0.24, Math.min(0.24, dx * 0.01));
+      velX = Math.max(-0.24, Math.min(0.24, -dy * 0.01));
     });
 
     function endDrag(e) {
-      if (!isDragging || e.pointerId !== activePointerId) return;
-      isDragging = false;
-      activePointerId = null;
+      if (!dragging || e.pointerId !== pointerId) return;
+      dragging = false;
+      pointerId = null;
       stage.classList.remove('is-dragging');
     }
 
     stage.addEventListener('pointerup', endDrag);
     stage.addEventListener('pointercancel', endDrag);
 
-    wrap.querySelectorAll('.tech-pill').forEach(function (pill) {
+    card.querySelectorAll('.sidebar-tech-pill').forEach(function (pill) {
       pill.addEventListener('click', function () {
-        wrap.querySelectorAll('.tech-pill').forEach(function (p) { p.classList.remove('is-active'); });
+        card.querySelectorAll('.sidebar-tech-pill').forEach(function (p) {
+          p.classList.remove('is-active');
+        });
         pill.classList.add('is-active');
-        activeFilter = pill.getAttribute('data-tech-filter') || 'all';
-        buildSphere(activeFilter);
-        applyFilterToGrid(activeFilter);
-        velY = 0.035;
-        if (window.ScrollTrigger) { ScrollTrigger.refresh(); }
+        buildSphere(pill.getAttribute('data-sb-filter') || 'all');
+        velY = 0.045 * dirY;
       });
     });
 
-    wrap.querySelectorAll('.tech-mode-btn').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        wrap.querySelectorAll('.tech-mode-btn').forEach(function (b) { b.classList.remove('is-active'); });
-        btn.classList.add('is-active');
-        activeMode = btn.getAttribute('data-tech-mode') || 'sphere';
-        if (activeMode === 'sphere') {
-          stage.style.display = '';
-          toolsGrid.classList.add('is-sphere-hidden');
-        } else {
-          stage.style.display = 'none';
-          toolsGrid.classList.remove('is-sphere-hidden');
-        }
-        if (window.ScrollTrigger) { ScrollTrigger.refresh(); }
+    document.querySelectorAll('a[href="#techArsenalWrap"], a[href="#sidebarTechCard"]').forEach(function (link) {
+      link.setAttribute('href', '#sidebarTechCard');
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        velY = 0.08 * dirY;
       });
     });
 
     buildSphere('all');
-    applyFilterToGrid('all');
     tick();
+
+    if (window.ScrollTrigger) {
+      setTimeout(function () { ScrollTrigger.refresh(); }, 180);
+    }
   }
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initTechArsenalSphere);
+    document.addEventListener('DOMContentLoaded', initSidebarEnhancements);
   } else {
-    initTechArsenalSphere();
+    initSidebarEnhancements();
   }
 })();
 </script>
-<!-- Tech Arsenal 3D Sphere End -->
+<!-- Sidebar Avatar & Mini 3D Tech End -->
 </body>
 
 </html>
