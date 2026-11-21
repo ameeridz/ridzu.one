@@ -6147,6 +6147,90 @@
 })();
 </script>
 <!-- Section Offset & Active Nav Sync End -->
+<!-- Global Button & Dock Font Sync Start -->
+<style id="global-button-font-sync-style">
+  button,
+  input,
+  select,
+  textarea,
+  kbd,
+  #quickActionDock,
+  #quickActionDock button,
+  #quickActionDock kbd,
+  .quick-dock,
+  .quick-dock button,
+  .quick-dock kbd,
+  .cmd-palette,
+  .cmd-palette button,
+  .cmd-palette input,
+  .cmd-palette kbd {
+    font-family: var(--_font-default, "Syne", sans-serif) !important;
+  }
+</style>
+<!-- Global Button & Dock Font Sync End -->
+<!-- Contact QR Card Button Start -->
+<style id="contact-qr-card-style">
+  @media (min-width: 992px) {
+    #contact .socials-cards {
+      display: grid !important;
+      grid-template-columns: repeat(6, minmax(0, 1fr)) !important;
+      gap: 1.4rem !important;
+    }
+
+    #contact .socials-cards .socials-cards__item {
+      width: 100% !important;
+      max-width: none !important;
+      flex: none !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+  }
+</style>
+<script id="contact-qr-card-script">
+(function () {
+  function initContactQrCard() {
+    var contact = document.getElementById('contact');
+    if (!contact || document.getElementById('contactQrCardBtn')) return;
+
+    var cardsWrap = contact.querySelector('.socials-cards');
+    if (!cardsWrap) return;
+
+    var items = cardsWrap.querySelectorAll('.socials-cards__item');
+    if (!items.length) return;
+
+    // Klon kad sosial terakhir (WhatsApp) supaya gaya 100% sepadan
+    var clone = items[items.length - 1].cloneNode(true);
+    var link = clone.querySelector('a');
+    if (!link) return;
+
+    link.id = 'contactQrCardBtn';
+    link.setAttribute('href', '#qr-card');
+    link.removeAttribute('target');
+    link.setAttribute('aria-label', 'Open 3D Digital Business Card QR');
+    link.setAttribute('title', '3D Digital Business Card');
+
+    var icon = link.querySelector('i');
+    if (icon) {
+      icon.className = 'ph-bold ph-qr-code';
+    }
+
+    link.addEventListener('click', function (e) {
+      e.preventDefault();
+      var dockQr = document.getElementById('quickQrBtn');
+      if (dockQr) dockQr.click();
+    });
+
+    cardsWrap.appendChild(clone);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initContactQrCard);
+  } else {
+    initContactQrCard();
+  }
+})();
+</script>
+<!-- Contact QR Card Button End -->
 </body>
 
 </html>
