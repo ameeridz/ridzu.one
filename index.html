@@ -7864,6 +7864,409 @@
   })();
 </script>
 <!-- Smart Section Scroll Guide End -->
+
+<!-- Flagship iOS Smart Stack Start -->
+<style id="flagship-ios-stack-style">
+  #bentoWorkPrev,
+  #bentoWorkNext {
+    display: none !important;
+  }
+
+  .bento-work-nav {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 0.65rem !important;
+  }
+
+  .bento-scroll-hint {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.28rem 0.7rem;
+    border-radius: 999px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--t-medium, #9ca3af);
+    background: rgba(128, 128, 148, 0.12);
+    border: 1px solid var(--stroke-elements, rgba(255, 255, 255, 0.12));
+    letter-spacing: 0.02em;
+    user-select: none;
+  }
+
+  .bento-work-media.is-ios-stack {
+    position: relative !important;
+    overflow: hidden !important;
+    cursor: grab;
+    touch-action: pan-x !important;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  .bento-work-media.is-ios-stack.is-dragging {
+    cursor: grabbing !important;
+  }
+
+  .bento-work-media.is-ios-stack > #bentoWorkImg {
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+
+  .ios-stack-viewport {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    border-radius: inherit;
+    perspective: 900px;
+  }
+
+  .ios-stack-slide {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    overflow: hidden;
+    will-change: transform, opacity, filter;
+    transition:
+      transform 0.48s cubic-bezier(0.22, 1, 0.36, 1),
+      opacity 0.42s ease,
+      filter 0.42s ease;
+    pointer-events: none;
+  }
+
+  .ios-stack-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    pointer-events: none;
+  }
+
+  .ios-stack-slide.is-active {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 1;
+    filter: blur(0px);
+    z-index: 3;
+  }
+
+  .ios-stack-slide.is-above {
+    transform: translate3d(0, -104%, 0) scale(0.9);
+    opacity: 0;
+    filter: blur(2px);
+    z-index: 2;
+  }
+
+  .ios-stack-slide.is-below {
+    transform: translate3d(0, 104%, 0) scale(0.92);
+    opacity: 0;
+    filter: blur(2px);
+    z-index: 2;
+  }
+
+  .ios-stack-slide.is-no-anim {
+    transition: none !important;
+  }
+
+  .ios-stack-dots {
+    position: absolute;
+    right: 0.9rem;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 6;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.55rem 0.36rem;
+    border-radius: 999px;
+    background: rgba(15, 16, 22, 0.46);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+  }
+
+  .ios-stack-dot {
+    width: 0.46rem;
+    height: 0.46rem;
+    padding: 0;
+    border: none;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.42);
+    cursor: pointer;
+    transition: height 0.28s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.25s ease;
+  }
+
+  .ios-stack-dot.is-active {
+    height: 1.45rem;
+    background: #ffffff;
+  }
+
+  .bento-work-foot.is-switching {
+    opacity: 0.4;
+    transform: translateY(4px);
+    transition: opacity 0.18s ease, transform 0.18s ease;
+  }
+
+  .bento-work-foot {
+    transition: opacity 0.28s ease, transform 0.28s ease;
+  }
+</style>
+<script id="flagship-ios-stack-script">
+  (function () {
+    function initFlagshipSmartStack() {
+      var imgEl = document.getElementById("bentoWorkImg");
+      var mediaEl = imgEl ? imgEl.closest(".bento-work-media") : null;
+      var cardEl = mediaEl ? mediaEl.closest(".bento-card") : null;
+      if (!mediaEl || !cardEl || mediaEl.dataset.iosStackReady === "1") return;
+      mediaEl.dataset.iosStackReady = "1";
+
+      var projects = [
+        {
+          tag: "Flagship Venture",
+          title: "by.ridzu.one",
+          desc: "Digital wedding invitation platform with 15+ live demos.",
+          img: "img/by-ridzu.png",
+          url: "https://by.ridzu.one/"
+        },
+        {
+          tag: "Next.js + Supabase",
+          title: "Pakatlah",
+          desc: "Group decision web app with consensus scoring.",
+          img: "img/pakatlah.png",
+          url: "https://pakatlah.ridzu.one/"
+        },
+        {
+          tag: "Mobile-First PWA",
+          title: "SplitSukan",
+          desc: "Sports session expense splitter with WhatsApp summaries.",
+          img: "img/splitsukan.png",
+          url: "https://splitsukan.ridzu.one/"
+        },
+        {
+          tag: "Local-First PWA",
+          title: "Gymeer / GymFlow",
+          desc: "Gym check-in, live workout timer and consistency tracker.",
+          img: "img/gymflow.png",
+          url: "https://gym.ridzu.one/"
+        }
+      ];
+
+      var tagEl = document.getElementById("bentoWorkTag");
+      var titleEl = document.getElementById("bentoWorkTitle");
+      var descEl = document.getElementById("bentoWorkDesc");
+      var linkEl = document.getElementById("bentoWorkLink");
+      var countEl = document.getElementById("bentoWorkCount");
+      var footEl = cardEl.querySelector(".bento-work-foot");
+      var navEl = cardEl.querySelector(".bento-work-nav");
+
+      if (navEl && !navEl.querySelector(".bento-scroll-hint")) {
+        var hint = document.createElement("span");
+        hint.className = "bento-scroll-hint";
+        hint.innerHTML = '<i class="ph-bold ph-arrows-down-up"></i><span>Drag / Scroll</span>';
+        navEl.insertBefore(hint, navEl.firstChild);
+      }
+
+      mediaEl.classList.add("is-ios-stack");
+
+      var viewport = document.createElement("div");
+      viewport.className = "ios-stack-viewport";
+
+      var slides = projects.map(function (p, i) {
+        var slide = document.createElement("div");
+        slide.className = "ios-stack-slide " + (i === 0 ? "is-active" : "is-below");
+        var im = document.createElement("img");
+        im.src = p.img;
+        im.alt = p.title + " preview";
+        im.loading = i === 0 ? "eager" : "lazy";
+        im.decoding = "async";
+        slide.appendChild(im);
+        viewport.appendChild(slide);
+        return slide;
+      });
+
+      var dotsWrap = document.createElement("div");
+      dotsWrap.className = "ios-stack-dots";
+      dotsWrap.setAttribute("role", "tablist");
+      dotsWrap.setAttribute("aria-label", "Project stack indicator");
+
+      var dots = projects.map(function (p, i) {
+        var dot = document.createElement("button");
+        dot.type = "button";
+        dot.className = "ios-stack-dot" + (i === 0 ? " is-active" : "");
+        dot.setAttribute("aria-label", "Show " + p.title);
+        dot.addEventListener("click", function (e) {
+          e.stopPropagation();
+          if (i === current) return;
+          goTo(i, i > current ? 1 : -1);
+        });
+        dotsWrap.appendChild(dot);
+        return dot;
+      });
+
+      mediaEl.appendChild(viewport);
+      mediaEl.appendChild(dotsWrap);
+
+      var current = 0;
+      var locked = false;
+
+      function updateMeta(i) {
+        var p = projects[i];
+        if (!p) return;
+        if (footEl) footEl.classList.add("is-switching");
+        setTimeout(function () {
+          if (tagEl) tagEl.textContent = p.tag;
+          if (titleEl) titleEl.textContent = p.title;
+          if (descEl) descEl.textContent = p.desc;
+          if (linkEl) linkEl.href = p.url;
+          if (countEl) countEl.textContent = (i + 1) + " / " + projects.length;
+          if (footEl) footEl.classList.remove("is-switching");
+        }, 120);
+
+        dots.forEach(function (d, idx) {
+          d.classList.toggle("is-active", idx === i);
+        });
+      }
+
+      function goTo(nextIdx, dir) {
+        if (locked) return;
+        locked = true;
+
+        var prevIdx = current;
+        current = (nextIdx + projects.length) % projects.length;
+
+        var outgoing = slides[prevIdx];
+        var incoming = slides[current];
+
+        // Letakkan kad baharu di posisi mula tanpa animasi
+        incoming.classList.add("is-no-anim");
+        incoming.classList.remove("is-active", "is-above", "is-below");
+        incoming.classList.add(dir > 0 ? "is-below" : "is-above");
+        void incoming.offsetHeight;
+        incoming.classList.remove("is-no-anim");
+
+        // Luncurkan kad lama keluar & kad baharu masuk serentak
+        outgoing.classList.remove("is-active", "is-above", "is-below");
+        outgoing.classList.add(dir > 0 ? "is-above" : "is-below");
+
+        incoming.classList.remove("is-above", "is-below");
+        incoming.classList.add("is-active");
+
+        updateMeta(current);
+
+        setTimeout(function () {
+          locked = false;
+        }, 430);
+      }
+
+      // 1. Desktop: Wheel / Trackpad scroll atas kad Flagship Venture
+      var wheelAccum = 0;
+      var wheelResetTimer = null;
+
+      cardEl.addEventListener("wheel", function (e) {
+        if (Math.abs(e.deltaY) < 4) return;
+        e.preventDefault();
+        wheelAccum += e.deltaY;
+        clearTimeout(wheelResetTimer);
+        wheelResetTimer = setTimeout(function () {
+          wheelAccum = 0;
+        }, 140);
+
+        if (Math.abs(wheelAccum) >= 22) {
+          var dir = wheelAccum > 0 ? 1 : -1;
+          wheelAccum = 0;
+          goTo(current + dir, dir);
+        }
+      }, { passive: false });
+
+      // 2. Mobile: Vertical touch swipe terus pada kawasan gambar kad
+      var touchStartY = 0;
+      var touchStartX = 0;
+      var swiping = false;
+
+      mediaEl.addEventListener("touchstart", function (e) {
+        if (!e.touches || e.touches.length !== 1) return;
+        touchStartY = e.touches[0].clientY;
+        touchStartX = e.touches[0].clientX;
+        swiping = true;
+      }, { passive: true });
+
+      mediaEl.addEventListener("touchmove", function (e) {
+        if (!swiping || !e.touches || e.touches.length !== 1) return;
+        var dy = touchStartY - e.touches[0].clientY;
+        var dx = Math.abs(touchStartX - e.touches[0].clientX);
+        if (Math.abs(dy) > dx && Math.abs(dy) > 10) {
+          e.preventDefault();
+        }
+      }, { passive: false });
+
+      mediaEl.addEventListener("touchend", function (e) {
+        if (!swiping || !e.changedTouches || !e.changedTouches.length) return;
+        swiping = false;
+        var dy = touchStartY - e.changedTouches[0].clientY;
+        var dx = Math.abs(touchStartX - e.changedTouches[0].clientX);
+        if (Math.abs(dy) > 26 && Math.abs(dy) > dx) {
+          goTo(current + (dy > 0 ? 1 : -1), dy > 0 ? 1 : -1);
+        }
+      }, { passive: true });
+
+      // 3. Desktop: Click & Drag / Flick gaya Glob 3D pada kawasan gambar kad
+      var mouseDown = false;
+      var mouseStartY = 0;
+      var mousePointerId = null;
+
+      mediaEl.addEventListener("pointerdown", function (e) {
+        if (e.pointerType !== "mouse" || e.button !== 0) return;
+        if (e.target && e.target.closest && e.target.closest(".ios-stack-dots")) return;
+        mouseDown = true;
+        mousePointerId = e.pointerId;
+        mouseStartY = e.clientY;
+        mediaEl.classList.add("is-dragging");
+        if (mediaEl.setPointerCapture) {
+          try { mediaEl.setPointerCapture(e.pointerId); } catch (err) {}
+        }
+      });
+
+      mediaEl.addEventListener("pointermove", function (e) {
+        if (!mouseDown || e.pointerId !== mousePointerId || locked) return;
+        var dy = e.clientY - mouseStartY;
+        var clamped = Math.max(-28, Math.min(28, dy * 0.35));
+        var activeSlide = slides[current];
+        if (activeSlide) {
+          activeSlide.classList.add("is-no-anim");
+          activeSlide.style.transform = "translate3d(0, " + clamped.toFixed(1) + "px, 0) scale(0.985)";
+        }
+      });
+
+      function endMouseDrag(e) {
+        if (!mouseDown || e.pointerId !== mousePointerId) return;
+        mouseDown = false;
+        mousePointerId = null;
+        mediaEl.classList.remove("is-dragging");
+
+        var activeSlide = slides[current];
+        if (activeSlide) {
+          activeSlide.style.transform = "";
+          activeSlide.classList.remove("is-no-anim");
+        }
+
+        var dy = mouseStartY - e.clientY;
+        if (Math.abs(dy) >= 24) {
+          goTo(current + (dy > 0 ? 1 : -1), dy > 0 ? 1 : -1);
+        }
+      }
+
+      mediaEl.addEventListener("pointerup", endMouseDrag);
+      mediaEl.addEventListener("pointercancel", endMouseDrag);
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initFlagshipSmartStack);
+    } else {
+      initFlagshipSmartStack();
+    }
+  })();
+</script>
+<!-- Flagship iOS Smart Stack End -->
 </body>
 
 </html>
