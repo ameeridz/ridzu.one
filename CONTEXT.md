@@ -1,6 +1,6 @@
 # ridzu.one - AI Vibe-Coding Handoff & Context Guide
 
-> Last Updated: 2026-11-23 (Completed through Safe-Patch 64 | Next patch: Safe-Patch 65)
+> Last Updated: 2026-11-23 (Evergreen Guide - Git tracks version history)
 > Live URL: https://ridzu.one/
 > Owner: Ameer Ridzuan (System Engineer & UI/UX Designer)
 
@@ -14,7 +14,7 @@ Act as a Senior Full-Stack Developer & UI/UX Designer specializing in modern int
 Aku nak sambung vibe coding untuk laman web portfolio peribadi aku, ridzu.one.
 Sila baca keseluruhan fail CONTEXT.md yang aku lampirkan dan ikut 100% semua peraturan Safe-Patch, struktur kod, gaya reka bentuk dan gaya bahasa di dalamnya.
 
-Jangan tulis semula keseluruhan index.html. Sentiasa guna skrip PowerShell Safe-Patch yang idempotent bermula daripada Safe-Patch 65.
+Jangan tulis semula keseluruhan index.html. Sentiasa guna skrip PowerShell Safe-Patch yang idempotent dengan backup bertarikh.
 
 Tugasan aku hari ini:
 [TULIS PERUBAHAN / FITUR BARU YANG KAU NAK BUAT DI SINI]
@@ -31,8 +31,8 @@ Tugasan aku hari ini:
   - Never use em-dashes or en-dashes anywhere in responses, copy or code comments. Use regular hyphens `-`, colons `:` or commas instead.
 
 ### Mandatory Safe-Patch PowerShell Workflow
-1. **Zero Full-File Rewrites:** Never output the entire `index.html`. Always deliver a self-contained PowerShell script (`Safe-Patch XX`) that patches `index.html` cleanly from the project root folder.
-2. **Auto-Backup First:** Every script MUST back up `index.html` to `.\_backup\patchXX\index.html` before modifying anything.
+1. **Zero Full-File Rewrites:** Never output the entire `index.html`. Always deliver a self-contained PowerShell script (`Safe-Patch`) that patches `index.html` cleanly from the project root folder.
+2. **Auto-Backup First:** Every script MUST back up `index.html` to `.\_backup\YYYYMMDD_task-name\index.html` before modifying anything.
 3. **UTF-8 Without BOM:** Always read and write files using `New-Object System.Text.UTF8Encoding($false)` so icons, emojis and UTF-8 characters never corrupt.
 4. **Idempotent Markers:** Wrap every injected `<style>`, `<script>` or HTML block with clear `<!-- ... Start -->` and `<!-- ... End -->` markers so re-running the same script updates cleanly instead of duplicating code.
 5. **Inspect Before Guessing:** If an exact HTML/JS block is unknown in a new chat, give the user a 1-line PowerShell clipboard snippet first to inspect the exact code before generating the patch.
@@ -60,7 +60,7 @@ Tugasan aku hari ini:
 4. **Resume:** Experience, education and skills timeline.
 5. **Portfolio:** Balanced 8-slot 2-column grid (7 projects + 1 dashed "Start a new project" CTA card). Redundant `Featured Demos: by.ridzu.one` block removed.
 6. **Certs:** Master-Detail **Certs Vault** with 47 certificates (MBOT Graduate Technologist pinned at #1), search input, horizontal Provider Filter Pills with live counts and click-to-zoom Lightbox.
-7. **Contact & Footer:** Compact mobile-friendly Contact form, 6-card Social Grid (6 columns desktop / 3x2 mobile) and centered 3D glassmorphism logo Back-to-Top button.
+7. **Contact & Footer:** Compact mobile-friendly Contact form (Web3Forms linked to `ameer@ridzu.one`), 6-card Social Grid (6 columns desktop / 3x2 mobile) and centered 3D glassmorphism logo Back-to-Top button.
 
 ---
 
