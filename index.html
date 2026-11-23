@@ -5210,6 +5210,33 @@
       ],
       tags: ['UI/UX Design', 'HTML/CSS/JS', 'Cloudflare Pages', 'Product Architecture', 'Responsive'],
       url: 'https://by.ridzu.one/'
+    }, {
+      match: 'by.ridzu.one',
+      badge: 'Flagship Digital Product',
+      title: 'by.ridzu.one (Digital Wedding Cards)',
+      challenge: 'Couples needed modern, mobile-first wedding invitations with instant RSVP tracking, maps and custom themes without paying agency prices.',
+      solution: 'Designed a tiered product system (Lite, Pro and Custom) with interactive phone previews, fast static delivery on Cloudflare Pages and modular templates.',
+      highlights: [
+        '15+ themed wedding card packages ranging from Minimalist Gold to 8-Bit Pixel Arcade',
+        'Mobile-first UI with built-in RSVP, Waze/Google Maps links and background music controls',
+        'Automated deployment pipeline for fast client turnaround and zero hosting overhead'
+      ],
+      tags: ['UI/UX Design', 'HTML/CSS/JS', 'Cloudflare Pages', 'Product Architecture', 'Responsive'],
+      url: 'https://by.ridzu.one/'
+    }, 
+     {
+      match: 'cucicop',
+      badge: 'Multi-Tenant SaaS & PWA',
+      title: 'CuciCop (Carwash Loyalty & POS Platform)',
+      challenge: 'Local carwash outlets rely on paper stamp cards that customers frequently lose while owners lack real-time visibility into daily washes, staff transactions and repeat customer retention.',
+      solution: 'Engineered a multi-tenant SaaS and PWA platform using Next.js 16 and Supabase with isolated tenant data, passwordless digital stamp cards, a real-time staff POS counter and automated QR standee generation.',
+      highlights: [
+        'Multi-tenant architecture with superadmin provisioning, owner analytics dashboard and role-based access control',
+        'Real-time staff POS workflow with instant digital stamp issuance and compressed QR receipt uploads',
+        'Built-in print-ready A5/A4 QR standee generator so carwash owners can onboard walk-in customers in seconds'
+      ],
+      tags: ['Next.js 16', 'Supabase', 'Multi-Tenant SaaS', 'PWA', 'Real-Time POS'],
+      url: 'https://cucicop.ridzu.one/'
     },
     {
       match: 'pakatlah',
@@ -10789,9 +10816,10 @@
 
 <!-- Portfolio PhotoSwipe Fix & Glass Pill Tags Start -->
 <style id="portfolio-glass-tags-style">
-  /* Gaya asas iOS Liquid Glass untuk semua pill tag Portfolio */
+  /* Thumbnail Cerah (by.ridzu.one, Heidi, JPJ): Smoked Liquid Glass untuk Tag & Case Study */
   #portfolio .my-gallery .gallery__descr .rounded-tag,
-  #portfolio .my-gallery .gallery__descr .rounded-tag.opposite {
+  #portfolio .my-gallery .gallery__descr .rounded-tag.opposite,
+  #portfolio .my-gallery .cs-trigger-btn {
     background: linear-gradient(
       135deg,
       rgba(20, 20, 28, 0.46) 0%,
@@ -10808,12 +10836,13 @@
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.32);
     font-weight: 600;
     letter-spacing: 0.01em;
-    transition: transform 0.22s ease, background 0.22s ease, border-color 0.22s ease;
+    transition: transform 0.22s ease, background 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
   }
 
-  /* Thumbnail Gelap (CuciCop, Pakatlah, SplitSukan, Gymeer): Crystal Liquid Glass */
+  /* Thumbnail Gelap (CuciCop, Pakatlah, SplitSukan, Gymeer): Crystal Liquid Glass untuk Tag & Case Study */
   #portfolio .my-gallery figure.is-dark-thumb .gallery__descr .rounded-tag,
-  #portfolio .my-gallery figure.is-dark-thumb .gallery__descr .rounded-tag.opposite {
+  #portfolio .my-gallery figure.is-dark-thumb .gallery__descr .rounded-tag.opposite,
+  #portfolio .my-gallery figure.is-dark-thumb .cs-trigger-btn {
     background: linear-gradient(
       135deg,
       rgba(255, 255, 255, 0.24) 0%,
@@ -10830,8 +10859,14 @@
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.42);
   }
 
+  /* Hover halus pada butang Case Study & tag */
   #portfolio .my-gallery figure.gallery__item:hover .gallery__descr .rounded-tag {
     border-color: rgba(255, 255, 255, 0.62) !important;
+  }
+
+  #portfolio .my-gallery .cs-trigger-btn:hover {
+    transform: translateY(-2px) scale(1.03);
+    border-color: rgba(255, 255, 255, 0.72) !important;
   }
 </style>
 <script id="portfolio-pswp-fix-script">
