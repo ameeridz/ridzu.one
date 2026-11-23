@@ -992,7 +992,7 @@
       <span class="bento-label" style="margin-bottom:0;"><i class="ph-bold ph-sparkle"></i><span id="bentoWorkTag">Flagship Venture</span></span>
       <div class="bento-work-nav">
         <button type="button" class="bento-nav-btn" id="bentoWorkPrev" aria-label="Previous project"><i class="ph-bold ph-caret-left"></i></button>
-        <span class="bento-work-count" id="bentoWorkCount">1 / 4</span>
+        <span class="bento-work-count" id="bentoWorkCount">1 / 5</span>
         <button type="button" class="bento-nav-btn" id="bentoWorkNext" aria-label="Next project"><i class="ph-bold ph-caret-right"></i></button>
       </div>
     </div>
@@ -1053,6 +1053,26 @@
         desc: 'Digital wedding invitation platform with 15+ live demos.',
         img: 'img/by-ridzu.png',
         url: 'https://by.ridzu.one/'
+      },
+      {
+        tag: 'Multi-Tenant SaaS',
+        title: 'CuciCop',
+        desc: 'Carwash digital stamp card, real-time POS counter and QR poster generator.',
+        img: 'img/cucicop.png',
+        url: 'https://cucicop.ridzu.one/'
+      }, {
+        tag: 'Flagship Venture',
+        title: 'by.ridzu.one',
+        desc: 'Digital wedding invitation platform with 15+ live demos.',
+        img: 'img/by-ridzu.png',
+        url: 'https://by.ridzu.one/'
+      }, 
+       {
+        tag: 'Multi-Tenant SaaS',
+        title: 'CuciCop',
+        desc: 'Carwash digital stamp card, real-time POS counter and QR poster generator.',
+        img: 'img/cucicop.png',
+        url: 'https://cucicop.ridzu.one/'
       },
       {
         tag: 'Next.js + Supabase',
@@ -2507,6 +2527,26 @@
                     </p>
                   </figcaption>
                 </figure>
+
+                <!-- Safe-Patch 57 CuciCop Portfolio Start -->
+                <figure class="col-12 col-md-6 gallery__item grid-item animate-card-2" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+                  <a href="img/cucicop.png" data-image="img/cucicop.png" class="gallery__link" itemprop="contentUrl" data-size="1918x968">
+                    <img src="img/cucicop.png" class="gallery__image" itemprop="thumbnail" alt="CuciCop Multi-Tenant Carwash SaaS" loading="lazy" decoding="async">
+                  </a>
+                  <figcaption class="gallery__descr" itemprop="caption description">
+                    <h5>CuciCop (multi-tenant carwash SaaS)</h5>
+                    <div class="card__tags d-flex flex-wrap">
+                      <span class="rounded-tag opposite">Multi-Tenant SaaS</span>
+                      <span class="rounded-tag opposite">Next.js 16 + Supabase</span>
+                      <span class="rounded-tag opposite">PWA &amp; Real-Time POS</span>
+                    </div>
+                    <p class="small">Multi-tenant SaaS and PWA platform for local carwash businesses featuring passwordless digital stamp cards, real-time staff POS with compressed QR receipt uploads, owner analytics, superadmin provisioning and a print-ready A5/A4 QR standee generator.
+                      <br><br>
+                      <a href="https://cucicop.ridzu.one/" target="_blank" rel="noopener noreferrer" class="text-link-bold" style="color: aliceblue;">Explore Live App &rarr;</a>
+                    </p>
+                  </figcaption>
+                </figure>
+                <!-- Safe-Patch 57 CuciCop Portfolio End -->
 
                 <!-- Portfolio 2: Pakatlah -->
                 <figure class="col-12 col-md-6 gallery__item grid-item animate-card-2" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
@@ -8481,6 +8521,13 @@
           img: "img/by-ridzu.png",
           url: "https://by.ridzu.one/"
         },
+      {
+        tag: 'Multi-Tenant SaaS',
+        title: 'CuciCop',
+        desc: 'Carwash digital stamp card, real-time POS counter and QR poster generator.',
+        img: 'img/cucicop.png',
+        url: 'https://cucicop.ridzu.one/'
+      },
         {
           tag: "Next.js + Supabase",
           title: "Pakatlah",
@@ -10593,6 +10640,244 @@
   })();
 </script>
 <!-- Certs Vault Provider Filter End -->
+
+<!-- Portfolio Standardize, CTA Card & Remove Featured Demos Start -->
+<style id="portfolio-standardize-style">
+  #portfolio .my-gallery .gallery__link {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+  }
+
+  #portfolio .my-gallery .gallery__image {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: top center !important;
+    display: block;
+  }
+
+  /* Kad "Start a new project" gaya Baidelaire di slot ke-8 */
+  .portfolio-start-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    border-radius: 3rem;
+    border: 2px dashed var(--stroke-elements, rgba(255, 255, 255, 0.22));
+    background: rgba(128, 128, 148, 0.05);
+    color: var(--t-bright, #ffffff);
+    text-decoration: none;
+    padding: 2rem;
+    text-align: center;
+    transition: border-color 0.25s ease, background-color 0.25s ease, transform 0.25s ease;
+  }
+
+  [color-scheme="light"] .portfolio-start-card {
+    background: rgba(255, 255, 255, 0.45);
+    border-color: rgba(34, 35, 44, 0.22);
+    color: #22232c;
+  }
+
+  .portfolio-start-card:hover {
+    border-color: var(--accent, #e4b8bf);
+    background: color-mix(in srgb, var(--accent, #e4b8bf) 10%, transparent);
+    transform: translateY(-3px);
+    color: var(--t-bright, #ffffff);
+  }
+
+  [color-scheme="light"] .portfolio-start-card:hover {
+    color: #22232c;
+  }
+
+  .portfolio-start-plus {
+    width: 5.4rem;
+    height: 5.4rem;
+    border-radius: 50%;
+    border: 1px solid var(--stroke-elements, rgba(255, 255, 255, 0.18));
+    background: var(--base-tint, rgba(255, 255, 255, 0.04));
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.4rem;
+    color: var(--accent, #e4b8bf);
+    transition: transform 0.25s ease, background-color 0.25s ease, color 0.25s ease;
+  }
+
+  .portfolio-start-card:hover .portfolio-start-plus {
+    transform: rotate(90deg) scale(1.08);
+    background: var(--accent, #e4b8bf);
+    color: #111111;
+    border-color: var(--accent, #e4b8bf);
+  }
+
+  .portfolio-start-title {
+    margin: 0.4rem 0 0;
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  .portfolio-start-sub {
+    margin: 0;
+    font-size: 1.3rem;
+    color: var(--t-medium, #a1a1aa);
+    max-width: 28rem;
+  }
+</style>
+<script id="portfolio-polish-59-script">
+  (function () {
+    function runPortfolioPolish() {
+      var portfolio = document.getElementById("portfolio");
+      if (!portfolio) return;
+
+      // 1. Buang blok Featured Demos: by.ridzu.one
+      var els = portfolio.querySelectorAll("h2, h3, h4, h5, p, div");
+      for (var i = 0; i < els.length; i++) {
+        var el = els[i];
+        if (el.children.length === 0 && /Featured Demos:\s*by\.ridzu\.one/i.test(el.textContent || "")) {
+          var block = el.closest(".content__block") || el.parentElement;
+          if (block && block !== portfolio) {
+            block.remove();
+          }
+          break;
+        }
+      }
+
+      // 2. Suntik kad "Start a new project" di penghujung galeri (elak PhotoSwipe dengan <div>)
+      var gallery = portfolio.querySelector(".my-gallery");
+      if (gallery && !document.getElementById("portfolioStartProjectCard")) {
+        var slot = document.createElement("div");
+        slot.className = "col-12 col-md-6 gallery__item grid-item animate-card-2";
+        slot.id = "portfolioStartProjectCard";
+        slot.innerHTML =
+          '<a href="#contact" class="portfolio-start-card" aria-label="Start a new project with Ameer Ridzuan">' +
+            '<span class="portfolio-start-plus"><i class="ph-bold ph-plus"></i></span>' +
+            '<p class="portfolio-start-title">Start a new project</p>' +
+            '<p class="portfolio-start-sub">Have an idea in mind? Let&#39;s build something great together.</p>' +
+          '</a>';
+
+        var link = slot.querySelector("a");
+        link.addEventListener("click", function (e) {
+          var target = document.getElementById("contact");
+          if (target) {
+            e.preventDefault();
+            target.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        });
+
+        gallery.appendChild(slot);
+      }
+
+      if (window.ScrollTrigger) {
+        setTimeout(function () { ScrollTrigger.refresh(); }, 200);
+      }
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", runPortfolioPolish);
+    } else {
+      runPortfolioPolish();
+    }
+  })();
+</script>
+<!-- Portfolio Standardize, CTA Card & Remove Featured Demos End -->
+
+<!-- Portfolio PhotoSwipe Fix & Glass Pill Tags Start -->
+<style id="portfolio-glass-tags-style">
+  /* Gaya asas iOS Liquid Glass untuk semua pill tag Portfolio */
+  #portfolio .my-gallery .gallery__descr .rounded-tag,
+  #portfolio .my-gallery .gallery__descr .rounded-tag.opposite {
+    background: linear-gradient(
+      135deg,
+      rgba(20, 20, 28, 0.46) 0%,
+      rgba(20, 20, 28, 0.28) 100%
+    ) !important;
+    color: #ffffff !important;
+    border: 1px solid rgba(255, 255, 255, 0.34) !important;
+    backdrop-filter: blur(18px) saturate(185%) !important;
+    -webkit-backdrop-filter: blur(18px) saturate(185%) !important;
+    box-shadow:
+      inset 0 1px 1px rgba(255, 255, 255, 0.48),
+      inset 0 -1px 1px rgba(0, 0, 0, 0.18),
+      0 6px 20px rgba(0, 0, 0, 0.16) !important;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.32);
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    transition: transform 0.22s ease, background 0.22s ease, border-color 0.22s ease;
+  }
+
+  /* Thumbnail Gelap (CuciCop, Pakatlah, SplitSukan, Gymeer): Crystal Liquid Glass */
+  #portfolio .my-gallery figure.is-dark-thumb .gallery__descr .rounded-tag,
+  #portfolio .my-gallery figure.is-dark-thumb .gallery__descr .rounded-tag.opposite {
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.24) 0%,
+      rgba(255, 255, 255, 0.1) 100%
+    ) !important;
+    color: #ffffff !important;
+    border: 1px solid rgba(255, 255, 255, 0.42) !important;
+    backdrop-filter: blur(20px) saturate(200%) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(200%) !important;
+    box-shadow:
+      inset 0 1px 1.5px rgba(255, 255, 255, 0.68),
+      inset 0 -1px 1px rgba(255, 255, 255, 0.14),
+      0 8px 22px rgba(0, 0, 0, 0.28) !important;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.42);
+  }
+
+  #portfolio .my-gallery figure.gallery__item:hover .gallery__descr .rounded-tag {
+    border-color: rgba(255, 255, 255, 0.62) !important;
+  }
+</style>
+<script id="portfolio-pswp-fix-script">
+  (function () {
+    function bindPortfolioEnhancements() {
+      var gallery = document.querySelector("#portfolio .my-gallery");
+      if (!gallery) return;
+
+      // 1. Tandakan kad berlatar gelap untuk Crystal Liquid Glass
+      var darkKeys = ["cucicop", "pakatlah", "splitsukan", "gymflow", "gymeer"];
+      gallery.querySelectorAll("figure.gallery__item").forEach(function (fig) {
+        var img = fig.querySelector("img");
+        var txt = ((img ? (img.getAttribute("src") + " " + img.getAttribute("alt")) : "") + " " + (fig.textContent || "")).toLowerCase();
+        var isDark = darkKeys.some(function (k) { return txt.indexOf(k) !== -1; });
+        fig.classList.toggle("is-dark-thumb", isDark);
+      });
+
+      // 2. Asingkan sementara kad 'Start a new project' semasa PhotoSwipe membaca 7 projek sah
+      if (gallery.dataset.pswpSafeGuard === "1") return;
+      gallery.dataset.pswpSafeGuard = "1";
+
+      gallery.addEventListener("click", function (e) {
+        var startCard = document.getElementById("portfolioStartProjectCard");
+        if (!startCard) return;
+        if (startCard.contains(e.target)) return;
+
+        var clickedFigure = e.target.closest("figure.gallery__item");
+        if (!clickedFigure) return;
+
+        startCard.remove();
+        setTimeout(function () {
+          if (!document.getElementById("portfolioStartProjectCard")) {
+            gallery.appendChild(startCard);
+          }
+        }, 50);
+      }, true);
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", bindPortfolioEnhancements);
+    } else {
+      bindPortfolioEnhancements();
+    }
+  })();
+</script>
+<!-- Portfolio PhotoSwipe Fix & Glass Pill Tags End -->
 </body>
 
 </html>
