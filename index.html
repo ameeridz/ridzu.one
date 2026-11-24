@@ -13141,6 +13141,410 @@
 })();
 </script>
 <!-- Wave 2 Phase 6 Omni-Search, Phase 7 Live Sandbox & Phase 8 vCard End -->
+<!-- Wave 2 Phase 9 Edge Telemetry & Phase 10 Contact Scope Chips Start -->
+<style id="wave2-p9-p10-style">
+  /* =====================================================================
+     PHASE 9: Footer Live Cloudflare Edge Telemetry Pill
+     ===================================================================== */
+  .edge-telemetry-wrap {
+    display: flex;
+    justify-content: center;
+    margin: 1.4rem 0 0.85rem;
+  }
+  .edge-telemetry-pill {
+    display: inline-flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.65rem;
+    padding: 0.55rem 1.35rem;
+    border-radius: 999px;
+    border: 1px solid var(--stroke-elements, rgba(255,255,255,0.14));
+    background: var(--base-tint, rgba(255,255,255,0.03));
+    color: var(--t-medium, #b4b4bc);
+    font-size: 1.18rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+  }
+  .edge-telemetry-pill:hover {
+    transform: translateY(-1px);
+    border-color: var(--accent, #8f56cc);
+    color: var(--t-bright, #f4f4f5);
+  }
+  .edge-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #4ade80;
+    box-shadow: 0 0 8px rgba(74, 222, 128, 0.85);
+    flex-shrink: 0;
+  }
+  .edge-sep {
+    opacity: 0.38;
+  }
+  .edge-colo {
+    color: var(--t-bright, #f4f4f5);
+    font-weight: 700;
+  }
+  [color-scheme="light"] .edge-colo {
+    color: #1f2028;
+  }
+
+  /* =====================================================================
+     PHASE 10: Smart Project Scope Intent Chips on Contact Form
+     ===================================================================== */
+  .contact-intent-box {
+    margin-bottom: 0.8rem !important;
+  }
+  .contact-intent-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.8rem;
+    margin-bottom: 1rem;
+  }
+  .contact-intent-label {
+    margin: 0;
+    font-size: 1.32rem;
+    font-weight: 700;
+    color: var(--t-bright, #f4f4f5);
+  }
+  .contact-starter-btn {
+    display: none;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.38rem 1rem;
+    border-radius: 999px;
+    border: 1px solid var(--accent, #8f56cc);
+    background: transparent;
+    color: var(--accent, #8f56cc);
+    font-size: 1.15rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+  .contact-starter-btn.is-shown {
+    display: inline-flex;
+  }
+  .contact-starter-btn:hover {
+    background: var(--accent, #8f56cc);
+    color: #ffffff;
+  }
+  [color-scheme="dark"] .contact-starter-btn:hover {
+    color: #111111;
+  }
+  .contact-intent-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+  }
+  .contact-intent-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.68rem 1.35rem;
+    border-radius: 999px;
+    border: 1px solid var(--stroke-elements, rgba(255,255,255,0.16));
+    background: var(--base-tint, rgba(255,255,255,0.03));
+    color: var(--t-medium, #b4b4bc);
+    font-size: 1.28rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.18s ease, border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+  }
+  .contact-intent-chip:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent, #8f56cc);
+    color: var(--t-bright, #f4f4f5);
+  }
+  .contact-intent-chip.is-active {
+    background: var(--accent, #8f56cc);
+    border-color: var(--accent, #8f56cc);
+    color: #ffffff;
+    box-shadow: 0 6px 18px rgba(143, 86, 204, 0.28);
+  }
+  [color-scheme="dark"] .contact-intent-chip.is-active {
+    color: #111111;
+  }
+  @media (max-width: 767.98px) {
+    .contact-intent-chips {
+      gap: 0.55rem;
+    }
+    .contact-intent-chip {
+      font-size: 1.16rem;
+      padding: 0.58rem 1.08rem;
+    }
+    .edge-telemetry-pill {
+      font-size: 1.08rem;
+      padding: 0.5rem 1.1rem;
+      gap: 0.48rem;
+    }
+  }
+</style>
+<script id="wave2-p9-p10-script">
+(function () {
+  function notifyToast(msg) {
+    var t = document.getElementById("ridzuToast");
+    var txt = document.getElementById("ridzuToastText");
+    if (!t || !txt) return;
+    txt.textContent = msg;
+    t.classList.add("is-visible");
+    clearTimeout(t._p9Timer);
+    t._p9Timer = setTimeout(function () { t.classList.remove("is-visible"); }, 2400);
+  }
+
+  // =========================================================================
+  // PHASE 9: Serverless Cloudflare Edge Telemetry & MYT Live Clock
+  // =========================================================================
+  function initEdgeTelemetryPill() {
+    var footerCopy = document.querySelector(".footer-logo-copy");
+    if (!footerCopy || document.getElementById("edgeTelemetryPill")) return;
+
+    var wrap = document.createElement("div");
+    wrap.className = "edge-telemetry-wrap";
+    wrap.innerHTML =
+      "<button type=\"button\" class=\"edge-telemetry-pill\" id=\"edgeTelemetryPill\" title=\"Click to ping Cloudflare Edge node\">" +
+        "<span class=\"edge-dot\" aria-hidden=\"true\"></span>" +
+        "<span class=\"edge-colo\" id=\"edgeNodeText\">Edge: Connecting...</span>" +
+        "<span class=\"edge-sep\">&middot;</span>" +
+        "<span id=\"edgeProtoText\">HTTP/3</span>" +
+        "<span class=\"edge-sep\">&middot;</span>" +
+        "<span id=\"edgeMytText\">MYT --:--</span>" +
+      "</button>";
+
+    footerCopy.parentNode.insertBefore(wrap, footerCopy);
+
+    var pillBtn   = document.getElementById("edgeTelemetryPill");
+    var nodeText  = document.getElementById("edgeNodeText");
+    var protoText = document.getElementById("edgeProtoText");
+    var mytText   = document.getElementById("edgeMytText");
+
+    function updateMytClock() {
+      try {
+        var fmt = new Intl.DateTimeFormat("en-GB", {
+          timeZone: "Asia/Kuala_Lumpur",
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: false
+        }).format(new Date());
+        mytText.textContent = "MYT " + fmt + " (UTC+8)";
+      } catch (e) {
+        mytText.textContent = "MYT UTC+8";
+      }
+    }
+    updateMytClock();
+    setInterval(updateMytClock, 30000);
+
+    var host = window.location.hostname || "";
+    var isLocal = !host || host === "localhost" || host === "127.0.0.1" ||
+      /^192\.168\.|^10\.|^172\.(1[6-9]|2[0-9]|3[0-1])\./.test(host);
+
+    var CACHE_KEY = "ridzu_edge_pulse_v1";
+
+    function applyPulseData(data) {
+      nodeText.textContent  = "Edge: " + data.colo + " (" + data.rtt + "ms)";
+      protoText.textContent = data.proto || "HTTP/3";
+    }
+
+    function pingEdge(manualClick) {
+      if (isLocal) {
+        nodeText.textContent  = "Local Dev (1ms)";
+        protoText.textContent = "Static Server";
+        if (manualClick) {
+          notifyToast("Running on localhost — Edge Worker (/api/pulse) activates on Cloudflare Pages!");
+        }
+        return;
+      }
+
+      if (!manualClick) {
+        try {
+          var raw = sessionStorage.getItem(CACHE_KEY);
+          if (raw) {
+            var parsed = JSON.parse(raw);
+            if (parsed && (Date.now() - parsed.savedAt < 900000)) {
+              applyPulseData(parsed);
+              return;
+            }
+          }
+        } catch (e) {}
+      }
+
+      var t0 = performance.now();
+      fetch("/api/pulse", { cache: "no-store" })
+        .then(function (res) {
+          if (!res.ok) throw new Error("HTTP " + res.status);
+          return res.json();
+        })
+        .then(function (json) {
+          var rtt = Math.max(1, Math.round(performance.now() - t0));
+          var info = {
+            colo: json.colo || "EDGE",
+            rtt: rtt,
+            proto: json.httpProtocol || "HTTP/3",
+            savedAt: Date.now()
+          };
+          applyPulseData(info);
+          try { sessionStorage.setItem(CACHE_KEY, JSON.stringify(info)); } catch (e) {}
+          if (manualClick) {
+            notifyToast("Cloudflare Edge (" + info.colo + ") responded in " + rtt + "ms!");
+          }
+        })
+        .catch(function () {
+          nodeText.textContent  = "Cloudflare CDN";
+          protoText.textContent = "HTTPS";
+        });
+    }
+
+    pillBtn.addEventListener("click", function () {
+      pingEdge(true);
+    });
+
+    pingEdge(false);
+  }
+
+  // =========================================================================
+  // PHASE 10: Smart Scope Intent Chips on #contact-form
+  // =========================================================================
+  function initContactScopeChips() {
+    var form = document.getElementById("contact-form");
+    if (!form || form.dataset.scopeBound === "1") return;
+    form.dataset.scopeBound = "1";
+
+    var gridContainer = form.querySelector(".container-fluid");
+    var subjectInput  = form.querySelector("input[name=\"subject\"]");
+    var messageArea   = form.querySelector("textarea[name=\"Message\"]");
+    if (!gridContainer || !messageArea) return;
+
+    var catHidden = document.createElement("input");
+    catHidden.type = "hidden";
+    catHidden.name = "Inquiry_Category";
+    catHidden.value = "General Inquiry";
+    form.insertBefore(catHidden, gridContainer);
+
+    var SCOPES = [
+      {
+        id: "saas", icon: "ph-rocket-launch", label: "SaaS / Web App",
+        subject: "[SaaS / Web App] New Inquiry from ridzu.one",
+        placeholder: "Tell me about your SaaS or web app idea, target timeline, and key features*...",
+        starter: "Hi Ameer, I would like to discuss building a custom web application / SaaS platform. Here is a quick overview of the project scope and timeline: "
+      },
+      {
+        id: "wedding", icon: "ph-heart", label: "Digital Wedding Card",
+        subject: "[by.ridzu.one E-Card] Inquiry from ridzu.one",
+        placeholder: "Share your wedding date, preferred package (Lite / Pro / Custom), or theme*...",
+        starter: "Hi Ameer, saya berminat untuk tempah kad jemputan digital (by.ridzu.one). Tarikh majlis & pakej pilihan (Lite / Pro / Custom): "
+      },
+      {
+        id: "enterprise", icon: "ph-buildings", label: "Enterprise System",
+        subject: "[Enterprise System / UI] New Inquiry from ridzu.one",
+        placeholder: "Describe the internal portal, workflow digitalization, or UI/UX modernization needed*...",
+        starter: "Hi Ameer, we are looking into digitalizing an internal workflow / modernizing an enterprise portal and would love to discuss how we can collaborate: "
+      },
+      {
+        id: "career", icon: "ph-handshake", label: "Hiring / Collab",
+        subject: "[Hiring / Collaboration] Opportunity via ridzu.one",
+        placeholder: "Share details about the role, team, or engineering collaboration*...",
+        starter: "Hi Ameer, I came across your portfolio on ridzu.one and would love to connect regarding an engineering role / collaboration opportunity at "
+      },
+      {
+        id: "hello", icon: "ph-hand-waving", label: "Say Hello",
+        subject: "[Hello] Message from ridzu.one Portfolio",
+        placeholder: "A Few Words*",
+        starter: "Hey Ameer! Loved exploring your portfolio on ridzu.one — just dropping by to connect: "
+      }
+    ];
+
+    var box = document.createElement("div");
+    box.className = "col-12 form__item contact-intent-box";
+    box.innerHTML =
+      "<div class=\"contact-intent-head\">" +
+        "<p class=\"contact-intent-label\">What can I help you build?</p>" +
+        "<button type=\"button\" class=\"contact-starter-btn\" id=\"contactStarterBtn\">" +
+          "<i class=\"ph-bold ph-sparkle\"></i><span>Fill starter message</span>" +
+        "</button>" +
+      "</div>" +
+      "<div class=\"contact-intent-chips\" role=\"group\" aria-label=\"Inquiry category\">" +
+        SCOPES.map(function (s) {
+          return "<button type=\"button\" class=\"contact-intent-chip\" data-scope=\"" + s.id + "\">" +
+            "<i class=\"ph-bold " + s.icon + "\"></i><span>" + s.label + "</span>" +
+          "</button>";
+        }).join("") +
+      "</div>";
+
+    var rowEl = gridContainer.querySelector(".row") || gridContainer; rowEl.insertBefore(box, rowEl.firstChild);
+
+    var starterBtn = document.getElementById("contactStarterBtn");
+    var activeScope = null;
+    var lastInjectedStarter = "";
+
+    function selectScope(scopeId) {
+      var found = null;
+      for (var i = 0; i < SCOPES.length; i++) {
+        if (SCOPES[i].id === scopeId) { found = SCOPES[i]; break; }
+      }
+      if (!found) return;
+      activeScope = found;
+
+      box.querySelectorAll(".contact-intent-chip").forEach(function (c) {
+        c.classList.toggle("is-active", c.dataset.scope === found.id);
+      });
+
+      catHidden.value = found.label;
+      if (subjectInput) subjectInput.value = found.subject;
+      messageArea.setAttribute("placeholder", found.placeholder);
+      starterBtn.classList.add("is-shown");
+
+      // If message currently holds an untouched previous starter, swap it smoothly
+      if (lastInjectedStarter && messageArea.value === lastInjectedStarter) {
+        messageArea.value = found.starter;
+        lastInjectedStarter = found.starter;
+      }
+    }
+
+    box.addEventListener("click", function (e) {
+      var chip = e.target.closest ? e.target.closest(".contact-intent-chip") : null;
+      if (!chip) return;
+      selectScope(chip.dataset.scope);
+    });
+
+    starterBtn.addEventListener("click", function () {
+      if (!activeScope) return;
+      var curVal = messageArea.value.trim();
+      if (!curVal || messageArea.value === lastInjectedStarter) {
+        messageArea.value = activeScope.starter;
+        lastInjectedStarter = activeScope.starter;
+      } else if (curVal.indexOf(activeScope.starter.slice(0, 18)) === -1) {
+        messageArea.value = activeScope.starter + "\\n\\n" + messageArea.value;
+      }
+      messageArea.focus();
+      var len = messageArea.value.length;
+      try { messageArea.setSelectionRange(len, len); } catch (err) {}
+    });
+
+    // Auto-select SaaS / Web App when clicking Portfolio "Start a new project" CTA card
+    var startCard = document.getElementById("portfolioStartProjectCard");
+    if (startCard) {
+      startCard.addEventListener("click", function () {
+        selectScope("saas");
+      });
+    }
+  }
+
+  function bootWave2Finale() {
+    initEdgeTelemetryPill();
+    initContactScopeChips();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", function () { setTimeout(bootWave2Finale, 150); });
+  } else {
+    setTimeout(bootWave2Finale, 150);
+  }
+})();
+</script>
+<!-- Wave 2 Phase 9 Edge Telemetry & Phase 10 Contact Scope Chips End -->
 </body>
 
 </html>
