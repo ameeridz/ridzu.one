@@ -12278,6 +12278,869 @@
 })();
 </script>
 <!-- Phase 3 Deep-Links & Phase 4 Case Study Architecture End -->
+<!-- Wave 2 Phase 6 Omni-Search, Phase 7 Live Sandbox & Phase 8 vCard Start -->
+<style id="wave2-p6-p7-p8-style">
+  /* =====================================================================
+     PHASE 6: Omni-Search 2.0 (Category Tabs, Subtitles, Mobile Dock Icon)
+     ===================================================================== */
+  .cmdk-modal {
+    max-width: 620px !important;
+  }
+  .cmdk-tabs {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.85rem 1.6rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+    border-bottom: 1px solid var(--stroke-elements, rgba(255,255,255,0.1));
+  }
+  .cmdk-tabs::-webkit-scrollbar { display: none; }
+  .cmdk-tab {
+    padding: 0.38rem 0.95rem;
+    border-radius: 999px;
+    font-size: 1.15rem;
+    font-weight: 600;
+    white-space: nowrap;
+    cursor: pointer;
+    border: 1px solid var(--stroke-elements, rgba(255,255,255,0.14));
+    background: var(--base-tint, rgba(255,255,255,0.03));
+    color: var(--t-medium, #b4b4bc);
+    transition: all 0.18s ease;
+  }
+  .cmdk-tab.is-active {
+    background: var(--accent, #8f56cc);
+    border-color: var(--accent, #8f56cc);
+    color: #ffffff;
+  }
+  [color-scheme="dark"] .cmdk-tab.is-active {
+    color: #111111;
+  }
+  #cmdkList {
+    max-height: 52vh;
+    overflow-y: auto;
+  }
+  .cmdk-item-sub {
+    display: block;
+    font-size: 1.12rem;
+    font-weight: 500;
+    color: var(--t-medium, #9ca3af);
+    margin-top: 0.12rem;
+    line-height: 1.3;
+  }
+  .cmdk-item-texts {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    min-width: 0;
+  }
+  .cmdk-item-title {
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: var(--t-bright, #f4f4f5);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 380px;
+  }
+  .cmdk-foot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.85rem 1.6rem;
+    font-size: 1.12rem;
+    color: var(--t-medium, #9ca3af);
+    border-top: 1px solid var(--stroke-elements, rgba(255,255,255,0.1));
+    background: var(--base-tint, rgba(255,255,255,0.02));
+  }
+  @media (max-width: 991.98px) {
+    #quickCmdkBtn {
+      display: inline-flex !important;
+      padding: 0.65rem 0.85rem !important;
+    }
+    #quickCmdkBtn .quick-dock-kbd {
+      display: none !important;
+    }
+    .cmdk-backdrop {
+      padding: calc(env(safe-area-inset-top, 0px) + 6.8rem) 1.2rem 2rem !important;
+    }
+    .cmdk-item-title {
+      max-width: 215px;
+    }
+    .cmdk-foot-keys {
+      display: none;
+    }
+  }
+
+  /* =====================================================================
+     PHASE 7: Interactive Live App Sandbox inside Case Study Modal
+     ===================================================================== */
+  .cs-mode-bar {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.4rem;
+    margin-bottom: 1.6rem;
+    border-radius: 999px;
+    border: 1px solid var(--stroke-elements, rgba(255,255,255,0.14));
+    background: var(--base-tint, rgba(255,255,255,0.04));
+  }
+  .cs-mode-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.55rem 1.3rem;
+    border-radius: 999px;
+    border: none;
+    background: transparent;
+    color: var(--t-medium, #b4b4bc);
+    font-size: 1.24rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .cs-mode-btn.is-active {
+    background: var(--accent, #8f56cc);
+    color: #ffffff;
+    box-shadow: 0 4px 14px rgba(143, 86, 204, 0.28);
+  }
+  [color-scheme="dark"] .cs-mode-btn.is-active {
+    color: #111111;
+  }
+  .cs-sandbox-stage {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 1.6rem;
+  }
+  .cs-sandbox-stage.is-active {
+    display: flex;
+  }
+  .cs-phone-bezel {
+    width: 100%;
+    max-width: 390px;
+    border-radius: 3.2rem;
+    padding: 1rem;
+    background: linear-gradient(145deg, #2b2b33 0%, #141418 100%);
+    border: 2px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+    position: relative;
+  }
+  .cs-phone-screen {
+    width: 100%;
+    height: 560px;
+    max-height: 62vh;
+    border-radius: 2.4rem;
+    overflow: hidden;
+    background: #0d0d11;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+  .cs-phone-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.6rem;
+    padding: 0.75rem 1.1rem;
+    background: rgba(18, 18, 24, 0.96);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    color: #e4e4e7;
+    font-size: 1.15rem;
+  }
+  .cs-phone-url {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.3rem 0.85rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.07);
+    font-weight: 600;
+    max-width: 210px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .cs-phone-url i { color: #4ade80; }
+  .cs-phone-reload {
+    background: transparent;
+    border: none;
+    color: #e4e4e7;
+    font-size: 1.35rem;
+    cursor: pointer;
+    padding: 0.25rem;
+    display: inline-flex;
+  }
+  .cs-phone-iframe-wrap {
+    flex: 1;
+    position: relative;
+    background: #ffffff;
+  }
+  .cs-phone-iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+  }
+  .cs-phone-loader {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    background: #121217;
+    color: #d4d4d8;
+    font-size: 1.25rem;
+    font-weight: 600;
+    z-index: 2;
+    transition: opacity 0.25s ease;
+  }
+  .cs-phone-loader.is-loaded {
+    opacity: 0;
+    pointer-events: none;
+  }
+  .cs-sandbox-note {
+    margin: 0.85rem 0 0;
+    font-size: 1.15rem;
+    color: var(--t-medium, #9ca3af);
+    text-align: center;
+  }
+  @media (max-width: 640px) {
+    .cs-phone-bezel {
+      max-width: 100%;
+      padding: 0.45rem;
+      border-radius: 2rem;
+    }
+    .cs-phone-screen {
+      border-radius: 1.6rem;
+      height: 54vh;
+    }
+  }
+
+  /* =====================================================================
+     PHASE 8: Smart vCard (.vcf) Contact Buttons
+     ===================================================================== */
+  .about-id-actions-stack {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    width: 100%;
+  }
+  .about-vcard-btn {
+    width: 100%;
+    border: 1px solid var(--stroke-elements, rgba(143, 86, 204, 0.32));
+    background: var(--base-tint, rgba(255, 255, 255, 0.05));
+    color: var(--t-bright, #ffffff);
+    padding: 0.9rem 1rem;
+    border-radius: 1.35rem;
+    font-size: 1.24rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    transition: transform 0.2s ease, border-color 0.25s ease, background 0.25s ease;
+  }
+  [color-scheme="light"] .about-vcard-btn {
+    color: #22232c;
+    background: rgba(255, 255, 255, 0.72);
+    border-color: rgba(143, 86, 204, 0.26);
+  }
+  .about-vcard-btn:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent, #8f56cc);
+  }
+  .qr-vcard-btn {
+    width: 100%;
+    margin-top: 0.75rem;
+    padding: 0.9rem 1.2rem;
+    border-radius: 1.25rem;
+    border: 1px solid var(--accent, #8f56cc);
+    background: linear-gradient(135deg, rgba(143, 86, 204, 0.22), rgba(228, 184, 191, 0.18));
+    color: var(--t-bright, #ffffff);
+    font-size: 1.28rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+  [color-scheme="light"] .qr-vcard-btn {
+    color: #1f2028;
+  }
+  .qr-vcard-btn:hover {
+    transform: translateY(-2px);
+    opacity: 0.94;
+  }
+  @media (max-width: 420px) {
+    .about-id-actions-stack {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+<script id="wave2-p6-p7-p8-script">
+(function () {
+  function triggerRidzuToast(msg) {
+    var t = document.getElementById("ridzuToast");
+    var txt = document.getElementById("ridzuToastText");
+    if (!t || !txt) return;
+    txt.textContent = msg;
+    t.classList.add("is-visible");
+    clearTimeout(t._w2Timer);
+    t._w2Timer = setTimeout(function () {
+      t.classList.remove("is-visible");
+    }, 2500);
+  }
+
+  function smartJumpToSection(secId) {
+    var navLink = document.querySelector(".menu__link[href=\"#" + secId + "\"]");
+    if (navLink && window.innerWidth < 992) {
+      navLink.click();
+      return;
+    }
+    var el = document.getElementById(secId);
+    if (!el) return;
+    var y = Math.max(0, Math.round(el.getBoundingClientRect().top + (window.pageYOffset || 0) - 32));
+    if (window.jQuery) {
+      window.jQuery("html, body").stop(true, false).animate({ scrollTop: y }, 700);
+    } else {
+      window.scrollTo({ top: y, behavior: "smooth" });
+    }
+  }
+
+  // =========================================================================
+  // PHASE 8: Native RFC vCard 3.0 (.vcf) Generator & Buttons
+  // =========================================================================
+  function downloadAmeerVCard() {
+    var telLine = "";
+    var waLink = document.querySelector("a[href*=\"wa.me/\"], a[href^=\"tel:\"]");
+    if (waLink) {
+      var href = waLink.getAttribute("href") || "";
+      var digits = href.replace(/.*(?:wa\.me\/|tel:)/i, "").replace(/[^0-9+]/g, "");
+      if (digits.length >= 9) {
+        if (digits.charAt(0) !== "+") digits = "+" + digits;
+        telLine = "TEL;TYPE=CELL,VOICE:" + digits + "\\r\\n";
+      }
+    }
+
+    var vcf =
+      "BEGIN:VCARD\\r\\n" +
+      "VERSION:3.0\\r\\n" +
+      "N:Muhammad Izudin;Ameer Ridzuan Bin;;;\\r\\n" +
+      "FN:Ameer Ridzuan\\r\\n" +
+      "ORG:Kossan / by.ridzu.one\\r\\n" +
+      "TITLE:System Engineer (DEE), Web Developer & UI/UX Designer\\r\\n" +
+      telLine +
+      "EMAIL;TYPE=INTERNET,WORK,PREF:ameer@ridzu.one\\r\\n" +
+      "URL;TYPE=WORK:https://ridzu.one\\r\\n" +
+      "URL;TYPE=PREF:https://by.ridzu.one\\r\\n" +
+      "ADR;TYPE=WORK:;;;Shah Alam;Selangor;;Malaysia\\r\\n" +
+      "NOTE:System Engineer (Digital Ecosystem Engineering) & Founder of CuciCop & by.ridzu.one.\\r\\n" +
+      "END:VCARD\\r\\n";
+
+    var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+      (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+
+    if (isIOS) {
+      var dataUri = "data:text/vcard;charset=utf-8," + encodeURIComponent(vcf);
+      var aIos = document.createElement("a");
+      aIos.href = dataUri;
+      aIos.download = "Ameer_Ridzuan.vcf";
+      document.body.appendChild(aIos);
+      aIos.click();
+      document.body.removeChild(aIos);
+    } else {
+      var blob = new Blob([vcf], { type: "text/vcard;charset=utf-8" });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement("a");
+      a.href = url;
+      a.download = "Ameer_Ridzuan.vcf";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(function () { URL.revokeObjectURL(url); }, 1500);
+    }
+    triggerRidzuToast("Opening contact card (Ameer_Ridzuan.vcf)...");
+  }
+
+  function initVCardButtons() {
+    // 1. Inside QR Modal (#qrBackdrop)
+    var qrCopyEmail = document.getElementById("qrCopyEmailBtn");
+    if (qrCopyEmail && qrCopyEmail.parentElement && !document.getElementById("qrSaveVcardBtn")) {
+      var qrActionsParent = qrCopyEmail.parentElement.parentElement || qrCopyEmail.parentElement;
+      var vBtn = document.createElement("button");
+      vBtn.type = "button";
+      vBtn.id = "qrSaveVcardBtn";
+      vBtn.className = "qr-vcard-btn";
+      vBtn.innerHTML = "<i class=\"ph-bold ph-address-book\"></i><span>Save to Phone Contacts (.vcf)</span>";
+      vBtn.addEventListener("click", downloadAmeerVCard);
+      qrCopyEmail.parentElement.insertAdjacentElement("afterend", vBtn);
+    }
+
+    // 2. Inside About Digital ID Card (#aboutOpenQrBtn)
+    var aboutQrBtn = document.getElementById("aboutOpenQrBtn");
+    if (aboutQrBtn && !document.getElementById("aboutSaveVcardBtn")) {
+      var qrLabel = aboutQrBtn.querySelector("span");
+      if (qrLabel) qrLabel.textContent = "QR Card";
+      var stack = document.createElement("div");
+      stack.className = "about-id-actions-stack";
+      aboutQrBtn.parentNode.insertBefore(stack, aboutQrBtn);
+      stack.appendChild(aboutQrBtn);
+
+      var idVBtn = document.createElement("button");
+      idVBtn.type = "button";
+      idVBtn.id = "aboutSaveVcardBtn";
+      idVBtn.className = "about-vcard-btn";
+      idVBtn.innerHTML = "<i class=\"ph-bold ph-user-plus\"></i><span>Save Contact</span>";
+      idVBtn.addEventListener("click", downloadAmeerVCard);
+      stack.appendChild(idVBtn);
+    }
+  }
+
+  // =========================================================================
+  // PHASE 7: Interactive Live Phone Sandbox inside Case Study Modal
+  // =========================================================================
+  function initCaseStudyLiveSandbox() {
+    var backdrop = document.getElementById("csBackdrop");
+    var modal    = backdrop ? backdrop.querySelector(".cs-modal") : null;
+    var head     = modal ? modal.querySelector(".cs-head") : null;
+    var grid     = modal ? modal.querySelector(".cs-grid") : null;
+    var liveLink = document.getElementById("csLiveLink");
+    if (!backdrop || !modal || !head || !grid || !liveLink) return;
+    if (modal.dataset.sandboxBound === "1") return;
+    modal.dataset.sandboxBound = "1";
+
+    var modeBar = document.createElement("div");
+    modeBar.className = "cs-mode-bar";
+    modeBar.id = "csModeBar";
+    modeBar.innerHTML =
+      "<button type=\"button\" class=\"cs-mode-btn is-active\" data-cs-mode=\"overview\">" +
+        "<i class=\"ph-bold ph-book-open-text\"></i><span>Overview &amp; Architecture</span>" +
+      "</button>" +
+      "<button type=\"button\" class=\"cs-mode-btn\" data-cs-mode=\"sandbox\">" +
+        "<i class=\"ph-bold ph-device-mobile-camera\"></i><span>Try Live App</span>" +
+      "</button>";
+
+    var sandboxStage = document.createElement("div");
+    sandboxStage.className = "cs-sandbox-stage";
+    sandboxStage.id = "csSandboxStage";
+    sandboxStage.innerHTML =
+      "<div class=\"cs-phone-bezel\">" +
+        "<div class=\"cs-phone-screen\">" +
+          "<div class=\"cs-phone-topbar\">" +
+            "<span class=\"cs-phone-url\"><i class=\"ph-fill ph-lock-key\"></i><span id=\"csPhoneHost\">live-preview</span></span>" +
+            "<button type=\"button\" class=\"cs-phone-reload\" id=\"csPhoneReloadBtn\" title=\"Reload live preview\"><i class=\"ph-bold ph-arrow-clockwise\"></i></button>" +
+          "</div>" +
+          "<div class=\"cs-phone-iframe-wrap\" id=\"csPhoneFrameWrap\">" +
+            "<div class=\"cs-phone-loader\" id=\"csPhoneLoader\"><i class=\"ph-bold ph-spinner-gap\" style=\"font-size:2.2rem;\"></i><span>Booting live app preview...</span></div>" +
+          "</div>" +
+        "</div>" +
+      "</div>" +
+      "<p class=\"cs-sandbox-note\">Interactive live sandbox &middot; Destroyed on close for 0 KB idle memory</p>";
+
+    head.insertAdjacentElement("afterend", modeBar);
+    modeBar.insertAdjacentElement("afterend", sandboxStage);
+
+    var frameWrap = document.getElementById("csPhoneFrameWrap");
+    var loaderEl  = document.getElementById("csPhoneLoader");
+    var hostLabel = document.getElementById("csPhoneHost");
+    var reloadBtn = document.getElementById("csPhoneReloadBtn");
+    var activeIframe = null;
+
+    function destroyIframe() {
+      if (activeIframe) {
+        try { activeIframe.src = "about:blank"; } catch (e) {}
+        if (activeIframe.parentNode) activeIframe.parentNode.removeChild(activeIframe);
+        activeIframe = null;
+      }
+    }
+
+    function setOverviewContentVisible(visible) {
+      var disp = visible ? "" : "none";
+      grid.style.display = disp;
+      var eng = document.getElementById("csEngWrap");
+      var hi  = document.getElementById("csHighlights");
+      var tg  = document.getElementById("csTags");
+      if (eng) eng.style.display = disp;
+      if (hi)  hi.style.display  = disp;
+      if (tg)  tg.style.display  = disp;
+    }
+
+    function switchMode(mode) {
+      modeBar.querySelectorAll(".cs-mode-btn").forEach(function (b) {
+        b.classList.toggle("is-active", b.dataset.csMode === mode);
+      });
+      if (mode === "sandbox") {
+        var url = liveLink.getAttribute("href") || "";
+        setOverviewContentVisible(false);
+        sandboxStage.classList.add("is-active");
+        destroyIframe();
+        loaderEl.classList.remove("is-loaded");
+        try { hostLabel.textContent = new URL(url).hostname; } catch (e) { hostLabel.textContent = url; }
+
+        var ifr = document.createElement("iframe");
+        ifr.className = "cs-phone-iframe";
+        ifr.setAttribute("sandbox", "allow-scripts allow-same-origin allow-forms allow-popups");
+        ifr.setAttribute("loading", "lazy");
+        ifr.src = url;
+        ifr.addEventListener("load", function () {
+          loaderEl.classList.add("is-loaded");
+        });
+        frameWrap.appendChild(ifr);
+        activeIframe = ifr;
+      } else {
+        sandboxStage.classList.remove("is-active");
+        destroyIframe();
+        setOverviewContentVisible(true);
+      }
+    }
+
+    modeBar.addEventListener("click", function (e) {
+      var btn = e.target.closest ? e.target.closest(".cs-mode-btn") : null;
+      if (!btn) return;
+      switchMode(btn.dataset.csMode);
+    });
+
+    reloadBtn.addEventListener("click", function () {
+      if (!activeIframe) return;
+      loaderEl.classList.remove("is-loaded");
+      activeIframe.src = liveLink.getAttribute("href") || activeIframe.src;
+    });
+
+    var obs = new MutationObserver(function () {
+      if (!backdrop.classList.contains("is-open")) {
+        switchMode("overview");
+      } else {
+        var href = liveLink.getAttribute("href") || "";
+        modeBar.style.display = href.indexOf("http") === 0 ? "inline-flex" : "none";
+        switchMode("overview");
+      }
+    });
+    obs.observe(backdrop, { attributes: true, attributeFilter: ["class"] });
+  }
+
+  // =========================================================================
+  // PHASE 6: Omni-Search Command Palette 2.0 (Projects, 47 Certs, Skills)
+  // =========================================================================
+  function initOmniSearchCmdk() {
+    var backdrop = document.getElementById("cmdkBackdrop");
+    var modal    = backdrop ? backdrop.querySelector(".cmdk-modal") : null;
+    var oldInput = document.getElementById("cmdkInput");
+    var listEl   = document.getElementById("cmdkList");
+    var quickBtn = document.getElementById("quickCmdkBtn");
+    if (!backdrop || !modal || !oldInput || !listEl || backdrop.dataset.omniBound === "1") return;
+    backdrop.dataset.omniBound = "1";
+
+    // Detach legacy 9-item input listener cleanly
+    var input = oldInput.cloneNode(true);
+    input.placeholder = "Search 47 certs, projects, skills, or actions...";
+    oldInput.parentNode.replaceChild(input, oldInput);
+
+    var tabsEl = document.createElement("div");
+    tabsEl.className = "cmdk-tabs";
+    var TABS = [
+      { id: "all", label: "All" },
+      { id: "project", label: "Projects" },
+      { id: "cert", label: "Certificates" },
+      { id: "skill", label: "Skills & Stack" },
+      { id: "action", label: "Quick Actions" }
+    ];
+    tabsEl.innerHTML = TABS.map(function (t, i) {
+      return "<button type=\"button\" class=\"cmdk-tab" + (i === 0 ? " is-active" : "") + "\" data-tab=\"" + t.id + "\">" + t.label + "</button>";
+    }).join("");
+    listEl.parentNode.insertBefore(tabsEl, listEl);
+
+    var footEl = document.createElement("div");
+    footEl.className = "cmdk-foot";
+    footEl.innerHTML = "<span id=\"cmdkCountLbl\">0 items</span><span class=\"cmdk-foot-keys\">&uarr;&darr; Navigate &middot; &crarr; Select &middot; ESC Close</span>";
+    modal.appendChild(footEl);
+    var countLbl = document.getElementById("cmdkCountLbl");
+
+    var allItems = [];
+    var currentTab = "all";
+    var filtered = [];
+    var activeIdx = 0;
+
+    function buildIndex() {
+      var items = [];
+
+      // 1. Quick Actions
+      items.push({
+        cat: "action", icon: "ph-address-book", title: "Save Contact (.vcf)",
+        sub: "Add Ameer Ridzuan directly to iPhone / Android Contacts", tag: "vCard",
+        keys: "vcard vcf save contact phone number address book",
+        run: downloadAmeerVCard
+      });
+      items.push({
+        cat: "action", icon: "ph-qr-code", title: "Open 3D QR Business Card",
+        sub: "Interactive holographic digital ID & QR code", tag: "QR Card",
+        keys: "qr business card scan share",
+        run: function () { var b = document.getElementById("quickQrBtn"); if (b) b.click(); }
+      });
+      items.push({
+        cat: "action", icon: "ph-file-text", title: "View My Resume (PDF Quick Look)",
+        sub: "Preview or download full CV", tag: "Resume",
+        keys: "resume cv pdf download qualification",
+        run: function () {
+          var b = document.querySelector(".js-resume-preview");
+          if (b) b.click(); else window.open("resume/Resume_Ameer_Ridzuan.pdf", "_blank", "noopener");
+        }
+      });
+      items.push({
+        cat: "action", icon: "ph-copy", title: "Copy Email Address",
+        sub: "ameer@ridzu.one", tag: "Email",
+        keys: "copy email mail ameer@ridzu.one",
+        run: function () { var b = document.getElementById("quickCopyEmailBtn"); if (b) b.click(); }
+      });
+      items.push({
+        cat: "action", icon: "ph-moon-stars", title: "Toggle Dark / Light Mode",
+        sub: "Switch color appearance", tag: "Theme",
+        keys: "dark light mode theme appearance color",
+        run: function () { var s = document.getElementById("color-switcher"); if (s) { s.click(); triggerRidzuToast("Theme switched!"); } }
+      });
+      [
+        { id: "home", title: "Jump to Home & Hero Bento", sub: "Overview, live clock & featured stack", icon: "ph-house" },
+        { id: "about", title: "Jump to About Me & Digital ID", sub: "Enterprise track record & SLA metrics", icon: "ph-user" },
+        { id: "resume", title: "Jump to Education & Experience", sub: "Kossan DEE, HeiTech Padu & UiTM timeline", icon: "ph-briefcase" },
+        { id: "portfolio", title: "Jump to Featured Projects", sub: "SaaS, web apps & enterprise UI showcase", icon: "ph-squares-four" },
+        { id: "cert", title: "Jump to Professional Certificates", sub: "Browse all 47 verified credentials", icon: "ph-certificate" },
+        { id: "contact", title: "Jump to Contact Form", sub: "Start a project or send a message", icon: "ph-paper-plane-tilt" }
+      ].forEach(function (nav) {
+        items.push({
+          cat: "action", icon: nav.icon, title: nav.title, sub: nav.sub, tag: "Section",
+          keys: "jump section navigate " + nav.id + " " + nav.title.toLowerCase(),
+          run: function () { smartJumpToSection(nav.id); }
+        });
+      });
+
+      // 2. Projects & Case Studies from #portfolio
+      document.querySelectorAll("#portfolio figure.gallery__item").forEach(function (fig) {
+        if (fig.id === "portfolioStartProjectCard") return;
+        var h = fig.querySelector("h5, h4, .gallery__descr h5");
+        var img = fig.querySelector("img");
+        var name = h ? h.textContent.trim() : (img ? (img.getAttribute("alt") || "").trim() : "");
+        if (!name) return;
+        var tags = Array.prototype.slice.call(fig.querySelectorAll(".rounded-tag")).map(function (t) { return t.textContent.trim(); }).join(" · ");
+        var csBtn = fig.querySelector(".cs-trigger-btn");
+        items.push({
+          cat: "project",
+          icon: csBtn ? "ph-rocket-launch" : "ph-folder-Simple-star ph-folder-star",
+          title: name,
+          sub: tags || "Portfolio Project",
+          tag: csBtn ? "Case Study" : "Project",
+          keys: (name + " " + tags + " project portfolio case study live app").toLowerCase(),
+          run: function () {
+            smartJumpToSection("portfolio");
+            if (csBtn) setTimeout(function () { csBtn.click(); }, 320);
+          }
+        });
+      });
+
+      // 3. All 47 Certificates from #certRailList
+      document.querySelectorAll("#certRailList .certs-rail-item").forEach(function (btn, idx) {
+        var nm = btn.querySelector(".certs-rail-name");
+        var og = btn.querySelector(".certs-rail-org");
+        var cTitle = nm ? nm.textContent.trim() : "";
+        var cOrg   = og ? og.textContent.trim() : "";
+        if (!cTitle) return;
+        items.push({
+          cat: "cert",
+          icon: "ph-seal-check",
+          title: cTitle,
+          sub: cOrg + " · Credential #" + (idx + 1),
+          tag: "Cert",
+          keys: (cTitle + " " + cOrg + " certificate credential mbot aws ibm infosec").toLowerCase(),
+          run: function () {
+            smartJumpToSection("cert");
+            setTimeout(function () {
+              btn.click();
+              if (btn.scrollIntoView) btn.scrollIntoView({ behavior: "smooth", block: "nearest" });
+            }, 340);
+          }
+        });
+      });
+
+      // 4. Tech Stack & Enterprise Skills
+      var seenSkills = {};
+      document.querySelectorAll(".tools-cards__caption, .exp-tag").forEach(function (el) {
+        var sk = (el.textContent || "").trim();
+        var key = sk.toLowerCase();
+        if (!sk || sk.length > 34 || seenSkills[key]) return;
+        seenSkills[key] = true;
+        var isExp = el.classList.contains("exp-tag");
+        items.push({
+          cat: "skill",
+          icon: isExp ? "ph-buildings" : "ph-code",
+          title: sk,
+          sub: isExp ? "Enterprise Experience Stack" : "Core Development & Design Tool",
+          tag: "Skill",
+          keys: key + " skill stack tool technology",
+          run: function () { smartJumpToSection(isExp ? "resume" : "about"); }
+        });
+      });
+
+      allItems = items;
+    }
+
+    function filterAndRender() {
+      if (!allItems.length) buildIndex();
+      var rawQ = input.value.trim().toLowerCase();
+      var tokens = rawQ ? rawQ.split(/\s+/) : [];
+
+      filtered = allItems.filter(function (it) {
+        if (currentTab !== "all" && it.cat !== currentTab) return false;
+        if (!tokens.length) return true;
+        var hay = (it.title + " " + it.sub + " " + it.keys + " " + it.tag).toLowerCase();
+        for (var i = 0; i < tokens.length; i++) {
+          if (hay.indexOf(tokens[i]) === -1) return false;
+        }
+        return true;
+      });
+
+      if (activeIdx >= filtered.length) activeIdx = 0;
+      countLbl.textContent = filtered.length + (filtered.length === 1 ? " result" : " results") + " indexed";
+
+      listEl.innerHTML = "";
+      if (!filtered.length) {
+        listEl.innerHTML = "<div class=\"cmdk-empty\">No matching projects, certificates, or actions found.</div>";
+        return;
+      }
+
+      var frag = document.createDocumentFragment();
+      filtered.slice(0, 60).forEach(function (it, idx) {
+        var btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "cmdk-item" + (idx === activeIdx ? " is-active" : "");
+        btn.innerHTML =
+          "<span class=\"cmdk-item-left\">" +
+            "<i class=\"ph-bold " + it.icon + "\"></i>" +
+            "<span class=\"cmdk-item-texts\">" +
+              "<span class=\"cmdk-item-title\"></span>" +
+              "<span class=\"cmdk-item-sub\"></span>" +
+            "</span>" +
+          "</span>" +
+          "<span class=\"cmdk-item-tag\"></span>";
+        btn.querySelector(".cmdk-item-title").textContent = it.title;
+        btn.querySelector(".cmdk-item-sub").textContent   = it.sub;
+        btn.querySelector(".cmdk-item-tag").textContent   = it.tag;
+        btn.addEventListener("click", function () {
+          closeOmni();
+          it.run();
+        });
+        btn.addEventListener("mouseenter", function () {
+          activeIdx = idx;
+          syncActiveRow(false);
+        });
+        frag.appendChild(btn);
+      });
+      listEl.appendChild(frag);
+    }
+
+    function syncActiveRow(scrollRow) {
+      var rows = listEl.querySelectorAll(".cmdk-item");
+      rows.forEach(function (r, idx) {
+        var active = idx === activeIdx;
+        r.classList.toggle("is-active", active);
+        if (active && scrollRow && r.scrollIntoView) {
+          r.scrollIntoView({ block: "nearest" });
+        }
+      });
+    }
+
+    function openOmni() {
+      buildIndex();
+      backdrop.classList.add("is-open");
+      input.value = "";
+      currentTab = "all";
+      tabsEl.querySelectorAll(".cmdk-tab").forEach(function (b, i) {
+        b.classList.toggle("is-active", i === 0);
+      });
+      activeIdx = 0;
+      filterAndRender();
+      setTimeout(function () { input.focus(); }, 25);
+    }
+
+    function closeOmni() {
+      backdrop.classList.remove("is-open");
+    }
+
+    input.addEventListener("input", function () {
+      activeIdx = 0;
+      filterAndRender();
+    });
+
+    tabsEl.addEventListener("click", function (e) {
+      var tb = e.target.closest ? e.target.closest(".cmdk-tab") : null;
+      if (!tb) return;
+      currentTab = tb.dataset.tab || "all";
+      tabsEl.querySelectorAll(".cmdk-tab").forEach(function (b) {
+        b.classList.toggle("is-active", b === tb);
+      });
+      activeIdx = 0;
+      filterAndRender();
+      if (window.innerWidth >= 992) input.focus();
+    });
+
+    if (quickBtn) {
+      quickBtn.addEventListener("click", function (e) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        openOmni();
+      }, true);
+    }
+
+    window.addEventListener("keydown", function (e) {
+      if ((e.ctrlKey || e.metaKey) && e.key && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        if (backdrop.classList.contains("is-open")) closeOmni(); else openOmni();
+        return;
+      }
+      if (!backdrop.classList.contains("is-open")) return;
+      var shownCount = Math.min(filtered.length, 60);
+      if (e.key === "Escape") {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        closeOmni();
+      } else if (e.key === "ArrowDown") {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        if (shownCount) { activeIdx = (activeIdx + 1) % shownCount; syncActiveRow(true); }
+      } else if (e.key === "ArrowUp") {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        if (shownCount) { activeIdx = (activeIdx - 1 + shownCount) % shownCount; syncActiveRow(true); }
+      } else if (e.key === "Enter") {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        if (filtered[activeIdx]) {
+          var chosen = filtered[activeIdx];
+          closeOmni();
+          chosen.run();
+        }
+      }
+    }, true);
+  }
+
+  function bootWave2Batch1() {
+    initVCardButtons();
+    initCaseStudyLiveSandbox();
+    initOmniSearchCmdk();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", function () { setTimeout(bootWave2Batch1, 180); });
+  } else {
+    setTimeout(bootWave2Batch1, 180);
+  }
+})();
+</script>
+<!-- Wave 2 Phase 6 Omni-Search, Phase 7 Live Sandbox & Phase 8 vCard End -->
 </body>
 
 </html>
