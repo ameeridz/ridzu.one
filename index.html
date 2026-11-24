@@ -11771,6 +11771,513 @@
 })();
 </script>
 <!-- Phase 1 Smart Cert Preloader & Phase 2 Dock Progress Ring End -->
+<!-- Phase 3 Deep-Links & Phase 4 Case Study Architecture Start -->
+<style id="phase3-phase4-ux-style">
+  /* Phase 4: Engineering Impact Metrics & System Architecture Flow inside Case Study Modal */
+  .cs-eng-wrap {
+    margin: 0 0 1.8rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+  .cs-metrics-row {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.9rem;
+  }
+  .cs-metric-card {
+    padding: 1.05rem 1.15rem;
+    border-radius: 1.35rem;
+    border: 1px solid var(--stroke-elements, rgba(255,255,255,0.12));
+    background: var(--base-tint, rgba(255,255,255,0.03));
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+  .cs-metric-val {
+    font-size: 1.55rem;
+    font-weight: 800;
+    line-height: 1.2;
+    color: var(--accent, #8f56cc);
+  }
+  .cs-metric-lbl {
+    font-size: 1.15rem;
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--t-medium, #b4b4bc);
+  }
+  .cs-arch-box {
+    padding: 1.3rem 1.5rem;
+    border-radius: 1.5rem;
+    border: 1px solid var(--stroke-elements, rgba(255,255,255,0.12));
+    background: var(--base-tint, rgba(255,255,255,0.03));
+  }
+  .cs-arch-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0 0 0.9rem;
+    font-size: 1.18rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--accent, #8f56cc);
+  }
+  .cs-arch-flow {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.55rem;
+  }
+  .cs-arch-node {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.45rem 1rem;
+    border-radius: 0.95rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--t-bright, #f4f4f5);
+    background: var(--base, rgba(17,17,20,0.75));
+    border: 1px solid var(--stroke-elements, rgba(255,255,255,0.16));
+  }
+  .cs-arch-node i {
+    color: var(--accent, #8f56cc);
+    font-size: 1.3rem;
+  }
+  .cs-arch-arrow {
+    color: var(--t-medium, #9ca3af);
+    font-size: 1.15rem;
+    opacity: 0.75;
+  }
+
+  /* Phase 3: Shareable Deep-Link Copy Buttons */
+  .cs-share-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.95rem 1.6rem;
+    border-radius: 999px;
+    border: 1px solid var(--stroke-elements, rgba(255,255,255,0.18));
+    background: var(--base-tint, rgba(255,255,255,0.04));
+    color: var(--t-bright, #f4f4f5);
+    font-size: 1.32rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+  }
+  .cs-share-btn:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent, #8f56cc);
+  }
+  .cs-share-btn.is-copied,
+  #certShareLinkBtn.is-copied {
+    border-color: #4ade80 !important;
+    color: #4ade80 !important;
+  }
+  @media (max-width: 640px) {
+    .cs-metrics-row {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.55rem;
+    }
+    .cs-metric-card {
+      padding: 0.85rem 0.75rem;
+      border-radius: 1.1rem;
+    }
+    .cs-metric-val {
+      font-size: 1.28rem;
+    }
+    .cs-metric-lbl {
+      font-size: 1.02rem;
+    }
+    .cs-arch-box {
+      padding: 1.1rem 1.15rem;
+    }
+    .cs-arch-node {
+      font-size: 1.1rem;
+      padding: 0.38rem 0.8rem;
+    }
+    .cs-footer {
+      flex-direction: row;
+    }
+    .cs-live-btn,
+    .cs-share-btn {
+      flex: 1 1 auto;
+      justify-content: center;
+      padding: 0.9rem 1.3rem;
+      font-size: 1.28rem;
+    }
+  }
+</style>
+<script id="phase3-phase4-ux-script">
+(function () {
+  var ARCH_DATA = {
+    cucicop: {
+      slug: "cucicop",
+      aliases: ["cucicop", "carwash"],
+      metrics: [
+        { val: "Multi-Tenant", lbl: "Row-Level Isolation" },
+        { val: "Real-Time", lbl: "Staff POS & QR Stamps" },
+        { val: "Zero-Install", lbl: "Customer PWA Flow" }
+      ],
+      flow: [
+        { icon: "ph-device-mobile", text: "Next.js 16 PWA" },
+        { icon: "ph-shield-check", text: "Supabase Auth & RLS" },
+        { icon: "ph-qr-code", text: "QR Loyalty & POS Engine" },
+        { icon: "ph-chart-line-up", text: "Owner Live Dashboard" }
+      ]
+    },
+    byridzu: {
+      slug: "by.ridzu.one",
+      aliases: ["by.ridzu.one", "by-ridzu-one", "byridzu", "wedding", "ecard"],
+      metrics: [
+        { val: "15+ Demos", lbl: "Interactive Themes" },
+        { val: "3 Tiers", lbl: "Lite, Pro & Custom" },
+        { val: "Global Edge", lbl: "Zero-Server Latency" }
+      ],
+      flow: [
+        { icon: "ph-sparkle", text: "iOS-Style Card UI" },
+        { icon: "ph-sliders-horizontal", text: "Modular Theme Config" },
+        { icon: "ph-map-pin", text: "RSVP & Maps Sync" },
+        { icon: "ph-cloud-lightning", text: "Cloudflare Pages CDN" }
+      ]
+    },
+    pakatlah: {
+      slug: "pakatlah",
+      aliases: ["pakatlah"],
+      metrics: [
+        { val: "Zero-Login", lbl: "Instant Group Link" },
+        { val: "Live Status", lbl: "Headcount & Polls" },
+        { val: "Edge CDN", lbl: "Fast Mobile Load" }
+      ],
+      flow: [
+        { icon: "ph-share-network", text: "Shareable Trip Link" },
+        { icon: "ph-users-three", text: "Availability & Voting" },
+        { icon: "ph-check-square-offset", text: "Confirmed Roster" },
+        { icon: "ph-whatsapp-logo", text: "Group Chat Ready" }
+      ]
+    },
+    splitsukan: {
+      slug: "splitsukan",
+      aliases: ["splitsukan", "split"],
+      metrics: [
+        { val: "Exact Math", lbl: "Court & Shuttle Split" },
+        { val: "0ms Calc", lbl: "Instant Per-Pax Share" },
+        { val: "1-Tap Copy", lbl: "WhatsApp Summary" }
+      ],
+      flow: [
+        { icon: "ph-racquet", text: "Session & Gear Inputs" },
+        { icon: "ph-calculator", text: "Dynamic Split Engine" },
+        { icon: "ph-list-numbers", text: "Player Breakdown" },
+        { icon: "ph-copy", text: "Formatted Chat Receipt" }
+      ]
+    },
+    gym: {
+      slug: "gymeer",
+      aliases: ["gymeer", "gym", "gym-tracker", "gymflow"],
+      metrics: [
+        { val: "One-Hand", lbl: "Rest-Timer Ergonomics" },
+        { val: "OLED Dark", lbl: "Gym-Light Contrast" },
+        { val: "Zero-Bloat", lbl: "Fast Set/Rep Logging" }
+      ],
+      flow: [
+        { icon: "ph-barbell", text: "Routine Selector" },
+        { icon: "ph-lightning", text: "Set / Rep / Weight Log" },
+        { icon: "ph-database", text: "Client State Storage" },
+        { icon: "ph-trend-up", text: "Volume Progression" }
+      ]
+    }
+  };
+
+  function slugify(str) {
+    return String(str || "")
+      .toLowerCase()
+      .replace(/[^a-z0-9.]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+  }
+
+  function showToastMessage(msg) {
+    var toast = document.getElementById("ridzuToast");
+    var toastTxt = document.getElementById("ridzuToastText");
+    if (!toast || !toastTxt) return;
+    toastTxt.textContent = msg;
+
+    var activeCls = "show";
+    var cmdkStyle = document.getElementById("cmdk-style");
+    if (cmdkStyle && cmdkStyle.textContent) {
+      var m = cmdkStyle.textContent.match(/\.ridzu-toast\.([a-zA-Z0-9_-]+)/);
+      if (m && m[1]) activeCls = m[1];
+    }
+    toast.classList.add(activeCls);
+    clearTimeout(toast._phase3Timer);
+    toast._phase3Timer = setTimeout(function () {
+      toast.classList.remove(activeCls);
+    }, 2400);
+  }
+
+  function copyTextSafe(text, onDone) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(onDone).catch(function () {
+        fallbackCopy(text, onDone);
+      });
+    } else {
+      fallbackCopy(text, onDone);
+    }
+  }
+
+  function fallbackCopy(text, onDone) {
+    var ta = document.createElement("textarea");
+    ta.value = text;
+    ta.style.cssText = "position:fixed;opacity:0;pointer-events:none;";
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand("copy"); } catch (e) {}
+    document.body.removeChild(ta);
+    if (onDone) onDone();
+  }
+
+  function matchArchEntry(queryStr) {
+    var q = String(queryStr || "").toLowerCase().trim();
+    var keys = Object.keys(ARCH_DATA);
+    for (var i = 0; i < keys.length; i++) {
+      var item = ARCH_DATA[keys[i]];
+      for (var j = 0; j < item.aliases.length; j++) {
+        if (q.indexOf(item.aliases[j]) !== -1) return item;
+      }
+    }
+    return null;
+  }
+
+  function navigateSmoothToSection(secId) {
+    var navLink = document.querySelector(".menu__link[href=\"#" + secId + "\"]");
+    if (navLink && window.innerWidth < 992) {
+      navLink.click();
+      return;
+    }
+    var sec = document.getElementById(secId);
+    if (!sec) return;
+    var destY = Math.max(0, Math.round(sec.getBoundingClientRect().top + (window.pageYOffset || 0) - 32));
+    if (window.jQuery) {
+      window.jQuery("html, body").stop(true, false).animate({ scrollTop: destY }, 700);
+    } else {
+      window.scrollTo({ top: destY, behavior: "smooth" });
+    }
+  }
+
+  // =========================================================================
+  // PHASE 4 + 3A: Case Study Modal Architecture Flow & Share Button
+  // =========================================================================
+  var currentCaseSlug = "cucicop";
+
+  function initCaseStudyEnhancements() {
+    var backdrop   = document.getElementById("csBackdrop");
+    var titleEl    = document.getElementById("csTitle");
+    var liveLinkEl = document.getElementById("csLiveLink");
+    var highlights = document.getElementById("csHighlights");
+    var footer     = backdrop ? backdrop.querySelector(".cs-footer") : null;
+    var closeBtn   = document.getElementById("csCloseBtn");
+
+    if (!backdrop || !titleEl || !highlights || !footer) return;
+    if (backdrop.dataset.phase4Bound === "1") return;
+    backdrop.dataset.phase4Bound = "1";
+
+    var engWrap = document.createElement("div");
+    engWrap.className = "cs-eng-wrap";
+    engWrap.id = "csEngWrap";
+    highlights.parentNode.insertBefore(engWrap, highlights);
+
+    var shareBtn = document.createElement("button");
+    shareBtn.type = "button";
+    shareBtn.className = "cs-share-btn";
+    shareBtn.id = "csShareLinkBtn";
+    shareBtn.innerHTML = "<i class=\"ph-bold ph-link\"></i><span>Copy Direct Link</span>";
+    footer.appendChild(shareBtn);
+
+    shareBtn.addEventListener("click", function () {
+      var base = window.location.origin + window.location.pathname;
+      var url  = base + "#case=" + currentCaseSlug;
+      copyTextSafe(url, function () {
+        showToastMessage("Case study link copied!");
+        shareBtn.classList.add("is-copied");
+        shareBtn.innerHTML = "<i class=\"ph-bold ph-check\"></i><span>Link Copied!</span>";
+        setTimeout(function () {
+          shareBtn.classList.remove("is-copied");
+          shareBtn.innerHTML = "<i class=\"ph-bold ph-link\"></i><span>Copy Direct Link</span>";
+        }, 1800);
+      });
+    });
+
+    function renderArchForCurrentModal() {
+      var sig = (titleEl.textContent || "") + " " + (liveLinkEl ? liveLinkEl.getAttribute("href") : "");
+      var entry = matchArchEntry(sig);
+      if (!entry) {
+        engWrap.style.display = "none";
+        currentCaseSlug = slugify(titleEl.textContent || "project");
+        return;
+      }
+      currentCaseSlug = entry.slug;
+      engWrap.style.display = "";
+
+      var metricsHtml = entry.metrics.map(function (m) {
+        return "<div class=\"cs-metric-card\">" +
+          "<span class=\"cs-metric-val\">" + m.val + "</span>" +
+          "<span class=\"cs-metric-lbl\">" + m.lbl + "</span>" +
+        "</div>";
+      }).join("");
+
+      var flowHtml = entry.flow.map(function (node, idx) {
+        var arrow = idx < entry.flow.length - 1
+          ? "<i class=\"ph-bold ph-arrow-right cs-arch-arrow\" aria-hidden=\"true\"></i>"
+          : "";
+        return "<span class=\"cs-arch-node\"><i class=\"ph-bold " + node.icon + "\"></i><span>" + node.text + "</span></span>" + arrow;
+      }).join("");
+
+      engWrap.innerHTML =
+        "<div class=\"cs-metrics-row\">" + metricsHtml + "</div>" +
+        "<div class=\"cs-arch-box\">" +
+          "<p class=\"cs-arch-label\"><i class=\"ph-bold ph-git-branch\"></i><span>System Architecture Flow</span></p>" +
+          "<div class=\"cs-arch-flow\">" + flowHtml + "</div>" +
+        "</div>";
+    }
+
+    var obs = new MutationObserver(function () {
+      if (backdrop.classList.contains("is-open")) {
+        renderArchForCurrentModal();
+      } else if (window.location.hash.indexOf("#case=") === 0 && history.replaceState) {
+        history.replaceState(null, "", window.location.pathname + window.location.search + "#portfolio");
+      }
+    });
+    obs.observe(backdrop, { attributes: true, attributeFilter: ["class"] });
+    obs.observe(titleEl, { childList: true, characterData: true, subtree: true });
+
+    if (closeBtn) {
+      closeBtn.addEventListener("click", function () {
+        if (window.location.hash.indexOf("#case=") === 0 && history.replaceState) {
+          history.replaceState(null, "", window.location.pathname + window.location.search + "#portfolio");
+        }
+      });
+    }
+  }
+
+  // =========================================================================
+  // PHASE 3B: Certificate Vault Direct Link Button
+  // =========================================================================
+  function initCertShareButton() {
+    var stageNav = document.querySelector("#certsVault .certs-stage-nav");
+    var stageTitle = document.getElementById("certStageTitle");
+    if (!stageNav || !stageTitle || document.getElementById("certShareLinkBtn")) return;
+
+    var btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "certs-nav-btn";
+    btn.id = "certShareLinkBtn";
+    btn.setAttribute("aria-label", "Copy direct link to this certificate");
+    btn.setAttribute("title", "Copy direct link to this certificate");
+    btn.innerHTML = "<i class=\"ph-bold ph-link\"></i>";
+    stageNav.appendChild(btn);
+
+    btn.addEventListener("click", function () {
+      var slug = slugify(stageTitle.textContent || "mbot");
+      var url  = window.location.origin + window.location.pathname + "#cert=" + slug;
+      copyTextSafe(url, function () {
+        showToastMessage("Certificate direct link copied!");
+        btn.classList.add("is-copied");
+        btn.innerHTML = "<i class=\"ph-bold ph-check\"></i>";
+        setTimeout(function () {
+          btn.classList.remove("is-copied");
+          btn.innerHTML = "<i class=\"ph-bold ph-link\"></i>";
+        }, 1800);
+      });
+    });
+  }
+
+  // =========================================================================
+  // PHASE 3C: Hash Deep-Link Router (#case=<slug> & #cert=<slug>)
+  // =========================================================================
+  function handleDeepLinkHash() {
+    var rawHash = decodeURIComponent(window.location.hash || "");
+    if (!rawHash || rawHash.length < 3) return;
+
+    if (rawHash.indexOf("#case=") === 0) {
+      var rawCase = rawHash.slice(6).trim().toLowerCase();
+      if (!rawCase) return;
+      var entry = matchArchEntry(rawCase);
+      var searchKey = entry ? entry.aliases[0] : rawCase;
+
+      navigateSmoothToSection("portfolio");
+      setTimeout(function () {
+        var cards = document.querySelectorAll("#portfolio figure.gallery__item, #portfolio .gallery__item");
+        for (var i = 0; i < cards.length; i++) {
+          var txt = (cards[i].innerText + " " + cards[i].innerHTML).toLowerCase();
+          var matched = (txt.indexOf(searchKey) !== -1) ||
+            (entry && entry.aliases.some(function (a) { return txt.indexOf(a) !== -1; }));
+          if (matched) {
+            var trigger = cards[i].querySelector(".cs-trigger-btn");
+            if (trigger) {
+              trigger.click();
+              break;
+            }
+          }
+        }
+      }, 360);
+      return;
+    }
+
+    if (rawHash.indexOf("#cert=") === 0) {
+      var rawCert = rawHash.slice(6).trim().toLowerCase();
+      if (!rawCert) return;
+
+      navigateSmoothToSection("cert");
+      setTimeout(function () {
+        var searchInput = document.getElementById("certSearchInput");
+        if (searchInput && searchInput.value) {
+          searchInput.value = "";
+          searchInput.dispatchEvent(new Event("input"));
+        }
+        var railItems = document.querySelectorAll("#certRailList .certs-rail-item");
+        if (!railItems.length) return;
+
+        var targetItem = null;
+        var asNum = parseInt(rawCert, 10);
+        if (!isNaN(asNum) && String(asNum) === rawCert && asNum >= 1 && asNum <= railItems.length) {
+          targetItem = railItems[asNum - 1];
+        } else {
+          var normQuery = slugify(rawCert);
+          for (var i = 0; i < railItems.length; i++) {
+            var itemText = railItems[i].textContent || "";
+            var itemSlug = slugify(itemText);
+            if (itemSlug.indexOf(normQuery) !== -1 || itemText.toLowerCase().indexOf(rawCert) !== -1) {
+              targetItem = railItems[i];
+              break;
+            }
+          }
+        }
+
+        if (targetItem) {
+          targetItem.click();
+          if (targetItem.scrollIntoView) {
+            targetItem.scrollIntoView({ behavior: "smooth", block: "nearest" });
+          }
+        }
+      }, 380);
+    }
+  }
+
+  function bootPhase3And4() {
+    initCaseStudyEnhancements();
+    initCertShareButton();
+    handleDeepLinkHash();
+    window.addEventListener("hashchange", handleDeepLinkHash);
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", function () { setTimeout(bootPhase3And4, 140); });
+  } else {
+    setTimeout(bootPhase3And4, 140);
+  }
+})();
+</script>
+<!-- Phase 3 Deep-Links & Phase 4 Case Study Architecture End -->
 </body>
 
 </html>

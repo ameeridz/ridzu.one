@@ -104,10 +104,10 @@ Tugasan aku hari ini:
 - [x] **Certificate Vault Swipe-Flick & Synced Rail Auto-Scroll**: Added `#certs-swipe-sync-script` and `#certs-swipe-sync-style` for 1:1 touch/mouse drag-flick physics on `#certStageMedia` (and `#certsLightbox`), click-suppression guard after swipes and smooth internal `requestAnimationFrame` scrolling on `#certRailList`.
 - [x] **Phase 1 - Smart Adjacent Image Preloader (`#cert` & Lightbox)**: Added `#phase1-phase2-ux-script` to warm `N-1`, `N+1` and `N+2` certificate images via `Image.decode()` for 0ms flick transitions.
 - [x] **Phase 2 - Quick Dock SVG Scroll Progress Ring**: Wrapped `#mobileSmartNextBtn` inside `.quick-dock` with a GPU-friendly SVG `stroke-dashoffset` progress ring (`0%` to `100%`) across desktop and mobile, wired to the Dynamic Island safe-offset glide.
+- [x] **Phase 3 - Smart Shareable Deep-Links (`#case=<slug>` & `#cert=<slug>`)**: Added `#phase3-phase4-ux-script` hash router plus one-click `Copy Direct Link` actions inside both the Case Study modal (`#csShareLinkBtn`) and Certificate Vault (`#certShareLinkBtn`) with toast feedback.
+- [x] **Phase 4 - System Architecture Flow & Impact Metrics in Case Study Modal**: Injected `#csEngWrap` inside `#csBackdrop` rendering 3 scannable engineering outcome cards and a node-by-node System Architecture Flow pipeline for `CuciCop`, `by.ridzu.one`, `Pakatlah`, `SplitSukan` and `Gym Tracker`.
 
 ### Active Roadmap Queue (Principal UI/UX & Full-Stack Polish)
-- [ ] **Phase 3 - Smart Shareable Deep-Links (`#case=<slug>` & `#cert=<slug>`)**: Parse URL hash parameters on load and `hashchange` to smoothly glide to the target section and auto-open the matching Case Study modal or Certificate item for client/HR pitching.
-- [ ] **Phase 4 - System Architecture Flow & Impact Metrics in Case Study Modal**: Enrich Case Study modals (`CuciCop`, `by.ridzu.one` and enterprise apps) with scannable architecture flow badges and measurable engineering outcomes.
 - [ ] **Phase 5 - WebP Thumbnail & Asset Optimization (Lighthouse 98+)**: Convert heavy PNG/JPEG portfolio and certificate assets to WebP (~85% quality) with clean fallbacks to push mobile LCP under 1.5s.
 
 ### Engineering Guardrails & Living Context Rule
