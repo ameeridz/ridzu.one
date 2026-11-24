@@ -10900,6 +10900,168 @@
   })();
 </script>
 <!-- Portfolio PhotoSwipe Fix & Glass Pill Tags End -->
+<!-- Mobile Dynamic Island Offset & Compact Portfolio Pills Start -->
+<style id="mobile-ux-offset-and-pills-style">
+  /* 1. Native scroll-margin fallback for mobile Dynamic Island / top blur */
+  @media (max-width: 991.98px) {
+    #home,
+    #about,
+    #resume,
+    #portfolio,
+    #cert,
+    #contact,
+    #home .bento-card,
+    section.inner .h2__subtitle {
+      scroll-margin-top: calc(env(safe-area-inset-top, 0px) + 88px);
+    }
+  }
+
+  /* 2. Compact iOS Liquid Glass pills on mobile portfolio thumbnails only */
+  @media (max-width: 767.98px) {
+    #portfolio .my-gallery .gallery__descr {
+      padding: 1rem 1.1rem !important;
+    }
+    #portfolio .my-gallery .gallery__descr .card__tags {
+      gap: 0.42rem !important;
+      margin: 0 !important;
+    }
+    #portfolio .my-gallery .gallery__descr .rounded-tag,
+    #portfolio .my-gallery .gallery__descr .rounded-tag.opposite {
+      font-size: 1.05rem !important;
+      line-height: 1.2 !important;
+      height: auto !important;
+      min-height: 0 !important;
+      padding: 0.42rem 0.88rem !important;
+      margin: 0 !important;
+      border-radius: 999px !important;
+      white-space: nowrap;
+      backdrop-filter: blur(14px) saturate(180%) !important;
+      -webkit-backdrop-filter: blur(14px) saturate(180%) !important;
+    }
+    #portfolio .my-gallery .cs-trigger-btn {
+      top: 1rem !important;
+      right: 1rem !important;
+      font-size: 1.05rem !important;
+      line-height: 1.2 !important;
+      padding: 0.42rem 0.9rem !important;
+      gap: 0.35rem !important;
+    }
+    #portfolio .my-gallery .cs-trigger-btn i {
+      font-size: 1.15rem !important;
+    }
+  }
+</style>
+<script id="mobile-ux-offset-scroll-script">
+(function () {
+  var probe = document.createElement("div");
+  probe.style.cssText = "position:fixed;top:0;left:0;width:0;height:0;padding-top:env(safe-area-inset-top,0px);visibility:hidden;pointer-events:none;";
+  document.body.appendChild(probe);
+
+  function isMobileViewport() {
+    return window.innerWidth < 992;
+  }
+
+  function getMobileTopClearance() {
+    var safeTop = parseFloat(window.getComputedStyle(probe).paddingTop) || 0;
+    var blurEl = document.getElementById("ios-status-blur");
+    var blurBottom = 0;
+    if (blurEl && window.getComputedStyle(blurEl).display !== "none") {
+      blurBottom = blurEl.getBoundingClientRect().bottom || 0;
+    }
+    return Math.max(88, safeTop + 26, blurBottom + 18);
+  }
+
+  function getSectionLeadElement(sec) {
+    if (!sec) return null;
+    if (sec.id === "home") {
+      return sec.querySelector(".bento-card") || sec;
+    }
+    return sec.querySelector(".h2__subtitle") || sec;
+  }
+
+  function scrollMobileToSection(sec) {
+    var lead = getSectionLeadElement(sec);
+    if (!lead) return;
+    var clearance = getMobileTopClearance();
+    var targetY = Math.max(0, Math.round(lead.getBoundingClientRect().top + window.scrollY - clearance));
+
+    if (window.jQuery) {
+      window.jQuery("html, body").stop(true, false);
+    }
+    requestAnimationFrame(function () {
+      if (window.jQuery) {
+        window.jQuery("html, body").stop(true, false);
+      }
+      window.scrollTo({ top: targetY, behavior: "smooth" });
+    });
+  }
+
+  // Intercept Quick Dock next-section arrow on mobile so it uses safe clearance too
+  window.addEventListener("click", function (e) {
+    if (!isMobileViewport()) return;
+    var dockNext = e.target.closest ? e.target.closest(".quick-dock-next") : null;
+    if (!dockNext) return;
+
+    e.preventDefault();
+    e.stopImmediatePropagation();
+
+    var ids = ["home", "about", "resume", "portfolio", "cert", "contact"];
+    var clearance = getMobileTopClearance();
+    var threshold = window.scrollY + clearance + 24;
+    var nextSec = null;
+
+    for (var i = 0; i < ids.length; i++) {
+      var el = document.getElementById(ids[i]);
+      if (!el) continue;
+      var lead = getSectionLeadElement(el);
+      var top = lead.getBoundingClientRect().top + window.scrollY;
+      if (top > threshold) {
+        nextSec = el;
+        break;
+      }
+    }
+
+    if (nextSec) {
+      scrollMobileToSection(nextSec);
+    } else {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }, true);
+
+  // Override in-page hash links & Portfolio CTA card on mobile after nav active state updates
+  window.addEventListener("click", function (e) {
+    if (!isMobileViewport()) return;
+
+    var startCard = e.target.closest ? e.target.closest("#portfolioStartProjectCard") : null;
+    if (startCard) {
+      var contactSec = document.getElementById("contact");
+      if (contactSec) {
+        e.preventDefault();
+        scrollMobileToSection(contactSec);
+      }
+      return;
+    }
+
+    var link = e.target.closest ? e.target.closest("a[href*=\"#\"]") : null;
+    if (!link) return;
+
+    var href = link.getAttribute("href") || "";
+    if (href === "#" || href === "#0") return;
+    if (link.pathname && link.pathname.replace(/^\//, "") !== location.pathname.replace(/^\//, "")) return;
+    if (link.hostname && link.hostname !== location.hostname) return;
+
+    var hash = link.hash || (href.indexOf("#") !== -1 ? href.slice(href.indexOf("#")) : "");
+    if (!hash || hash.length < 2) return;
+
+    var targetSec = document.getElementById(hash.slice(1));
+    if (!targetSec) return;
+
+    e.preventDefault();
+    scrollMobileToSection(targetSec);
+  }, false);
+})();
+</script>
+<!-- Mobile Dynamic Island Offset & Compact Portfolio Pills End -->
 </body>
 
 </html>
