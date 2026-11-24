@@ -11174,6 +11174,342 @@
 })();
 </script>
 <!-- Mobile Dynamic Island Offset & Compact Portfolio Pills End -->
+<!-- Certs Vault Swipe Flick & Synced Rail Scroll Start -->
+<style id="certs-swipe-sync-style">
+  #certStageMedia {
+    touch-action: pan-y pinch-zoom;
+    user-select: none;
+    -webkit-user-select: none;
+    overflow: hidden;
+    cursor: grab;
+  }
+  #certStageMedia.is-dragging {
+    cursor: grabbing;
+  }
+  #certStageImg {
+    will-change: transform, opacity;
+    -webkit-user-drag: none;
+  }
+  .certs-nav-btn.is-swipe-pulse {
+    transform: scale(0.92);
+    border-color: var(--accent, #8f56cc) !important;
+  }
+  @media (max-width: 767.98px) {
+    #certRailList {
+      padding-bottom: 5.5rem !important;
+    }
+  }
+</style>
+<script id="certs-swipe-sync-script">
+(function () {
+  function initCertsSwipeAndSync() {
+    var stageMedia = document.getElementById("certStageMedia");
+    var stageImg   = document.getElementById("certStageImg");
+    var prevBtn    = document.getElementById("certPrevBtn");
+    var nextBtn    = document.getElementById("certNextBtn");
+    var railList   = document.getElementById("certRailList");
+    var lightbox   = document.getElementById("certsLightbox");
+    var lbImg      = document.getElementById("certsLightboxImg");
+
+    if (!stageMedia || !stageImg || !prevBtn || !nextBtn || !railList) return;
+    if (stageMedia.dataset.swipeBound === "1") return;
+    stageMedia.dataset.swipeBound = "1";
+
+    // 1. Neutralize native scrollIntoView on rail items so main window never jumps
+    if (!Element.prototype._certOrigScrollIntoView) {
+      Element.prototype._certOrigScrollIntoView = Element.prototype.scrollIntoView;
+      Element.prototype.scrollIntoView = function () {
+        if (this && this.classList && this.classList.contains("certs-rail-item")) {
+          smoothScrollRailToItem(this);
+          return;
+        }
+        return Element.prototype._certOrigScrollIntoView.apply(this, arguments);
+      };
+    }
+
+    var railAnimId = 0;
+
+    function smoothScrollRailToItem(item) {
+      if (!item || !railList) return;
+      if (railAnimId) {
+        cancelAnimationFrame(railAnimId);
+        railAnimId = 0;
+      }
+      var listRect = railList.getBoundingClientRect();
+      var itemRect = item.getBoundingClientRect();
+      var currentTop = railList.scrollTop;
+      // Anchor active item near the top visible slot (10px breathing room)
+      var rawTarget = currentTop + (itemRect.top - listRect.top) - 10;
+      var maxScroll = Math.max(0, railList.scrollHeight - railList.clientHeight);
+      var targetTop = Math.min(maxScroll, Math.max(0, Math.round(rawTarget)));
+      var dist = targetTop - currentTop;
+
+      if (Math.abs(dist) < 2) {
+        railList.scrollTop = targetTop;
+        return;
+      }
+
+      var duration = Math.min(440, Math.max(260, Math.round(240 + Math.abs(dist) * 0.25)));
+      var startTime = null;
+
+      function step(now) {
+        if (!startTime) startTime = now;
+        var p = Math.min(1, (now - startTime) / duration);
+        var ease = 1 - Math.pow(1 - p, 3);
+        railList.scrollTop = Math.round(currentTop + dist * ease);
+        if (p < 1) {
+          railAnimId = requestAnimationFrame(step);
+        } else {
+          railAnimId = 0;
+          railList.scrollTop = targetTop;
+        }
+      }
+      railAnimId = requestAnimationFrame(step);
+    }
+
+    railList.addEventListener("touchstart", function () {
+      if (railAnimId) {
+        cancelAnimationFrame(railAnimId);
+        railAnimId = 0;
+      }
+    }, { passive: true });
+
+    function syncActiveRailItem() {
+      var activeItem = railList.querySelector(".certs-rail-item.is-active");
+      if (activeItem) smoothScrollRailToItem(activeItem);
+    }
+
+    // Pulse nav button briefly when swiped for crisp visual feedback
+    function pulseNavButton(btn) {
+      if (!btn) return;
+      btn.classList.add("is-swipe-pulse");
+      setTimeout(function () { btn.classList.remove("is-swipe-pulse"); }, 180);
+    }
+
+    // Step +1 (next) or -1 (prev), respecting filtered rail items if a filter is active
+    var isAnimatingSlide = false;
+    var pendingDir = 0;
+
+    function stepCertificate(dir, fromSwipe) {
+      if (isAnimatingSlide) return;
+      isAnimatingSlide = true;
+      pendingDir = dir;
+
+      pulseNavButton(dir > 0 ? nextBtn : prevBtn);
+
+      // Exit glide in swipe direction
+      var exitX = dir > 0 ? -44 : 44;
+      stageImg.style.transition = "transform 0.13s cubic-bezier(0.4, 0, 1, 1), opacity 0.13s ease";
+      stageImg.style.transform = "translate3d(" + exitX + "px, 0, 0) scale(0.97)";
+      stageImg.style.opacity = "0.25";
+
+      // Check visible items in railList (supports category chips & search filter)
+      var allItems = Array.prototype.slice.call(railList.querySelectorAll(".certs-rail-item"));
+      var visibleItems = allItems.filter(function (el) {
+        return el.offsetParent !== null && window.getComputedStyle(el).display !== "none";
+      });
+
+      var triggeredViaFilteredList = false;
+      if (visibleItems.length > 0) {
+        var curIdx = -1;
+        for (var i = 0; i < visibleItems.length; i++) {
+          if (visibleItems[i].classList.contains("is-active")) {
+            curIdx = i;
+            break;
+          }
+        }
+        // Use visible filtered items if filtered or active item found
+        if (curIdx !== -1 && visibleItems.length < 47) {
+          var nextPos = (curIdx + dir + visibleItems.length) % visibleItems.length;
+          visibleItems[nextPos].click();
+          syncActiveRailItem();
+          triggeredViaFilteredList = true;
+        }
+      }
+
+      if (!triggeredViaFilteredList) {
+        if (dir > 0) {
+          nextBtn.click();
+        } else {
+          prevBtn.click();
+        }
+        requestAnimationFrame(syncActiveRailItem);
+      }
+
+      // Enter glide from opposite side right after selectCert swaps image (~125ms)
+      setTimeout(function () {
+        var enterFromX = pendingDir > 0 ? 44 : -44;
+        stageImg.style.transition = "none";
+        stageImg.style.transform = "translate3d(" + enterFromX + "px, 0, 0) scale(0.97)";
+        stageImg.style.opacity = "0";
+        void stageImg.offsetWidth;
+
+        stageImg.style.transition = "transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.24s ease";
+        stageImg.style.transform = "translate3d(0, 0, 0) scale(1)";
+        stageImg.style.opacity = "1";
+
+        // Keep lightbox synced if open
+        if (lightbox && lbImg && lightbox.classList.contains("is-open")) {
+          lbImg.src = stageImg.src;
+          lbImg.alt = stageImg.alt;
+        }
+
+        setTimeout(function () {
+          stageImg.style.transition = "";
+          stageImg.style.transform = "";
+          stageImg.style.opacity = "";
+          isAnimatingSlide = false;
+        }, 290);
+      }, 130);
+    }
+
+    // Also make arrow button clicks smoothly sync rail scroll
+    prevBtn.addEventListener("click", function () { requestAnimationFrame(syncActiveRailItem); });
+    nextBtn.addEventListener("click", function () { requestAnimationFrame(syncActiveRailItem); });
+
+    // 2. Touch & Pointer Drag-Flick Gesture on #certStageMedia
+    var startX = 0;
+    var startY = 0;
+    var lastX = 0;
+    var startTime = 0;
+    var tracking = false;
+    var lockedHoriz = false;
+    var suppressClickUntil = 0;
+
+    // Block accidental zoom modal open right after a swipe/flick
+    stageMedia.addEventListener("click", function (e) {
+      if (Date.now() < suppressClickUntil) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+      }
+    }, true);
+
+    function onGestureStart(x, y) {
+      if (isAnimatingSlide) return;
+      startX = lastX = x;
+      startY = y;
+      startTime = Date.now();
+      tracking = true;
+      lockedHoriz = false;
+    }
+
+    function onGestureMove(x, y, ev) {
+      if (!tracking) return;
+      var dx = x - startX;
+      var dy = y - startY;
+
+      if (!lockedHoriz) {
+        if (Math.abs(dy) > Math.abs(dx) && Math.abs(dy) > 10) {
+          tracking = false;
+          return;
+        }
+        if (Math.abs(dx) > 10 && Math.abs(dx) > Math.abs(dy) * 1.15) {
+          lockedHoriz = true;
+          stageMedia.classList.add("is-dragging");
+          stageImg.style.transition = "none";
+        } else {
+          return;
+        }
+      }
+
+      if (ev && ev.cancelable) ev.preventDefault();
+      lastX = x;
+      var dampedX = Math.max(-110, Math.min(110, dx * 0.82));
+      var fade = Math.max(0.55, 1 - Math.abs(dampedX) / 260);
+      stageImg.style.transform = "translate3d(" + dampedX.toFixed(1) + "px, 0, 0) scale(0.985)";
+      stageImg.style.opacity = String(fade.toFixed(2));
+    }
+
+    function onGestureEnd() {
+      if (!tracking) return;
+      tracking = false;
+      stageMedia.classList.remove("is-dragging");
+
+      if (!lockedHoriz) return;
+      suppressClickUntil = Date.now() + 360;
+
+      var dx = lastX - startX;
+      var dt = Math.max(1, Date.now() - startTime);
+      var velocity = dx / dt;
+
+      var goNext = dx < -38 || (dx < -16 && velocity < -0.32);
+      var goPrev = dx > 38  || (dx > 16  && velocity > 0.32);
+
+      if (goNext) {
+        stepCertificate(1, true);
+      } else if (goPrev) {
+        stepCertificate(-1, true);
+      } else {
+        stageImg.style.transition = "transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.2s ease";
+        stageImg.style.transform = "translate3d(0, 0, 0) scale(1)";
+        stageImg.style.opacity = "1";
+        setTimeout(function () {
+          stageImg.style.transition = "";
+          stageImg.style.transform = "";
+          stageImg.style.opacity = "";
+        }, 260);
+      }
+    }
+
+    // Touch events (iPhone Safari & PWA)
+    stageMedia.addEventListener("touchstart", function (e) {
+      if (e.touches.length !== 1) return;
+      onGestureStart(e.touches[0].clientX, e.touches[0].clientY);
+    }, { passive: true });
+
+    stageMedia.addEventListener("touchmove", function (e) {
+      if (e.touches.length !== 1) return;
+      onGestureMove(e.touches[0].clientX, e.touches[0].clientY, e);
+    }, { passive: false });
+
+    stageMedia.addEventListener("touchend", onGestureEnd, { passive: true });
+    stageMedia.addEventListener("touchcancel", onGestureEnd, { passive: true });
+
+    // Mouse drag support on desktop
+    var mouseDown = false;
+    stageMedia.addEventListener("mousedown", function (e) {
+      if (e.button !== 0) return;
+      mouseDown = true;
+      onGestureStart(e.clientX, e.clientY);
+    });
+    window.addEventListener("mousemove", function (e) {
+      if (!mouseDown) return;
+      onGestureMove(e.clientX, e.clientY, e);
+    });
+    window.addEventListener("mouseup", function () {
+      if (!mouseDown) return;
+      mouseDown = false;
+      onGestureEnd();
+    });
+
+    // 3. Bonus: Swipe left/right inside Fullscreen Lightbox (#certsLightbox) too
+    if (lightbox) {
+      var lbStartX = 0;
+      var lbStartY = 0;
+      lightbox.addEventListener("touchstart", function (e) {
+        if (e.touches.length !== 1) return;
+        lbStartX = e.touches[0].clientX;
+        lbStartY = e.touches[0].clientY;
+      }, { passive: true });
+      lightbox.addEventListener("touchend", function (e) {
+        if (!lightbox.classList.contains("is-open") || !e.changedTouches.length) return;
+        var dx = e.changedTouches[0].clientX - lbStartX;
+        var dy = e.changedTouches[0].clientY - lbStartY;
+        if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.3) {
+          stepCertificate(dx < 0 ? 1 : -1, true);
+        }
+      }, { passive: true });
+    }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", function () { setTimeout(initCertsSwipeAndSync, 60); });
+  } else {
+    setTimeout(initCertsSwipeAndSync, 60);
+  }
+})();
+</script>
+<!-- Certs Vault Swipe Flick & Synced Rail Scroll End -->
 </body>
 
 </html>
