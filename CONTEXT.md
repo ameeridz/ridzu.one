@@ -102,16 +102,17 @@ Tugasan aku hari ini:
 - [x] **CuciCop #1 Showcase Promotion**: Updated `img/cucicop.png` light preview, promoted CuciCop to #1 in Hero Bento Smart Stack and Portfolio Grid, synced PhotoSwipe `data-size` and applied Smoked Liquid Glass tags.
 - [x] **Mobile 120fps Smooth Glide & PWA Dynamic Island Offset**: Added `#mobile-ux-offset-scroll-script` and `#mobile-ux-offset-and-pills-style` to bypass Lenis `scroll-behavior: auto`, strip GSAP `translateY` offsets on first tap in standalone iOS PWA and scale down mobile Portfolio Liquid Glass pills (`max-width: 767.98px`).
 - [x] **Certificate Vault Swipe-Flick & Synced Rail Auto-Scroll**: Added `#certs-swipe-sync-script` and `#certs-swipe-sync-style` for 1:1 touch/mouse drag-flick physics on `#certStageMedia` (and `#certsLightbox`), click-suppression guard after swipes and smooth internal `requestAnimationFrame` scrolling on `#certRailList`.
+- [x] **Phase 1 - Smart Adjacent Image Preloader (`#cert` & Lightbox)**: Added `#phase1-phase2-ux-script` to warm `N-1`, `N+1` and `N+2` certificate images via `Image.decode()` for 0ms flick transitions.
+- [x] **Phase 2 - Quick Dock SVG Scroll Progress Ring**: Wrapped `#mobileSmartNextBtn` inside `.quick-dock` with a GPU-friendly SVG `stroke-dashoffset` progress ring (`0%` to `100%`) across desktop and mobile, wired to the Dynamic Island safe-offset glide.
 
 ### Active Roadmap Queue (Principal UI/UX & Full-Stack Polish)
-- [ ] **Phase 1 - Smart Adjacent Image Preloader (`#cert` & Lightbox)**: Preload `N-1` and `N+1` certificate images in memory via lightweight `Image()` instances whenever active index changes for 0ms flick transitions.
-- [ ] **Phase 2 - Quick Dock SVG Scroll Progress Ring**: Wrap the Quick Dock scroll/top button with a GPU-friendly SVG `stroke-dashoffset` progress indicator (`0%` to `100%`) without adding top-bar visual clutter.
 - [ ] **Phase 3 - Smart Shareable Deep-Links (`#case=<slug>` & `#cert=<slug>`)**: Parse URL hash parameters on load and `hashchange` to smoothly glide to the target section and auto-open the matching Case Study modal or Certificate item for client/HR pitching.
 - [ ] **Phase 4 - System Architecture Flow & Impact Metrics in Case Study Modal**: Enrich Case Study modals (`CuciCop`, `by.ridzu.one` and enterprise apps) with scannable architecture flow badges and measurable engineering outcomes.
 - [ ] **Phase 5 - WebP Thumbnail & Asset Optimization (Lighthouse 98+)**: Convert heavy PNG/JPEG portfolio and certificate assets to WebP (~85% quality) with clean fallbacks to push mobile LCP under 1.5s.
 
-### Engineering Guardrails
-- **Evergreen Versioning**: Git is the single source of truth; use date-stamped backups (`_backup/YYYYMMDD_task-name/`), idempotent HTML/MD comment markers and UTF-8 without BOM.
+### Engineering Guardrails & Living Context Rule
+- **Living Context Sync (Mandatory)**: Whenever a major feature upgrade, architectural module, or workflow convention is added/changed, always update `CONTEXT.md` in the same session so future AI chats stay 100% synced from a single file attachment.
+- **Evergreen Versioning**: Git is the single source of truth; use date-stamped backups (`_backup/YYYYMMDD_task-name/`), idempotent HTML/MD comment markers, single-quoted PowerShell literals (`'...'`) to avoid null bytes, and UTF-8 without BOM.
 - **Performance & Accessibility**: Keep enhancements vanilla JS with zero heavy external dependencies, preserve 60/120fps scroll performance and respect `prefers-reduced-motion: reduce`.
 - **Responsive Isolation**: Desktop layouts (`>= 992px` / `>= 768px`) must remain untouched when tuning mobile or standalone PWA ergonomics.
 <!-- EVERGREEN_SYNC_AND_ROADMAP_END -->

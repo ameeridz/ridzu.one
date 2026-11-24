@@ -11113,7 +11113,7 @@
   // Quick Dock next-section arrow on mobile
   window.addEventListener("click", function (e) {
     if (!isMobileViewport()) return;
-    var dockNext = e.target.closest ? e.target.closest(".quick-dock-next") : null;
+    var dockNext = e.target.closest ? e.target.closest("#mobileSmartNextBtn, .quick-dock-next") : null;
     if (!dockNext) return;
 
     e.preventDefault();
@@ -11510,6 +11510,267 @@
 })();
 </script>
 <!-- Certs Vault Swipe Flick & Synced Rail Scroll End -->
+<!-- Phase 1 Smart Cert Preloader & Phase 2 Dock Progress Ring Start -->
+<style id="phase1-phase2-ux-style">
+  /* Make Smart Next/Top Progress Ring button visible & circular across Desktop + Mobile */
+  #mobileSmartNextBtn {
+    position: relative !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 3.6rem !important;
+    height: 3.6rem !important;
+    min-width: 3.6rem !important;
+    padding: 0 !important;
+    border-radius: 50% !important;
+    border: none !important;
+    overflow: visible !important;
+  }
+  #mobileSmartNextBtn > i {
+    font-size: 1.45rem !important;
+    transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1), color 0.2s ease;
+    position: relative;
+    z-index: 2;
+  }
+  #mobileSmartNextBtn.is-at-bottom > i {
+    transform: rotate(-180deg);
+    color: var(--accent, #8f56cc);
+  }
+  .dock-progress-svg {
+    position: absolute;
+    inset: -1px;
+    width: calc(100% + 2px);
+    height: calc(100% + 2px);
+    transform: rotate(-90deg);
+    pointer-events: none;
+    z-index: 1;
+  }
+  .dock-progress-track {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.14);
+    stroke-width: 2.2;
+  }
+  [color-scheme="light"] .dock-progress-track {
+    stroke: rgba(20, 20, 30, 0.12);
+  }
+  .dock-progress-bar {
+    fill: none;
+    stroke: var(--accent, #8f56cc);
+    stroke-width: 2.4;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 0.1s linear;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    #mobileSmartNextBtn > i,
+    .dock-progress-bar {
+      transition: none !important;
+    }
+  }
+</style>
+<script id="phase1-phase2-ux-script">
+(function () {
+  // =========================================================================
+  // PHASE 1: Smart Adjacent Image Preloader for Certificate Vault (0ms Flick)
+  // =========================================================================
+  function initSmartCertPreloader() {
+    var stageImg = document.getElementById("certStageImg");
+    var certSec  = document.getElementById("cert");
+    if (!stageImg || !certSec || stageImg.dataset.preloaderBound === "1") return;
+    stageImg.dataset.preloaderBound = "1";
+
+    var certUrls = [];
+    var seenUrl  = {};
+    certSec.querySelectorAll(".swiper-testimonials .testimonials-card__descr img").forEach(function (img) {
+      var raw = img.getAttribute("src") || "";
+      if (raw && !seenUrl[raw]) {
+        seenUrl[raw] = true;
+        certUrls.push(raw);
+      }
+    });
+    if (!certUrls.length) return;
+
+    var decodedCache = {};
+    function warmImage(url) {
+      if (!url || decodedCache[url]) return;
+      var pre = new Image();
+      pre.decoding = "async";
+      pre.src = url;
+      decodedCache[url] = pre;
+      if (typeof pre.decode === "function") {
+        pre.decode().catch(function () {});
+      }
+    }
+
+    function preloadAroundCurrent() {
+      var curSrc = stageImg.getAttribute("src") || "";
+      if (!curSrc) return;
+      var idx = certUrls.indexOf(curSrc);
+      if (idx === -1) {
+        for (var i = 0; i < certUrls.length; i++) {
+          if (curSrc.indexOf(certUrls[i]) !== -1 || certUrls[i].indexOf(curSrc) !== -1) {
+            idx = i;
+            break;
+          }
+        }
+      }
+      if (idx === -1) return;
+      var total = certUrls.length;
+      warmImage(certUrls[(idx + 1) % total]);
+      warmImage(certUrls[(idx - 1 + total) % total]);
+      warmImage(certUrls[(idx + 2) % total]);
+    }
+
+    var obs = new MutationObserver(preloadAroundCurrent);
+    obs.observe(stageImg, { attributes: true, attributeFilter: ["src"] });
+
+    if ("IntersectionObserver" in window) {
+      var io = new IntersectionObserver(function (entries) {
+        if (entries.some(function (e) { return e.isIntersecting; })) {
+          preloadAroundCurrent();
+          io.disconnect();
+        }
+      }, { rootMargin: "350px 0px" });
+      io.observe(certSec);
+    } else {
+      preloadAroundCurrent();
+    }
+  }
+
+  // =========================================================================
+  // PHASE 2: Quick Dock SVG Scroll Progress Ring (Desktop & Mobile)
+  // =========================================================================
+  function initDockProgressRing() {
+    var dock = document.querySelector(".quick-dock");
+    if (!dock) return;
+
+    var nextBtn = document.getElementById("mobileSmartNextBtn");
+    if (!nextBtn) {
+      nextBtn = document.createElement("button");
+      nextBtn.type = "button";
+      nextBtn.id = "mobileSmartNextBtn";
+      nextBtn.className = "quick-dock-btn";
+      nextBtn.setAttribute("aria-label", "Scroll to next section");
+      nextBtn.setAttribute("title", "Next section");
+      nextBtn.innerHTML = "<i class=\"ph-bold ph-arrow-down\"></i>";
+      dock.appendChild(nextBtn);
+    }
+
+    if (nextBtn.dataset.ringBound === "1") return;
+    nextBtn.dataset.ringBound = "1";
+
+    var r = 17;
+    var circumference = 2 * Math.PI * r;
+    var svgNS = "http://www.w3.org/2000/svg";
+    var svg = document.createElementNS(svgNS, "svg");
+    svg.setAttribute("class", "dock-progress-svg");
+    svg.setAttribute("viewBox", "0 0 38 38");
+    svg.setAttribute("aria-hidden", "true");
+
+    var track = document.createElementNS(svgNS, "circle");
+    track.setAttribute("class", "dock-progress-track");
+    track.setAttribute("cx", "19");
+    track.setAttribute("cy", "19");
+    track.setAttribute("r", String(r));
+
+    var bar = document.createElementNS(svgNS, "circle");
+    bar.setAttribute("class", "dock-progress-bar");
+    bar.setAttribute("cx", "19");
+    bar.setAttribute("cy", "19");
+    bar.setAttribute("r", String(r));
+    bar.style.strokeDasharray = circumference.toFixed(2);
+    bar.style.strokeDashoffset = circumference.toFixed(2);
+
+    svg.appendChild(track);
+    svg.appendChild(bar);
+    nextBtn.insertBefore(svg, nextBtn.firstChild);
+
+    var secIds = ["home", "about", "resume", "portfolio", "cert", "contact"];
+
+    function getDesktopNextSection() {
+      var threshold = (window.pageYOffset || document.documentElement.scrollTop || 0) + 140;
+      for (var i = 0; i < secIds.length; i++) {
+        var el = document.getElementById(secIds[i]);
+        if (!el) continue;
+        var top = el.getBoundingClientRect().top + (window.pageYOffset || 0);
+        if (top > threshold) return el;
+      }
+      return null;
+    }
+
+    var ticking = false;
+    function updateRing() {
+      ticking = false;
+      var scrollTop = window.pageYOffset || document.documentElement.scrollTop || 0;
+      var maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+      var progress  = Math.min(1, Math.max(0, scrollTop / maxScroll));
+      var offset    = circumference * (1 - progress);
+      bar.style.strokeDashoffset = offset.toFixed(2);
+
+      var pct = Math.round(progress * 100);
+      if (window.innerWidth >= 992) {
+        var nextSec = getDesktopNextSection();
+        if (!nextSec || progress > 0.94) {
+          nextBtn.classList.add("is-at-bottom");
+          nextBtn.setAttribute("title", "Back to top (" + pct + "%)");
+          nextBtn.setAttribute("aria-label", "Back to top");
+        } else {
+          nextBtn.classList.remove("is-at-bottom");
+          nextBtn.setAttribute("title", "Next: #" + nextSec.id + " (" + pct + "%)");
+          nextBtn.setAttribute("aria-label", "Scroll to " + nextSec.id);
+        }
+      } else if (progress > 0.94) {
+        nextBtn.classList.add("is-at-bottom");
+      }
+    }
+
+    window.addEventListener("scroll", function () {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(updateRing);
+      }
+    }, { passive: true });
+    window.addEventListener("resize", updateRing, { passive: true });
+
+    // Desktop click support (mobile < 992px is handled by #mobile-ux-offset-scroll-script)
+    nextBtn.addEventListener("click", function (e) {
+      if (window.innerWidth < 992) return;
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      var nextSec = getDesktopNextSection();
+      var maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+      var scrollTop = window.pageYOffset || document.documentElement.scrollTop || 0;
+      if (!nextSec || scrollTop / maxScroll > 0.94) {
+        if (window.jQuery) {
+          window.jQuery("html, body").stop(true, false).animate({ scrollTop: 0 }, 750);
+        } else {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+      } else {
+        var destY = Math.max(0, Math.round(nextSec.getBoundingClientRect().top + scrollTop - 30));
+        if (window.jQuery) {
+          window.jQuery("html, body").stop(true, false).animate({ scrollTop: destY }, 750);
+        } else {
+          window.scrollTo({ top: destY, behavior: "smooth" });
+        }
+      }
+    }, true);
+
+    updateRing();
+  }
+
+  function bootPhase1And2() {
+    initSmartCertPreloader();
+    initDockProgressRing();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", function () { setTimeout(bootPhase1And2, 90); });
+  } else {
+    setTimeout(bootPhase1And2, 90);
+  }
+})();
+</script>
+<!-- Phase 1 Smart Cert Preloader & Phase 2 Dock Progress Ring End -->
 </body>
 
 </html>
