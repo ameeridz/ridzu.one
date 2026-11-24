@@ -10912,7 +10912,7 @@
     #contact,
     #home .bento-card,
     section.inner .h2__subtitle {
-      scroll-margin-top: calc(env(safe-area-inset-top, 0px) + 88px);
+      scroll-margin-top: calc(env(safe-area-inset-top, 0px) + 90px);
     }
   }
 
@@ -10957,18 +10957,66 @@
   probe.style.cssText = "position:fixed;top:0;left:0;width:0;height:0;padding-top:env(safe-area-inset-top,0px);visibility:hidden;pointer-events:none;";
   document.body.appendChild(probe);
 
+  var activeGlideId = 0;
+
+  function cancelGlide() {
+    if (activeGlideId) {
+      cancelAnimationFrame(activeGlideId);
+      activeGlideId = 0;
+    }
+  }
+
+  window.addEventListener("touchstart", cancelGlide, { passive: true });
+  window.addEventListener("wheel", cancelGlide, { passive: true });
+
   function isMobileViewport() {
     return window.innerWidth < 992;
+  }
+
+  function isStandalonePWA() {
+    return (window.navigator && window.navigator.standalone === true) ||
+           (window.matchMedia && window.matchMedia("(display-mode: standalone)").matches);
   }
 
   function getMobileTopClearance() {
     var safeTop = parseFloat(window.getComputedStyle(probe).paddingTop) || 0;
     var blurEl = document.getElementById("ios-status-blur");
-    var blurBottom = 0;
+    var blurH = 0;
     if (blurEl && window.getComputedStyle(blurEl).display !== "none") {
-      blurBottom = blurEl.getBoundingClientRect().bottom || 0;
+      blurH = blurEl.getBoundingClientRect().height || 0;
     }
-    return Math.max(88, safeTop + 26, blurBottom + 18);
+    var inset = Math.max(safeTop, blurH);
+    if (isStandalonePWA()) {
+      return Math.max(inset, 59) + 32;
+    }
+    return Math.max(86, inset + 26);
+  }
+
+  // Strip GSAP .animate-in-up translateY so 1st tap never lands 50px too low
+  function getCumulativeTranslateY(el) {
+    var ty = 0;
+    var cur = el;
+    var MatrixCtor = window.DOMMatrixReadOnly || window.DOMMatrix || window.WebKitCSSMatrix;
+    while (cur && cur.nodeType === 1 && cur !== document.documentElement) {
+      var st = window.getComputedStyle(cur);
+      var tr = st ? st.transform : "none";
+      if (tr && tr !== "none") {
+        if (MatrixCtor) {
+          try {
+            var mat = new MatrixCtor(tr);
+            ty += (mat.m42 || 0);
+          } catch (err) {}
+        } else {
+          var m = tr.match(/matrix\(([^)]+)\)/);
+          if (m) {
+            var parts = m[1].split(",");
+            if (parts.length >= 6) ty += (parseFloat(parts[5]) || 0);
+          }
+        }
+      }
+      cur = cur.parentElement;
+    }
+    return ty;
   }
 
   function getSectionLeadElement(sec) {
@@ -10979,24 +11027,90 @@
     return sec.querySelector(".h2__subtitle") || sec;
   }
 
-  function scrollMobileToSection(sec) {
+  function computeTargetScrollY(sec) {
     var lead = getSectionLeadElement(sec);
-    if (!lead) return;
+    if (!lead) return 0;
+    var scrollNow = window.pageYOffset || document.documentElement.scrollTop || 0;
+    var trueDocTop = lead.getBoundingClientRect().top + scrollNow - getCumulativeTranslateY(lead);
     var clearance = getMobileTopClearance();
-    var targetY = Math.max(0, Math.round(lead.getBoundingClientRect().top + window.scrollY - clearance));
+    var maxScroll = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+    return Math.min(maxScroll, Math.max(0, Math.round(trueDocTop - clearance)));
+  }
 
+  function easeAppleGlide(t) {
+    return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  }
+
+  function smoothGlideToTarget(sec) {
+    cancelGlide();
     if (window.jQuery) {
       window.jQuery("html, body").stop(true, false);
     }
-    requestAnimationFrame(function () {
+
+    var startY = window.pageYOffset || document.documentElement.scrollTop || 0;
+    var targetY = computeTargetScrollY(sec);
+    var dist = Math.abs(targetY - startY);
+    if (dist < 2) {
+      window.scrollTo(0, targetY);
+      return;
+    }
+
+    var duration = Math.min(820, Math.max(520, Math.round(420 + dist * 0.11)));
+    var startTime = null;
+
+    function step(now) {
       if (window.jQuery) {
         window.jQuery("html, body").stop(true, false);
       }
-      window.scrollTo({ top: targetY, behavior: "smooth" });
-    });
+      if (!startTime) startTime = now;
+      var progress = Math.min(1, (now - startTime) / duration);
+      targetY = computeTargetScrollY(sec);
+      var nextY = Math.round(startY + (targetY - startY) * easeAppleGlide(progress));
+
+      window.scrollTo(0, nextY);
+      if (window.ScrollTrigger && typeof window.ScrollTrigger.update === "function") {
+        window.ScrollTrigger.update();
+      }
+
+      if (progress < 1) {
+        activeGlideId = requestAnimationFrame(step);
+      } else {
+        activeGlideId = 0;
+        var finalY = computeTargetScrollY(sec);
+        if (Math.abs((window.pageYOffset || 0) - finalY) > 1) {
+          window.scrollTo(0, finalY);
+        }
+      }
+    }
+
+    activeGlideId = requestAnimationFrame(step);
   }
 
-  // Intercept Quick Dock next-section arrow on mobile so it uses safe clearance too
+  function smoothGlideToTop() {
+    cancelGlide();
+    if (window.jQuery) {
+      window.jQuery("html, body").stop(true, false);
+    }
+    var startY = window.pageYOffset || document.documentElement.scrollTop || 0;
+    if (startY < 2) return;
+    var duration = Math.min(820, Math.max(520, Math.round(420 + startY * 0.1)));
+    var startTime = null;
+    function step(now) {
+      if (!startTime) startTime = now;
+      var progress = Math.min(1, (now - startTime) / duration);
+      var nextY = Math.round(startY * (1 - easeAppleGlide(progress)));
+      window.scrollTo(0, nextY);
+      if (progress < 1) {
+        activeGlideId = requestAnimationFrame(step);
+      } else {
+        activeGlideId = 0;
+        window.scrollTo(0, 0);
+      }
+    }
+    activeGlideId = requestAnimationFrame(step);
+  }
+
+  // Quick Dock next-section arrow on mobile
   window.addEventListener("click", function (e) {
     if (!isMobileViewport()) return;
     var dockNext = e.target.closest ? e.target.closest(".quick-dock-next") : null;
@@ -11006,29 +11120,27 @@
     e.stopImmediatePropagation();
 
     var ids = ["home", "about", "resume", "portfolio", "cert", "contact"];
-    var clearance = getMobileTopClearance();
-    var threshold = window.scrollY + clearance + 24;
+    var nowY = window.pageYOffset || document.documentElement.scrollTop || 0;
     var nextSec = null;
 
     for (var i = 0; i < ids.length; i++) {
       var el = document.getElementById(ids[i]);
       if (!el) continue;
-      var lead = getSectionLeadElement(el);
-      var top = lead.getBoundingClientRect().top + window.scrollY;
-      if (top > threshold) {
+      var secTargetY = computeTargetScrollY(el);
+      if (secTargetY > nowY + 24) {
         nextSec = el;
         break;
       }
     }
 
     if (nextSec) {
-      scrollMobileToSection(nextSec);
+      smoothGlideToTarget(nextSec);
     } else {
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      smoothGlideToTop();
     }
   }, true);
 
-  // Override in-page hash links & Portfolio CTA card on mobile after nav active state updates
+  // In-page hash links & Portfolio CTA card on mobile
   window.addEventListener("click", function (e) {
     if (!isMobileViewport()) return;
 
@@ -11037,7 +11149,7 @@
       var contactSec = document.getElementById("contact");
       if (contactSec) {
         e.preventDefault();
-        scrollMobileToSection(contactSec);
+        smoothGlideToTarget(contactSec);
       }
       return;
     }
@@ -11057,7 +11169,7 @@
     if (!targetSec) return;
 
     e.preventDefault();
-    scrollMobileToSection(targetSec);
+    smoothGlideToTarget(targetSec);
   }, false);
 })();
 </script>
